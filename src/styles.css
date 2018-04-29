@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+/* class repeated for increased specificity */
+.mat-raised-button.mat-raised-button {
+    background-color: #0D47A1;
+    color: white;
+    font-weight: bold;
+}

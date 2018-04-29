@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <mat-form-field>
+        <input matInput placeholder="Username" [(ngModel)]="username">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <mat-form-field>
+        <input matInput placeholder="Password" [(ngModel)]="password">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="col-sm">
+          <button mat-raised-button (click)="onClick()">Login</button>
+      </div>
+    </div>
+</div>
