@@ -1,12 +1,15 @@
 export class Event {
-    id: number;
-    name: string;
-    date: string;
-    isDone: boolean;
-    localTeamName: string;
-    localTeamImg: string;
-    localTeamScore: number;
-    visitorTeamName: string;
-    visitorTeamImg: string;
-    visitorTeamScore: number;
+  _id: number;
+  name: string;
+  description: string;
+  fromDate: string;
+  toDate: string;
+  place: string;
+  done: boolean;
+  localTeamName: string;
+  localTeamImgUrl: string;
+  localTeamScore: number;
+  visitorTeamName: string;
+  visitorTeamImgUrl: string;
+  visitorTeamScore: number;
 }

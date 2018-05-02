@@ -1,51 +1,47 @@
-<mat-toolbar color="primary">
-  <span>{{ title }}</span>
+<div class="container" style="margin-top: 1.5em">
+  <mat-form-field>
+    <mat-select placeholder="Select your team" [(value)]="selectedTeam" (selectionChange)="changeTeam()">
+      <mat-option *ngFor="let team of teams" [value]="team">{{team.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngIf="selectedTeam">
+    <ul class="events">
+      <li *ngFor="let event of events">
 
-  <!-- This fills the remaining space of the current row -->
-  <span class="example-fill-remaining-space"></span>
-
-  <span>Right Aligned Text</span>
-</mat-toolbar>
-
-<div class="container">
-  <br/>
-  <h2>Events</h2>
-  <ul class="events">
-    <li *ngFor="let event of events">
-
-      <mat-card class="event-card">
-        <mat-card-header>
-          <mat-card-title>{{ event.name }}</mat-card-title>
-          <mat-card-subtitle>{{ event.date }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content *ngIf="event.isDone != null">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-fluid" src="{{event.localTeamImg}}">
+        <mat-card class="event-card">
+          <mat-card-header>
+            <mat-card-title>{{ event.name }}</mat-card-title>
+            <mat-card-subtitle>{{ event.fromDate }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content *ngIf="event.done != null">
+            <div class="row">
+              <div class="col-sm-1">
+                <img class="img-fluid" src="{{event.localTeamImgUrl}}">
+              </div>
+              <div class="col-sm-3">
+                {{event.localTeamName}}
+              </div>
+              <div class="col-sm-2" *ngIf="event.localTeamScore != 0">
+                {{event.localTeamScore}}
+              </div>
             </div>
-            <div class="col-sm-3">
-              {{event.localTeamName}}
+            <div class="row">
+              <div class="col-sm-1">
+                <img class="img-fluid" src="{{event.visitorTeamImgUrl}}">
+              </div>
+              <div class="col-sm-3">
+                {{event.visitorTeamName}}
+              </div>
+              <div class="col-sm-2" *ngIf="event.localTeamScore != 0">
+                {{event.localTeamScore}}
+              </div>
             </div>
-            <div class="col-sm-2" *ngIf="event.localTeamScore != 0">
-              {{event.localTeamScore}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-fluid" src="{{event.visitorTeamImg}}">
-            </div>
-            <div class="col-sm-3">
-              {{event.visitorTeamName}}
-            </div>
-            <div class="col-sm-2" *ngIf="event.localTeamScore != 0">
-              {{event.localTeamScore}}
-            </div>
-          </div>
-        </mat-card-content>
-        <mat-card-actions align="end">
-          <button mat-button>DETAILS</button>
-        </mat-card-actions>
-      </mat-card>
-    </li>
-  </ul>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-button>DETAILS</button>
+          </mat-card-actions>
+        </mat-card>
+      </li>
+    </ul>
+  </div>
 </div>
