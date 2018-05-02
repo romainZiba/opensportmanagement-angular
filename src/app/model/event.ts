@@ -12,4 +12,6 @@ export class Event {
   visitorTeamName: string;
   visitorTeamImgUrl: string;
   visitorTeamScore: number;
+  presentMembers: String[];
+  absentMembers: String[];
 }

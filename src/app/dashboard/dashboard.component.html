@@ -5,41 +5,49 @@
     </mat-select>
   </mat-form-field>
   <div *ngIf="selectedTeam">
-    <ul class="events">
-      <li *ngFor="let event of events">
-
+    <ul class="events" *ngFor="let event of events"
+        [ngSwitch]="isUserPresent(event)">
+      <li>
         <mat-card class="event-card">
           <mat-card-header>
             <mat-card-title>{{ event.name }}</mat-card-title>
-            <mat-card-subtitle>{{ event.fromDate }}</mat-card-subtitle>
+            <mat-card-subtitle>{{ event.fromDate | date:'fullDate':'':'fr' }}</mat-card-subtitle>
           </mat-card-header>
-          <mat-card-content *ngIf="event.done != null">
-            <div class="row">
-              <div class="col-sm-1">
-                <img class="img-fluid" src="{{event.localTeamImgUrl}}">
+          <mat-card-content >
+            <div id="match-details" *ngIf="event.done != null">
+              <div class="row">
+                <div class="col-sm-1">
+                  <img class="img-fluid" src="{{event.localTeamImgUrl}}">
+                </div>
+                <div class="col-sm-3">
+                  {{event.localTeamName}}
+                </div>
+                <div class="col-sm-2" *ngIf="event.localTeamScore != 0">
+                  {{event.localTeamScore}}
+                </div>
               </div>
-              <div class="col-sm-3">
-                {{event.localTeamName}}
-              </div>
-              <div class="col-sm-2" *ngIf="event.localTeamScore != 0">
-                {{event.localTeamScore}}
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-1">
-                <img class="img-fluid" src="{{event.visitorTeamImgUrl}}">
-              </div>
-              <div class="col-sm-3">
-                {{event.visitorTeamName}}
-              </div>
-              <div class="col-sm-2" *ngIf="event.localTeamScore != 0">
-                {{event.localTeamScore}}
+              <div class="row">
+                <div class="col-sm-1">
+                  <img class="img-fluid" src="{{event.visitorTeamImgUrl}}">
+                </div>
+                <div class="col-sm-3">
+                  {{event.visitorTeamName}}
+                </div>
+                <div class="col-sm-2" *ngIf="event.localTeamScore != 0">
+                  {{event.localTeamScore}}
+                </div>
               </div>
             </div>
           </mat-card-content>
           <mat-card-actions align="end">
+            <button mat-button *ngSwitchCase="presence.Absent" (click)="participate(event._id)">PLAY</button>
+            <button mat-button *ngSwitchCase="presence.Present">WITHDRAW</button>
+            <button mat-button *ngSwitchDefault (click)="participate(event._id)">PLAY</button>
             <button mat-button>DETAILS</button>
           </mat-card-actions>
+          <mat-card-footer>
+            {{event.presentMembers.length}} <mat-icon matSuffix>mood</mat-icon>
+          </mat-card-footer>
         </mat-card>
       </li>
     </ul>

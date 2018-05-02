@@ -3,6 +3,7 @@ import {EventService} from '../event.service';
 import {Event} from '../model/event';
 import {Team} from '../model/team';
 import {TeamService} from '../team.service';
+import {AppSettings} from '../app-settings';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +14,7 @@ export class DashboardComponent implements OnInit {
   teams: Team[];
   events: Event[];
   selectedTeam: Team;
+  presence = Presence;
 
   constructor(private eventService: EventService,
               private teamService: TeamService) { }
@@ -21,7 +23,7 @@ export class DashboardComponent implements OnInit {
     this.teamService.getTeams()
       .subscribe(teams => {
         this.teams = teams;
-        const selectedTeamId = localStorage.getItem('selectedTeamId');
+        const selectedTeamId = localStorage.getItem(AppSettings.currentTeamIdKey);
         if (selectedTeamId !== null) {
           this.selectedTeam = this.teams.find(value => value._id.toString() === selectedTeamId);
           if (this.selectedTeam !== undefined) {
@@ -34,10 +36,30 @@ export class DashboardComponent implements OnInit {
   changeTeam() {
     this.loadEvents()
     // Store the selected team
-    localStorage.setItem('selectedTeamId', this.selectedTeam._id.toString());
+    localStorage.setItem(AppSettings.currentTeamIdKey, this.selectedTeam._id.toString());
   }
 
   loadEvents() {
     this.eventService.getEvents(this.selectedTeam._id).subscribe(events => this.events = events);
   }
+
+  isUserPresent(event: Event): Presence {
+    const currentUsername = localStorage.getItem(AppSettings.currentUsernameKey);
+    if (event.presentMembers.indexOf(currentUsername) > -1) {
+      return Presence.Present;
+    } else if (event.absentMembers.indexOf(currentUsername) > -1) {
+      return Presence.Absent;
+    }
+    return Presence.Unknown;
+  }
+
+  participate(matchId: number) {
+    this.teamService.participate(matchId).subscribe();
+  }
+}
+
+enum Presence {
+  Present = 'Present',
+  Absent = 'Absent',
+  Unknown = 'Unknown'
 }

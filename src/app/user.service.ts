@@ -4,6 +4,7 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {of} from 'rxjs/observable/of';
+import {AppSettings} from './app-settings';
 
 @Injectable()
 export class UserService {
@@ -21,6 +22,7 @@ export class UserService {
     return this.http
       .post('/login', {username, password}, { observe: 'response', withCredentials: true })
       .flatMap((response) => {
+        localStorage.setItem(AppSettings.currentUsernameKey, username);
         this.loggedIn.next(true);
         return of(response);
       }).catch((error) => {

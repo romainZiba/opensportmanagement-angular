@@ -12,4 +12,8 @@ export class TeamService {
   getTeams(): Observable<Team[]> {
     return this.http.get<Team[]>('/teams', { withCredentials: true });
   }
+
+  participate(matchId: number) {
+    return this.http.put<any>(`/matches/${matchId}`, { withCredentials: true });
+  }
 }
