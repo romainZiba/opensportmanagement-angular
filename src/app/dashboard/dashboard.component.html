@@ -5,51 +5,52 @@
     </mat-select>
   </mat-form-field>
   <div *ngIf="selectedTeam">
-    <ul class="events" *ngFor="let event of events"
-        [ngSwitch]="isUserPresent(event)">
-      <li>
-        <mat-card class="event-card">
-          <mat-card-header>
-            <mat-card-title>{{ event.name }}</mat-card-title>
-            <mat-card-subtitle>{{ event.fromDate | date:'fullDate':'':'fr' }}</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content >
-            <div id="match-details" *ngIf="event.done != null">
-              <div class="row">
-                <div class="col-sm-1">
-                  <img class="img-fluid" src="{{event.localTeamImgUrl}}">
-                </div>
-                <div class="col-sm-3">
-                  {{event.localTeamName}}
-                </div>
-                <div class="col-sm-2" *ngIf="event.localTeamScore != 0">
-                  {{event.localTeamScore}}
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-1">
-                  <img class="img-fluid" src="{{event.visitorTeamImgUrl}}">
-                </div>
-                <div class="col-sm-3">
-                  {{event.visitorTeamName}}
-                </div>
-                <div class="col-sm-2" *ngIf="event.localTeamScore != 0">
-                  {{event.localTeamScore}}
-                </div>
-              </div>
+
+    <mat-list>
+      <mat-list-item *ngFor="let event of events"
+                     [ngSwitch]="isUserPresent(event)">
+        <div mat-line>
+          <div class="row">
+            <div class="col-sm-10">
+              {{event.name}}
             </div>
-          </mat-card-content>
-          <mat-card-actions align="end">
-            <button mat-button *ngSwitchCase="presence.Absent" (click)="participate(event._id)">PLAY</button>
-            <button mat-button *ngSwitchCase="presence.Present">WITHDRAW</button>
-            <button mat-button *ngSwitchDefault (click)="participate(event._id)">PLAY</button>
-            <button mat-button>DETAILS</button>
-          </mat-card-actions>
-          <mat-card-footer>
-            {{event.presentMembers.length}} <mat-icon matSuffix>mood</mat-icon>
-          </mat-card-footer>
-        </mat-card>
-      </li>
-    </ul>
+            <div class="col-sm-2">
+              {{event.presentMembers.length}} <mat-icon matSuffix>mood</mat-icon>
+            </div>
+          </div>
+        </div>
+        <p mat-line> {{ event.fromDate | date:'fullDate':'':'fr' }} </p>
+        <div mat-line style="margin-top: 3em" id="match-details" *ngIf="event.done != null">
+          <div class="row">
+            <div class="col-sm-4" align="right">
+              {{event.localTeamName}}
+            </div>
+            <div class="col-sm-1">
+              <img class="img-fluid" src="{{event.localTeamImgUrl}}">
+            </div>
+            <div class="col-sm-1" >
+              <p *ngIf="event.done">{{event.localTeamScore}}</p>
+            </div>
+            <div class="col-sm-1" >
+              <p *ngIf="event.done">{{event.visitorTeamScore}}</p>
+            </div>
+            <div class="col-sm-1">
+              <img class="img-fluid" src="{{event.visitorTeamImgUrl}}">
+            </div>
+            <div class="col-sm-4" align="left">
+              {{event.visitorTeamName}}
+            </div>
+
+          </div>
+        </div>
+        <div mat-line align="right">
+          <button mat-raised-button button *ngSwitchCase="presence.Absent" (click)="participate(event._id, true)">PLAY</button>
+          <button mat-raised-button *ngSwitchCase="presence.Present" (click)="participate(event._id, false)">WITHDRAW</button>
+          <button mat-raised-button *ngSwitchDefault (click)="participate(event._id, true)">PLAY</button>
+          <button mat-raised-button>DETAILS</button>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
   </div>
 </div>

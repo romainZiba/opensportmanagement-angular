@@ -53,8 +53,11 @@ export class DashboardComponent implements OnInit {
     return Presence.Unknown;
   }
 
-  participate(matchId: number) {
-    this.teamService.participate(matchId).subscribe();
+  participate(matchId: number, isParticipating: boolean) {
+    this.teamService.participate(matchId, isParticipating).subscribe(event => {
+      const index = this.events.map(e => e._id).indexOf(event._id);
+      this.events[index] = event;
+    });
   }
 }
 
