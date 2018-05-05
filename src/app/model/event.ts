@@ -1,3 +1,5 @@
+import {TeamMember} from './TeamMember';
+
 export class Event {
   _id: number;
   name: string;
@@ -12,6 +14,6 @@ export class Event {
   visitorTeamName: string;
   visitorTeamImgUrl: string;
   visitorTeamScore: number;
-  presentMembers: String[];
-  absentMembers: String[];
+  presentMembers: TeamMember[];
+  absentMembers: TeamMember[];
 }

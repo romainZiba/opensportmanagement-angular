@@ -1,3 +1,46 @@
-<p>
-  event-details works!
-</p>
+<div class="container mt-3" *ngIf = "event"
+     [ngSwitch]="isUserPresent(event)">
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ event.name }}</mat-card-title>
+      <mat-card-subtitle>{{ event.fromDate | date:'fullDate':'':'fr' }} {{ event.fromDate | date:'shortTime':'':'fr' }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div class="d-flex justify-content-center" *ngIf="event.done != null">
+        <p class="align-self-center">{{event.localTeamName}}</p>
+        <img class="img-fluid mr-3" src="{{event.localTeamImgUrl}}">
+        <p class="align-self-center" *ngIf="event.done">{{event.localTeamScore}}</p>
+        <p class="align-self-center" *ngIf="event.done">{{event.visitorTeamScore}}</p>
+        <p class="align-self-center" *ngIf="!event.done">VS</p>
+
+        <img class="img-fluid ml-3" src="{{event.visitorTeamImgUrl}}">
+        <p class="align-self-center">{{event.visitorTeamName}}</p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button *ngSwitchCase="presence.Absent" (click)="participate(event._id, true)">PLAY</button>
+      <button mat-button *ngSwitchCase="presence.Present" (click)="participate(event._id, false)">WITHDRAW</button>
+      <button mat-button *ngSwitchDefault (click)="participate(event._id, true)">PLAY</button>
+    </mat-card-actions>
+    <mat-card-footer>
+    </mat-card-footer>
+  </mat-card>
+
+
+  Presents:
+  <div class="list-group">
+    <div class="list-group-item flex-column align-items-start" *ngFor="let presentMember of event.presentMembers">
+      {{ presentMember.firstName }} {{ presentMember.lastName }} {{ presentMember.licenseNumber }}
+    </div>
+  </div>
+
+  Absents:
+  <div class="list-group">
+    <div class="list-group-item flex-column align-items-start" *ngFor="let absentMember of event.absentMembers">
+      {{ absentMember.firstName }} {{ absentMember.lastName }}
+    </div>
+  </div>
+</div>
+

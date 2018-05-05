@@ -19,4 +19,7 @@ export class EventService {
     return this.http.get<Event[]>(`/teams/${teamId}/events`, { withCredentials: true, params: params});
   }
 
+  getEvent(id: string): Observable<Event> {
+    return this.http.get<Event>(`/events/${id}`, { withCredentials: true });
+  }
 }

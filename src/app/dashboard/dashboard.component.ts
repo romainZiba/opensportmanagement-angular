@@ -24,6 +24,16 @@ export class DashboardComponent implements OnInit {
               private teamService: TeamService,
               private router: Router) { }
 
+  isUserPresent(event: Event): Presence {
+    const currentUsername = localStorage.getItem(AppSettings.currentUsernameKey);
+    if (event.presentMembers.map(member => member.username).indexOf(currentUsername) > -1) {
+      return Presence.Present;
+    } else if (event.absentMembers.map(member => member.username).indexOf(currentUsername) > -1) {
+      return Presence.Absent;
+    }
+    return Presence.Unknown;
+  }
+
   ngOnInit() {
     this.teamService.getTeams()
       .subscribe(teams => {
@@ -58,16 +68,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  isUserPresent(event: Event): Presence {
-    const currentUsername = localStorage.getItem(AppSettings.currentUsernameKey);
-    if (event.presentMembers.indexOf(currentUsername) > -1) {
-      return Presence.Present;
-    } else if (event.absentMembers.indexOf(currentUsername) > -1) {
-      return Presence.Absent;
-    }
-    return Presence.Unknown;
-  }
-
   participate(matchId: number, isParticipating: boolean) {
     this.teamService.participate(matchId, isParticipating).subscribe(event => {
       const index = this.events.map(e => e._id).indexOf(event._id);
@@ -76,7 +76,7 @@ export class DashboardComponent implements OnInit {
   }
 
   showDetails(eventId: number) {
-    this.router.navigate(['/event-details']);
+    this.router.navigate(['/event-details', eventId]);
   }
 }
 
