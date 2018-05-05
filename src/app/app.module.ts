@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {InjectionToken, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'; // <-- NgModel lives here
-import {MatButtonModule, MatCheckboxModule, MatChipsModule, MatInputModule, MatListModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatChipsModule, MatInputModule, MatListModule, MatPaginatorModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -25,6 +25,7 @@ import {TeamService} from './team.service';
 import {TeamDetailsComponent} from './team-details/team-details.component';
 import localeFr from '@angular/common/locales/fr';
 import {registerLocaleData} from '@angular/common';
+import {EventDetailsComponent} from './event-details/event-details.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -40,7 +41,8 @@ registerLocaleData(localeFr, 'fr');
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    TeamDetailsComponent
+    TeamDetailsComponent,
+    EventDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +59,7 @@ registerLocaleData(localeFr, 'fr');
     MatSidenavModule,
     MatListModule,
     MatChipsModule,
+    MatPaginatorModule,
     // Other modules
     AppRoutingModule,
     FormsModule,

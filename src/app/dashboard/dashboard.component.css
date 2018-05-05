@@ -3,3 +3,8 @@
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
 }
+
+img {
+  max-width: 4em;
+  max-height: 4em;
+}
