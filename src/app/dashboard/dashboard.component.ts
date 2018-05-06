@@ -5,11 +5,13 @@ import {Team} from '../model/team';
 import {TeamService} from '../team.service';
 import {AppSettings} from '../app-settings';
 import {Router} from '@angular/router';
+import {speedDialAnimation} from '../speed-dial';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  animations: [speedDialAnimation]
 })
 export class DashboardComponent implements OnInit {
   teams: Team[];
@@ -19,6 +21,14 @@ export class DashboardComponent implements OnInit {
   currentPage = 0;
   totalElements: number;
   pageSize = 25;
+
+  options = [
+    { label: 'New training', icon: 'far fa-calendar-alt' },
+    { label: 'New match', icon: 'fas fa-basketball-ball' },
+    { label: 'New event', icon: 'fas fa-beer' },
+  ];
+
+  hasLabels = true;
 
   constructor(private eventService: EventService,
               private teamService: TeamService,

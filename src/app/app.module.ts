@@ -9,6 +9,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {SpeedDialModule} from './speed-dial';
 
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
@@ -60,6 +61,7 @@ registerLocaleData(localeFr, 'fr');
     MatListModule,
     MatChipsModule,
     MatPaginatorModule,
+    SpeedDialModule,
     // Other modules
     AppRoutingModule,
     FormsModule,

@@ -45,4 +45,17 @@
       </div>
     </div>
   </div>
+
+  <div class="fab-container">
+    <speed-dial #dial="speedDial">
+      <button *ngFor="let option of options" mat-mini-fab speed-dial-option [speedDialOptionLabel]="hasLabels ? option.label : null">
+        <mat-icon [ngClass]="option.icon"></mat-icon>
+      </button>
+    </speed-dial>
+    <button mat-fab [speedDialTriggerFor]="dial" #trigger="speedDialTrigger">
+      <mat-icon *ngIf="!trigger.isOpen">add</mat-icon>
+      <mat-icon *ngIf="trigger.isOpen">close</mat-icon>
+    </button>
+  </div>
+
 </div>

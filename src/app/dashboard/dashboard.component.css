@@ -8,3 +8,9 @@ img {
   max-width: 4em;
   max-height: 4em;
 }
+
+.fab-container {
+  position: fixed;
+  bottom: 36px;
+  right: 36px;
+}
