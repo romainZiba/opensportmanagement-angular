@@ -4,6 +4,7 @@ import {AppSettings} from '../app-settings';
 import {TeamService} from '../team.service';
 import {UserService} from '../user.service';
 import {MatDrawer} from '@angular/material';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-toolbar',
@@ -13,12 +14,11 @@ import {MatDrawer} from '@angular/material';
 export class ToolbarComponent implements OnInit {
   title = 'Opensportmanagement';
   isLoggedIn: boolean;
-  firstName: string;
-  lastName: string;
+  firstName$: Observable<string>;
+  lastName$: Observable<string>;
   @Input() navDrawer: MatDrawer;
 
   availableTeams: Team[];
-  selectedTeam: Team;
 
   constructor(private userService: UserService,
               private teamService: TeamService) { }
@@ -26,24 +26,33 @@ export class ToolbarComponent implements OnInit {
   ngOnInit() {
     this.userService.isLoggedIn.subscribe(logged => {
       this.isLoggedIn = logged;
-      this.firstName = localStorage.getItem(AppSettings.currentUserFirstNameKey);
-      this.lastName = localStorage.getItem(AppSettings.currentUserLastNameKey);
+      if (logged) {
+        this.getTeams();
+      }
     });
+    this.firstName$ = this.userService.userFirstName$;
+    this.lastName$ = this.userService.userLastName$;
+  }
 
-
+  getTeams() {
     this.teamService.getTeams().subscribe(teams => {
       this.availableTeams = teams;
-      const selectedTeamId = localStorage.getItem(AppSettings.currentTeamIdKey);
-      if (selectedTeamId !== null) {
-        this.selectedTeam = this.availableTeams.find(value => value._id.toString() === selectedTeamId);
-        this.teamService.selectTeam(this.selectedTeam);
+      if (this.availableTeams.length === 1) {
+        this.chooseTeam(this.availableTeams[0]);
+      } else {
+        const selectedTeamId = localStorage.getItem(AppSettings.currentTeamIdKey);
+        if (selectedTeamId !== null) {
+          this.chooseTeam(this.availableTeams.find(value => value._id.toString() === selectedTeamId));
+        }
       }
     });
   }
 
   chooseTeam(team: Team) {
-    this.selectedTeam = team;
-    localStorage.setItem(AppSettings.currentTeamIdKey, this.selectedTeam._id.toString());
-    this.teamService.selectTeam(this.selectedTeam);
+    this.teamService.selectTeam(team);
+  }
+
+  logOut() {
+    this.userService.logOut();
   }
 }

@@ -27,7 +27,8 @@ import {TeamDetailsComponent} from './team-details/team-details.component';
 import localeFr from '@angular/common/locales/fr';
 import {registerLocaleData} from '@angular/common';
 import {EventDetailsComponent} from './event-details/event-details.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import {ToolbarComponent} from './toolbar/toolbar.component';
+import {CookieService} from 'ngx-cookie-service';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -77,6 +78,7 @@ registerLocaleData(localeFr, 'fr');
     })
   ],
   providers: [
+    CookieService,
     EventService,
     UserService,
     AuthGuardService,

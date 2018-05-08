@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {Team} from './model/team';
 import {Event} from './model/event';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {AppSettings} from './app-settings';
 
 @Injectable()
 export class TeamService {
@@ -22,6 +23,7 @@ export class TeamService {
   }
 
   selectTeam(team: Team) {
+    localStorage.setItem(AppSettings.currentTeamIdKey, team._id.toString());
     this.selectedTeamSource.next(team);
   }
 

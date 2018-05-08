@@ -43,8 +43,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.teamService.selectedTeam$.subscribe(team => {
-      this.selectedTeam = team;
-      if (this.selectedTeam !== undefined) {
+      if (team !== null && team !== undefined) {
+        this.selectedTeam = team;
         this.loadEvents();
       }
     });

@@ -5,10 +5,15 @@
   <span class="fill-space"></span>
   <div class="btn-group">
     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {{ firstName }} {{ lastName }}
+      {{ firstName$ | async }} {{ lastName$ | async }}
     </button>
     <div class="dropdown-menu dropdown-menu-right">
+      <button class="dropdown-item" type="button"><mat-icon class="fas fa-user mr-2"></mat-icon>My profile</button>
+      <div class="dropdown-divider"></div>
+      <h6 class="dropdown-header">Team selection</h6>
       <button class="dropdown-item" type="button" *ngFor="let team of availableTeams" (click)="chooseTeam(team)">{{ team.name }}</button>
+      <div class="dropdown-divider"></div>
+      <button class="dropdown-item" type="button" (click)="logOut()"><mat-icon class="fas fa-sign-out-alt mr-2"></mat-icon>Logout</button>
     </div>
   </div>
 </mat-toolbar>
