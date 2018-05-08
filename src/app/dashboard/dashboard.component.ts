@@ -14,21 +14,18 @@ import {speedDialAnimation} from '../speed-dial';
   animations: [speedDialAnimation]
 })
 export class DashboardComponent implements OnInit {
-  teams: Team[];
   events: Event[];
-  selectedTeam: Team;
   presence = Presence;
   currentPage = 0;
   totalElements: number;
   pageSize = 25;
-
   options = [
     { label: 'New training', icon: 'far fa-calendar-alt' },
     { label: 'New match', icon: 'fas fa-basketball-ball' },
     { label: 'New event', icon: 'fas fa-beer' },
   ];
-
   hasLabels = true;
+  selectedTeam: Team;
 
   constructor(private eventService: EventService,
               private teamService: TeamService,
@@ -45,24 +42,12 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.teamService.getTeams()
-      .subscribe(teams => {
-        this.teams = teams;
-        const selectedTeamId = localStorage.getItem(AppSettings.currentTeamIdKey);
-        if (selectedTeamId !== null) {
-          this.selectedTeam = this.teams.find(value => value._id.toString() === selectedTeamId);
-          if (this.selectedTeam !== undefined) {
-            this.loadEvents();
-          }
-        }
-      });
-  }
-
-  changeTeam() {
-    this.currentPage = 0;
-    this.loadEvents();
-    // Store the selected team
-    localStorage.setItem(AppSettings.currentTeamIdKey, this.selectedTeam._id.toString());
+    this.teamService.selectedTeam$.subscribe(team => {
+      this.selectedTeam = team;
+      if (this.selectedTeam !== undefined) {
+        this.loadEvents();
+      }
+    });
   }
 
   loadEvents(page = this.currentPage, size = this.pageSize) {

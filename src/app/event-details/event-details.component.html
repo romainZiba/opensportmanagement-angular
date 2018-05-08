@@ -28,19 +28,26 @@
     </mat-card-footer>
   </mat-card>
 
-
-  Presents:
-  <div class="list-group">
-    <div class="list-group-item flex-column align-items-start" *ngFor="let presentMember of event.presentMembers">
-      {{ presentMember.firstName }} {{ presentMember.lastName }} {{ presentMember.licenseNumber }}
-    </div>
-  </div>
-
-  Absents:
-  <div class="list-group">
-    <div class="list-group-item flex-column align-items-start" *ngFor="let absentMember of event.absentMembers">
-      {{ absentMember.firstName }} {{ absentMember.lastName }}
-    </div>
-  </div>
+  <mat-list>
+    <h3 mat-subheader>Presents</h3>
+    <mat-list-item *ngFor="let presentMember of event.presentMembers">
+      <mat-icon mat-list-icon></mat-icon>
+      <h4 mat-line>{{presentMember.firstName}} {{presentMember.lastName}}</h4>
+      <p mat-line> {{presentMember.licenseNumber }} </p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <h3 mat-subheader>Waiting</h3>
+    <mat-list-item *ngFor="let waitingMember of event.waitingMembers">
+      <mat-icon mat-list-icon></mat-icon>
+      <h4 mat-line>{{waitingMember.firstName}} {{waitingMember.lastName}}</h4>
+      <p mat-line> {{waitingMember.licenseNumber}} </p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <h3 mat-subheader>Absents</h3>
+    <mat-list-item *ngFor="let absentMember of event.absentMembers">
+      <mat-icon mat-list-icon></mat-icon>
+      <h4 mat-line>{{absentMember.firstName}} {{absentMember.lastName}}</h4>
+    </mat-list-item>
+  </mat-list>
 </div>
 

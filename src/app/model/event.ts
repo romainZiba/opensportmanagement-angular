@@ -1,4 +1,4 @@
-import {TeamMember} from './TeamMember';
+import {TeamMember} from './team-member';
 
 export class Event {
   _id: number;
@@ -16,4 +16,5 @@ export class Event {
   visitorTeamScore: number;
   presentMembers: TeamMember[];
   absentMembers: TeamMember[];
+  waitingMembers: TeamMember[];
 }

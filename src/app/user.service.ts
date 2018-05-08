@@ -35,6 +35,8 @@ export class UserService {
     return this.http.get('/users/me', { observe: 'response', withCredentials: true })
       .flatMap((response) => {
         this.loggedIn.next(true);
+        localStorage.setItem(AppSettings.currentUserFirstNameKey, response.body['firstName']);
+        localStorage.setItem(AppSettings.currentUserLastNameKey, response.body['lastName']);
         return of(response);
       }).catch((error) => {
         this.loggedIn.next(false);

@@ -1,0 +1,14 @@
+<mat-toolbar color="primary" *ngIf="isLoggedIn">
+  <button mat-icon-button (click)="navDrawer.toggle()"><mat-icon>menu</mat-icon></button>
+  <span>{{ title }}</span>
+  <!-- This fills the remaining space of the current row -->
+  <span class="fill-space"></span>
+  <div class="btn-group">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{ firstName }} {{ lastName }}
+    </button>
+    <div class="dropdown-menu dropdown-menu-right">
+      <button class="dropdown-item" type="button" *ngFor="let team of availableTeams" (click)="chooseTeam(team)">{{ team.name }}</button>
+    </div>
+  </div>
+</mat-toolbar>
