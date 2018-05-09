@@ -1,20 +1,23 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {EventService} from '../event.service';
 import {switchMap} from 'rxjs/operators';
 import {Event} from '../model/event';
 import {AppSettings} from '../app-settings';
 import {TeamService} from '../team.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-event-details',
   templateUrl: './event-details.component.html',
   styleUrls: ['./event-details.component.css']
 })
-export class EventDetailsComponent implements OnInit {
+export class EventDetailsComponent implements OnInit, OnDestroy {
 
   event: Event;
   presence = Presence;
+  routeSub: Subscription;
+  participationSub: Subscription;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -32,16 +35,25 @@ export class EventDetailsComponent implements OnInit {
     return Presence.Unknown;
   }
   participate(matchId: number, isParticipating: boolean) {
-    this.teamService.participate(matchId, isParticipating).subscribe(event => {
+    this.participationSub = this.teamService.participate(matchId, isParticipating).subscribe(event => {
       this.event = event;
     });
   }
 
   ngOnInit() {
-    this.route.paramMap.pipe(
+    this.routeSub = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
         this.eventService.getEvent(params.get('id')))
     ).subscribe(event => this.event = event);
+  }
+
+  ngOnDestroy() {
+    if (this.routeSub !== undefined) {
+      this.routeSub.unsubscribe();
+    }
+    if (this.participationSub !== undefined) {
+      this.participationSub.unsubscribe();
+    }
   }
 
 }

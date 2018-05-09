@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {EventService} from '../event.service';
 import {Event} from '../model/event';
 import {Team} from '../model/team';
@@ -6,6 +6,7 @@ import {TeamService} from '../team.service';
 import {AppSettings} from '../app-settings';
 import {Router} from '@angular/router';
 import {speedDialAnimation} from '../speed-dial';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,7 @@ import {speedDialAnimation} from '../speed-dial';
   styleUrls: ['./dashboard.component.css'],
   animations: [speedDialAnimation]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   events: Event[];
   presence = Presence;
   currentPage = 0;
@@ -26,6 +27,9 @@ export class DashboardComponent implements OnInit {
   ];
   hasLabels = true;
   selectedTeam: Team;
+  selectedTeamSubscription: Subscription;
+  eventsSubscription: Subscription;
+  participationSubscription: Subscription;
 
   constructor(private eventService: EventService,
               private teamService: TeamService,
@@ -42,8 +46,9 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.teamService.selectedTeam$.subscribe(team => {
+    this.selectedTeamSubscription = this.teamService.selectedTeam$.subscribe(team => {
       if (team !== null && team !== undefined) {
+        console.log('a team has been selected');
         this.selectedTeam = team;
         this.loadEvents();
       }
@@ -51,7 +56,7 @@ export class DashboardComponent implements OnInit {
   }
 
   loadEvents(page = this.currentPage, size = this.pageSize) {
-    this.eventService.getEvents(this.selectedTeam._id,  page, size).subscribe(response => {
+    this.eventsSubscription = this.eventService.getEvents(this.selectedTeam._id,  page, size).subscribe(response => {
       this.totalElements = response['page']['totalElements'];
       this.currentPage = response['page']['number'];
       this.pageSize = response['page']['size'];
@@ -64,7 +69,7 @@ export class DashboardComponent implements OnInit {
   }
 
   participate(matchId: number, isParticipating: boolean) {
-    this.teamService.participate(matchId, isParticipating).subscribe(event => {
+    this.participationSubscription = this.teamService.participate(matchId, isParticipating).subscribe(event => {
       const index = this.events.map(e => e._id).indexOf(event._id);
       this.events[index] = event;
     });
@@ -72,6 +77,18 @@ export class DashboardComponent implements OnInit {
 
   showDetails(eventId: number) {
     this.router.navigate(['/event-details', eventId]);
+  }
+
+  ngOnDestroy() {
+    if (this.selectedTeamSubscription !== undefined) {
+      this.selectedTeamSubscription.unsubscribe();
+    }
+    if (this.participationSubscription !== undefined) {
+      this.participationSubscription.unsubscribe();
+    }
+    if (this.eventsSubscription !== undefined) {
+      this.eventsSubscription.unsubscribe();
+    }
   }
 }
 

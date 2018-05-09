@@ -1,16 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../user.service';
 import {TeamService} from '../team.service';
 import {TeamMember} from '../model/team-member';
 import {Team} from '../model/team';
 import {MatSnackBar} from '@angular/material';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.css']
 })
-export class UserDetailsComponent implements OnInit {
+export class UserDetailsComponent implements OnInit, OnDestroy {
 
   firstName: string;
   lastName: string;
@@ -18,37 +19,48 @@ export class UserDetailsComponent implements OnInit {
   phoneNumber: string;
   teamMember: TeamMember;
   selectedTeam: Team;
+  disposables: Subscription[];
 
   constructor(private userService: UserService,
               private teamService: TeamService,
               private snackBar: MatSnackBar) { }
   ngOnInit() {
-    this.userService.userFirstName$.subscribe(fn => this.firstName = fn);
-    this.userService.userLastName$.subscribe(ln => this.lastName = ln);
-    this.userService.email$.subscribe(email => this.email = email);
-    this.userService.phoneNumber$.subscribe(phoneNumber => this.phoneNumber = phoneNumber);
-    this.teamService.currentTeamMember$.subscribe(member => this.teamMember = member);
-    this.teamService.selectedTeam$.subscribe(team => this.selectedTeam = team);
+    this.disposables.push(this.userService.userFirstName$.subscribe(fn => this.firstName = fn));
+    this.disposables.push(this.userService.userLastName$.subscribe(ln => this.lastName = ln));
+    this.disposables.push(this.userService.email$.subscribe(email => this.email = email));
+    this.disposables.push(this.userService.phoneNumber$.subscribe(phoneNumber => this.phoneNumber = phoneNumber));
+    this.disposables.push(this.teamService.currentTeamMember$.subscribe(member => this.teamMember = member));
+    this.disposables.push(this.teamService.selectedTeam$.subscribe(team => this.selectedTeam = team));
   }
 
   saveRecords() {
-    this.userService.updateUser(this.firstName, this.lastName, this.phoneNumber, this.email)
-      .subscribe(user => {
-          this.openSnackBar('User information successfully saved');
-          console.log('user updated: ' + JSON.stringify(user));
-        },
-        error => {
-          this.openSnackBar('An error occurred');
-          console.log('error occurrred ' + JSON.stringify(error));
-        });
-    this.userService.updateTeamMember(this.selectedTeam._id, this.teamMember.licenseNumber)
-      .subscribe(user => console.log('user updated: ' + JSON.stringify(user)),
-        error => console.log('error occurrred ' + JSON.stringify(error)));
+    this.disposables.push(
+      this.userService.updateUser(this.firstName, this.lastName, this.phoneNumber, this.email)
+        .subscribe(user => {
+            this.openSnackBar('User information successfully saved');
+          },
+          error => {
+            this.openSnackBar('An error occurred');
+          })
+    );
+    this.disposables.push(
+      this.userService.updateTeamMember(this.selectedTeam._id, this.teamMember.licenseNumber)
+        .subscribe(user => console.log('user updated: ' + JSON.stringify(user)),
+          error => console.log('error occurrred ' + JSON.stringify(error)))
+    );
   }
 
   openSnackBar(message: string) {
     this.snackBar.open(message,  '',  {
       duration: 2000,
+    });
+  }
+
+  ngOnDestroy() {
+    this.disposables.forEach(function(sub) {
+      if (sub !== undefined) {
+        sub.unsubscribe();
+      }
     });
   }
 }

@@ -28,10 +28,11 @@ export class TeamService {
   selectTeam(team: Team) {
     localStorage.setItem(AppSettings.currentTeamIdKey, team._id.toString());
     this.selectedTeamSource.next(team);
-    this.http.get<TeamMember>(`/teams/${team._id}/members/me`, { withCredentials: true })
+    const subscription = this.http.get<TeamMember>(`/teams/${team._id}/members/me`, { withCredentials: true })
       .subscribe(member => {
         this.currentTeamMemberSource.next(member);
       });
+    setTimeout(function() { subscription.unsubscribe(); }, 5000);
   }
 
   participate(eventId: number, isParticipating: boolean): Observable<Event> {

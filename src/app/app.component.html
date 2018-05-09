@@ -2,8 +2,8 @@
 <mat-sidenav-container fullscreen>
   <mat-sidenav #navigationDrawer mode="over" >
     <mat-nav-list>
-      <a mat-list-item routerLink="/dashboard">Events</a>
-      <a mat-list-item routerLink="/team">Team</a>
+      <a mat-list-item routerLink="/dashboard" (click)="navigationDrawer.close()">Events</a>
+      <a mat-list-item routerLink="/team" (click)="navigationDrawer.close()">Team</a>
     </mat-nav-list>
   </mat-sidenav>
   <app-toolbar [navDrawer]="navigationDrawer"></app-toolbar>
