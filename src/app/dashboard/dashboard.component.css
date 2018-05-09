@@ -14,3 +14,7 @@ img {
   bottom: 36px;
   right: 36px;
 }
+
+.center {
+  flex: 1 1 auto;
+}

@@ -4,7 +4,6 @@ import {TeamService} from '../team.service';
 import {TeamMember} from '../model/team-member';
 import {Team} from '../model/team';
 import {MatSnackBar} from '@angular/material';
-import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-user-details',
@@ -19,7 +18,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   phoneNumber: string;
   teamMember: TeamMember;
   selectedTeam: Team;
-  disposables: Subscription[];
+  disposables = [];
 
   constructor(private userService: UserService,
               private teamService: TeamService,

@@ -1,7 +1,8 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <mat-sidenav-container fullscreen>
-  <mat-sidenav #navigationDrawer mode="over" >
-    <mat-nav-list>
+  <mat-sidenav #navigationDrawer mode="over">
+    <img alt="Open Sport Management" src="../assets/img/logo.png" class="mt-4 ml-4 center">
+    <mat-nav-list class="mt-4">
       <a mat-list-item routerLink="/dashboard" (click)="navigationDrawer.close()">Events</a>
       <a mat-list-item routerLink="/team" (click)="navigationDrawer.close()">Team</a>
     </mat-nav-list>
