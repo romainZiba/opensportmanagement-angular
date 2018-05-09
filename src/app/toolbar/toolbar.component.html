@@ -8,7 +8,7 @@
       {{ firstName$ | async }} {{ lastName$ | async }}
     </button>
     <div class="dropdown-menu dropdown-menu-right">
-      <button class="dropdown-item" type="button"><mat-icon class="fas fa-user mr-2"></mat-icon>My profile</button>
+      <button class="dropdown-item" type="button" (click)="showUserDetails()"><mat-icon class="fas fa-user mr-2"></mat-icon>My profile</button>
       <div class="dropdown-divider"></div>
       <h6 class="dropdown-header">Team selection</h6>
       <button class="dropdown-item" type="button" *ngFor="let team of availableTeams" (click)="chooseTeam(team)">{{ team.name }}</button>

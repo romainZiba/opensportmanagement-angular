@@ -1,0 +1,8 @@
+.user-details-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-raised-button {
+  float: right;
+}

@@ -10,10 +10,11 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {SpeedDialModule} from './speed-dial';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
-import {AppRoutingModule} from './/app-routing.module';
+import {AppRoutingModule} from './app-routing.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {EventService} from './event.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -29,6 +30,7 @@ import {registerLocaleData} from '@angular/common';
 import {EventDetailsComponent} from './event-details/event-details.component';
 import {ToolbarComponent} from './toolbar/toolbar.component';
 import {CookieService} from 'ngx-cookie-service';
+import {UserDetailsComponent} from './user-details/user-details.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -46,7 +48,8 @@ registerLocaleData(localeFr, 'fr');
     DashboardComponent,
     TeamDetailsComponent,
     EventDetailsComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    UserDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +68,7 @@ registerLocaleData(localeFr, 'fr');
     MatChipsModule,
     MatPaginatorModule,
     SpeedDialModule,
+    MatSnackBarModule,
     // Other modules
     AppRoutingModule,
     FormsModule,

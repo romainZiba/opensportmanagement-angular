@@ -1,0 +1,20 @@
+<div class="container mt-3">
+  <div class="user-details-container">
+    <mat-form-field>
+      <input matInput placeholder="First name" [(ngModel)]="firstName">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Last name" [(ngModel)]="lastName">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Email" [(ngModel)]="email">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Phone number" [(ngModel)]="phoneNumber">
+    </mat-form-field>
+    <mat-form-field *ngIf="teamMember">
+      <input matInput placeholder="License number" [(ngModel)]="teamMember.licenseNumber">
+    </mat-form-field>
+  </div>
+  <button mat-raised-button (click)="saveRecords()">SAVE</button>
+</div>

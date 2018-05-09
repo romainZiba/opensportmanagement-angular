@@ -7,6 +7,8 @@ import {of} from 'rxjs/observable/of';
 import {AppSettings} from './app-settings';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
+import {User} from './model/user';
+import {TeamMember} from './model/team-member';
 
 @Injectable()
 export class UserService {
@@ -14,10 +16,13 @@ export class UserService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   private userFirstName = new BehaviorSubject<string>('');
   private userLastName = new BehaviorSubject<string>('');
+  private email = new BehaviorSubject<string>('');
+  private phoneNumber = new BehaviorSubject<string>('');
 
   userFirstName$ = this.userFirstName.asObservable();
   userLastName$ = this.userLastName.asObservable();
-
+  email$ = this.email.asObservable();
+  phoneNumber$ = this.phoneNumber.asObservable();
 
   constructor(private http: HttpClient,
               private cookieService: CookieService,
@@ -46,10 +51,27 @@ export class UserService {
         localStorage.setItem(AppSettings.currentUsernameKey, response.body['username']);
         this.userFirstName.next(response.body['firstName']);
         this.userLastName.next(response.body['lastName']);
+        this.phoneNumber.next(response.body['phoneNumber']);
+        this.email.next(response.body['email']);
         return of(response);
       }).catch((error) => {
         this.loggedIn.next(false);
         return of(error);
       });
+  }
+
+  updateUser(firstName: string, lastName: string, phoneNumber: string, email: string): Observable<User> {
+    const user = new User();
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.phoneNumber = phoneNumber;
+    user.email = email;
+    return this.http.put<User>(`users/me`, user, { withCredentials: true });
+  }
+
+  updateTeamMember(teamId: number, licenseNumber: string): Observable<TeamMember> {
+    const member = new TeamMember();
+    member.licenseNumber = licenseNumber;
+    return this.http.put<TeamMember>(`teams/${teamId}/members/me`, member, { withCredentials: true });
   }
 }

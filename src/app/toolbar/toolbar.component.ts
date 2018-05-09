@@ -5,6 +5,7 @@ import {TeamService} from '../team.service';
 import {UserService} from '../user.service';
 import {MatDrawer} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -21,7 +22,8 @@ export class ToolbarComponent implements OnInit {
   availableTeams: Team[];
 
   constructor(private userService: UserService,
-              private teamService: TeamService) { }
+              private teamService: TeamService,
+              private router: Router) { }
 
   ngOnInit() {
     this.userService.isLoggedIn.subscribe(logged => {
@@ -54,5 +56,9 @@ export class ToolbarComponent implements OnInit {
 
   logOut() {
     this.userService.logOut();
+  }
+
+  showUserDetails() {
+    this.router.navigate(['/user-details']);
   }
 }
