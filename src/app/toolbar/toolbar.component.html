@@ -4,8 +4,8 @@
   <!-- This fills the remaining space of the current row -->
   <span class="fill-space"></span>
   <div class="btn-group">
-    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {{ firstName$ | async }} {{ lastName$ | async }}
+    <button mat-button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <mat-icon class="far fa-user"></mat-icon>
     </button>
     <div class="dropdown-menu dropdown-menu-right">
       <button class="dropdown-item" type="button" (click)="showUserDetails()"><mat-icon class="fas fa-user mr-2"></mat-icon>My profile</button>

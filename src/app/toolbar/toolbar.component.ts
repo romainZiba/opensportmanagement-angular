@@ -14,7 +14,7 @@ import {Subscription} from 'rxjs/Subscription';
   styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
-  title = 'Opensportmanagement';
+  title = 'OSM';
   isLoggedIn: boolean;
   firstName$: Observable<string>;
   lastName$: Observable<string>;
@@ -69,7 +69,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('OnDestroy');
     if (this.loggedInSubscription !== undefined) {
       this.loggedInSubscription.unsubscribe();
     }

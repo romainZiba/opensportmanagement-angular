@@ -31,10 +31,10 @@
         </div>
 
         <div class="d-flex justify-content-end mt-2">
-          <button mat-raised-button color="accent" *ngSwitchCase="presence.Absent" (click)="participate(event._id, true)">PLAY</button>
-          <button mat-raised-button color="accent" *ngSwitchCase="presence.Present" (click)="participate(event._id, false)">WITHDRAW</button>
-          <button mat-raised-button color="accent" *ngSwitchDefault (click)="participate(event._id, true)">PLAY</button>
-          <button class="ml-2" mat-raised-button color="accent" (click)="showDetails(event._id)">DETAILS</button>
+          <button mat-raised-button color="primary" *ngSwitchCase="presence.Absent" (click)="participate(event._id, true)">PLAY</button>
+          <button mat-raised-button color="primary" *ngSwitchCase="presence.Present" (click)="participate(event._id, false)">WITHDRAW</button>
+          <button mat-raised-button color="primary" *ngSwitchDefault (click)="participate(event._id, true)">PLAY</button>
+          <button class="ml-2" mat-raised-button color="primary" (click)="showDetails(event._id)">DETAILS</button>
         </div>
       </div>
     </div>
