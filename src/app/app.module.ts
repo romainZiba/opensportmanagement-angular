@@ -31,6 +31,7 @@ import {EventDetailsComponent} from './event-details/event-details.component';
 import {ToolbarComponent} from './toolbar/toolbar.component';
 import {CookieService} from 'ngx-cookie-service';
 import {UserDetailsComponent} from './user-details/user-details.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -79,7 +80,8 @@ registerLocaleData(localeFr, 'fr');
         tokenGetter: tokenGetter,
         whitelistedDomains: ['ns3268474.ip-5-39-81.eu:8090']
       }
-    })
+    }),
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     CookieService,
