@@ -48,7 +48,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.selectedTeamSubscription = this.teamService.selectedTeam$.subscribe(team => {
       if (team !== null && team !== undefined) {
-        console.log('a team has been selected');
         this.selectedTeam = team;
         this.loadEvents();
       }

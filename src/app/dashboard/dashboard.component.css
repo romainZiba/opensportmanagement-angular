@@ -11,8 +11,8 @@ img {
 
 .fab-container {
   position: fixed;
-  bottom: 36px;
-  right: 36px;
+  bottom: 0.5em;
+  right: 0.5em;
 }
 
 .center {
