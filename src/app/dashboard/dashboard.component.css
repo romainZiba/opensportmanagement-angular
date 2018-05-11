@@ -9,12 +9,6 @@ img {
   max-height: 4em;
 }
 
-.fab-container {
-  position: fixed;
-  bottom: 0.5em;
-  right: 0.5em;
-}
-
 .center {
   flex: 1 1 auto;
 }

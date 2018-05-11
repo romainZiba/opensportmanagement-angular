@@ -14,6 +14,7 @@ export class TeamService {
   private currentTeamMemberSource =  new BehaviorSubject<TeamMember>(null);
 
   teams$: Observable<Team[]>;
+  teamMembers$: Observable<TeamMember[]>;
   selectedTeam$ = this.selectedTeamSource.asObservable();
   currentTeamMember$ = this.currentTeamMemberSource.asObservable();
 
@@ -23,6 +24,11 @@ export class TeamService {
   getTeams(): Observable<Team[]> {
     this.teams$ = this.http.get<Team[]>('/teams', { withCredentials: true });
     return this.teams$;
+  }
+
+  getTeamMembers(teamId: number): Observable<TeamMember[]> {
+    this.teamMembers$ = this.http.get<TeamMember[]>(`/teams/${teamId}/members`, { withCredentials: true });
+    return this.teamMembers$;
   }
 
   selectTeam(team: Team) {

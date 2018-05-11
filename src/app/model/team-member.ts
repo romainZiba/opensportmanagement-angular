@@ -4,4 +4,6 @@ export class TeamMember {
   lastName: string;
   roles: string[];
   licenseNumber: string;
+  email: string;
+  phoneNumber: string;
 }

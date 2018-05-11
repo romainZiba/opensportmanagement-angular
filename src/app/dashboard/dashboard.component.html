@@ -5,32 +5,32 @@
                  [pageSizeOptions]="[10, 25, 50]"
                  (page)="loadEvents($event.pageIndex, $event.pageSize)">
   </mat-paginator>
-
   <div *ngIf="selectedTeam">
     <div class="list-group">
       <div class="list-group-item flex-column align-items-start" *ngFor="let event of events"
            [ngSwitch]="isUserPresent(event)">
-
         <div class="d-flex justify-content-between">
           <h5>{{event.name}}</h5>
           <span>{{event.presentMembers.length}} participants</span>
-
         </div>
         <p>{{ event.fromDate | date:'fullDate':'':'fr' }}</p>
         <p>{{ event.fromDate | date:'shortTime':'':'fr' }}</p>
 
-        <div class="d-flex justify-content-center" *ngIf="event.done != null">
-          <p class="align-self-center">{{event.localTeamName}}</p>
-          <img class="img-fluid mr-3" src="{{event.localTeamImgUrl}}">
-          <p class="align-self-center" *ngIf="event.done">{{event.localTeamScore}}</p>
-          <p class="align-self-center" *ngIf="event.done">{{event.visitorTeamScore}}</p>
-          <p class="align-self-center" *ngIf="!event.done">VS</p>
-
-          <img class="img-fluid ml-3" src="{{event.visitorTeamImgUrl}}">
-          <p class="align-self-center">{{event.visitorTeamName}}</p>
+        <div class="row d-flex align-items-center" *ngIf="event.done != null">
+          <div class="col-4 text-center"><img class="img-fluid" src="{{event.localTeamImgUrl}}"></div>
+          <div class="col-4 text-center">
+            <p *ngIf="event.done">{{event.localTeamScore}}</p>
+            <p *ngIf="event.done">{{event.visitorTeamScore}}</p>
+            <p *ngIf="!event.done">VS</p>
+          </div>
+          <div class="col-4 text-center"><img class="img-fluid" src="{{event.visitorTeamImgUrl}}"></div>
         </div>
-
-        <div class="d-flex justify-content-end mt-2">
+        <div class="row" *ngIf="event.done != null">
+          <div class="col-4 text-center"><p>{{event.localTeamName}}</p></div>
+          <div class="col-4 text-center"></div>
+          <div class="col-4 text-center"><p>{{event.visitorTeamName}}</p></div>
+        </div>
+        <div class="d-flex flex-row justify-content-start mt-2">
           <button mat-raised-button color="primary" *ngSwitchCase="presence.Absent" (click)="participate(event._id, true)">PLAY</button>
           <button mat-raised-button color="primary" *ngSwitchCase="presence.Present" (click)="participate(event._id, false)">WITHDRAW</button>
           <button mat-raised-button color="primary" *ngSwitchDefault (click)="participate(event._id, true)">PLAY</button>
@@ -39,7 +39,6 @@
       </div>
     </div>
   </div>
-
   <div class="fab-container">
     <speed-dial #dial="speedDial">
       <button *ngFor="let option of options" mat-mini-fab speed-dial-option [speedDialOptionLabel]="hasLabels ? option.label : null">
@@ -51,5 +50,4 @@
       <mat-icon *ngIf="trigger.isOpen">close</mat-icon>
     </button>
   </div>
-
 </div>

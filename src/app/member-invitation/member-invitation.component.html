@@ -8,11 +8,5 @@
   <mat-form-field>
     <input matInput placeholder="Email" [(ngModel)]="email">
   </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Phone number" [(ngModel)]="phoneNumber">
-  </mat-form-field>
-  <mat-form-field *ngIf="teamMember">
-    <input matInput placeholder="License number" [(ngModel)]="teamMember.licenseNumber">
-  </mat-form-field>
-  <button class="align-self-end" mat-raised-button color="primary" (click)="saveRecords()">SAVE</button>
+  <button class="align-self-end" mat-raised-button color="primary" (click)="saveUserAndNotify()">NOTIFY</button>
 </div>

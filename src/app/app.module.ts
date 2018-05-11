@@ -32,6 +32,7 @@ import {ToolbarComponent} from './toolbar/toolbar.component';
 import {CookieService} from 'ngx-cookie-service';
 import {UserDetailsComponent} from './user-details/user-details.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { MemberInvitationComponent } from './member-invitation/member-invitation.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -51,6 +52,7 @@ registerLocaleData(localeFr, 'fr');
     EventDetailsComponent,
     ToolbarComponent,
     UserDetailsComponent,
+    MemberInvitationComponent,
   ],
   imports: [
     BrowserModule,
