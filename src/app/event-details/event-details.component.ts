@@ -56,6 +56,9 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  showMessages(eventId: number) {
+    this.router.navigate([`/events/${eventId}/messages`]);
+  }
 }
 
 // TODO: refactor duplicated code

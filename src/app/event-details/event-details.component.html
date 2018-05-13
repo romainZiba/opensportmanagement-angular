@@ -19,10 +19,11 @@
         <p class="align-self-center">{{event.visitorTeamName}}</p>
       </div>
     </mat-card-content>
-    <mat-card-actions align="end">
-      <button mat-button *ngSwitchCase="presence.Absent" (click)="participate(event._id, true)">PLAY</button>
-      <button mat-button *ngSwitchCase="presence.Present" (click)="participate(event._id, false)">WITHDRAW</button>
-      <button mat-button *ngSwitchDefault (click)="participate(event._id, true)">PLAY</button>
+    <mat-card-actions align="start">
+      <button color="accent" mat-button (click)="showMessages(event._id)">MESSAGES</button>
+      <button color="accent" mat-button *ngSwitchCase="presence.Absent" (click)="participate(event._id, true)">PLAY</button>
+      <button color="accent" mat-button *ngSwitchCase="presence.Present" (click)="participate(event._id, false)">WITHDRAW</button>
+      <button color="accent" mat-button *ngSwitchDefault (click)="participate(event._id, true)">PLAY</button>
     </mat-card-actions>
     <mat-card-footer>
     </mat-card-footer>

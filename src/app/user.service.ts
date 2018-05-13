@@ -13,12 +13,14 @@ import {TeamMember} from './model/team-member';
 @Injectable()
 export class UserService {
 
+  private username = new BehaviorSubject<string>('');
   private loggedIn = new BehaviorSubject<boolean>(false);
   private userFirstName = new BehaviorSubject<string>('');
   private userLastName = new BehaviorSubject<string>('');
   private email = new BehaviorSubject<string>('');
   private phoneNumber = new BehaviorSubject<string>('');
 
+  username$ = this.username.asObservable();
   userFirstName$ = this.userFirstName.asObservable();
   userLastName$ = this.userLastName.asObservable();
   email$ = this.email.asObservable();
@@ -51,6 +53,7 @@ export class UserService {
         localStorage.setItem(AppSettings.currentUsernameKey, response.body['username']);
         this.userFirstName.next(response.body['firstName']);
         this.userLastName.next(response.body['lastName']);
+        this.username.next(response.body['username']);
         this.phoneNumber.next(response.body['phoneNumber']);
         this.email.next(response.body['email']);
         return of(response);

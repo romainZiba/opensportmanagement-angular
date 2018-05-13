@@ -1,4 +1,9 @@
+const host = 'yourHostProd';
+const port = 'yourPortProd';
+
 export const environment = {
   production: true,
-  apiUrl: 'yourprod'
+  host: host,
+  port: port,
+  apiUrl: `https://${host}:${port}`
 };

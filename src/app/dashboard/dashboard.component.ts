@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   showDetails(eventId: number) {
-    this.router.navigate(['/event-details', eventId]);
+    this.router.navigate(['/events', eventId]);
   }
 
   ngOnDestroy() {

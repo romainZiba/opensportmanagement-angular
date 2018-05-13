@@ -1,0 +1,17 @@
+#messages-container {
+  height: calc(100% - 20%);
+  overflow-y: scroll;
+}
+
+.message-form {
+  height: 20%;
+  background-color: whitesmoke;
+}
+
+.chat-container {
+  height: 100%;
+}
+
+.full-width {
+  width: 100%;
+}

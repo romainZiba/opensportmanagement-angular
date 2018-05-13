@@ -1,0 +1,28 @@
+<div class="container chat-container mt-2">
+  <div id="messages-container" #scrollme>
+    <ul>
+      <li *ngFor="let message of messages">
+        <div class="row mb-4"
+             [ngClass]="(username$ | async) === message.authorUserName ? 'justify-content-end' : ''">
+          <div class="col-8">
+            <div class="row">
+              <strong *ngIf="(username$ | async) !== message.authorUserName" class="mr-2">{{message.authorFirstName}} {{message.authorLastName}}</strong>
+              <small>{{message.creationDate | date:'short':'':'fr'}}</small>
+            </div>
+            <div class="row">
+              <span>{{message.body}}</span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="message-form">
+    <mat-form-field class="full-width">
+      <input matInput type="text" placeholder="Enter your message" [(ngModel)]="userMessage"/>
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="sendMessage()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+</div>

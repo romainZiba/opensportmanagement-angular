@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 
 import {Event} from './model/event';
 import {HttpClient, HttpParams} from '@angular/common/http';
+import {AppMessage} from './model/AppMessage';
 
 @Injectable()
 export class EventService {
@@ -21,5 +22,16 @@ export class EventService {
 
   getEvent(id: string): Observable<Event> {
     return this.http.get<Event>(`/events/${id}`, { withCredentials: true });
+  }
+
+  getMessages(eventId: string) {
+    return this.http.get<AppMessage[]>(`/events/${eventId}/messages`, { withCredentials: true });
+  }
+
+  postMessage(eventId: string, body: string) {
+    const message = new AppMessage();
+    message.body = body;
+    return this.http.post<AppMessage>(`/events/${eventId}/messages`, message,
+      { withCredentials: true });
   }
 }
