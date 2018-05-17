@@ -1,17 +1,19 @@
-#messages-container {
-  height: calc(100% - 20%);
-  overflow-y: scroll;
+#chat-container {
+  height: calc(100% - 64px); // 64px is max size of the top app bar
+
+  #messages-container {
+    height: calc(100% - 70px); // 65.5px is the size of the message-form
+    overflow-x: hidden;
+    overflow-y: auto;
+    word-break: break-word;
+  }
+
+  #message-form {
+    border-top-style: solid;
+    .full-width {
+      width: 100%;
+    }
+  }
 }
 
-.message-form {
-  height: 20%;
-  background-color: whitesmoke;
-}
 
-.chat-container {
-  height: 100%;
-}
-
-.full-width {
-  width: 100%;
-}
