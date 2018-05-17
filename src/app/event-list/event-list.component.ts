@@ -10,11 +10,11 @@ import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  templateUrl: './event-list.component.html',
+  styleUrls: ['./event-list.component.css'],
   animations: [speedDialAnimation]
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class EventListComponent implements OnInit, OnDestroy {
   events: Event[];
   presence = Presence;
   currentPage = 0;

@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   onClick(): void {
     this.authenticationSubscription = this.userService.authenticate(this.username, this.password).subscribe(
       (response: HttpResponse<any>) => {
-        this.router.navigate(['', 'dashboard']);
+        this.router.navigate(['', 'event-list']);
       }
     );
   }

@@ -49,7 +49,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.disposables.push(
       this.router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
-          if (event.url === '/dashboard') {
+          if (event.url === '/event-list') {
             this.displayMenu = true;
           } else {
             this.displayMenu = false;

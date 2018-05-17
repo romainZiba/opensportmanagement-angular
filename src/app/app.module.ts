@@ -15,7 +15,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {AppRoutingModule} from './app-routing.module';
-import {DashboardComponent} from './dashboard/dashboard.component';
+import {EventListComponent} from './event-list/event-list.component';
 import {EventService} from './event.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtModule} from '@auth0/angular-jwt';
@@ -35,6 +35,7 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {MemberInvitationComponent} from './member-invitation/member-invitation.component';
 import {MessagesComponent} from './messages/messages.component';
 import {StompConfig, StompService} from '@stomp/ng2-stompjs';
+import { EventCreationComponent } from './event-creation/event-creation.component';
 
 
 export function tokenGetter() {
@@ -72,13 +73,14 @@ const stompConfig: StompConfig = {
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent,
+    EventListComponent,
     TeamDetailsComponent,
     EventDetailsComponent,
     ToolbarComponent,
     UserDetailsComponent,
     MemberInvitationComponent,
     MessagesComponent,
+    EventCreationComponent,
   ],
   imports: [
     BrowserModule,
