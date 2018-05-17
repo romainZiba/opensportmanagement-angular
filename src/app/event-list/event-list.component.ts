@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {EventService} from '../event.service';
+import {EventService} from '../services/event.service';
 import {Event} from '../model/event';
 import {Team} from '../model/team';
-import {TeamService} from '../team.service';
+import {TeamService} from '../services/team.service';
 import {AppSettings} from '../app-settings';
 import {Router} from '@angular/router';
 import {speedDialAnimation} from '../speed-dial';
@@ -21,9 +21,9 @@ export class EventListComponent implements OnInit, OnDestroy {
   totalElements: number;
   pageSize = 25;
   options = [
-    { label: 'New training', icon: 'far fa-calendar-alt' },
-    { label: 'New match', icon: 'fas fa-basketball-ball' },
-    { label: 'New event', icon: 'fas fa-beer' },
+    { label: 'New training', icon: 'far fa-calendar-alt', url: '/new-training' },
+    { label: 'New match', icon: 'fas fa-basketball-ball', url: '/new-match' },
+    { label: 'New event', icon: 'fas fa-beer', url: '/new-event' },
   ];
   hasLabels = true;
   selectedTeam: Team;
@@ -88,6 +88,10 @@ export class EventListComponent implements OnInit, OnDestroy {
     if (this.eventsSubscription !== undefined) {
       this.eventsSubscription.unsubscribe();
     }
+  }
+
+  showEventCreationPanel(url: string) {
+    this.router.navigate([`${url}`]);
   }
 }
 

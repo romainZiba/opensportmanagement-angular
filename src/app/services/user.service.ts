@@ -4,11 +4,11 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {of} from 'rxjs/observable/of';
-import {AppSettings} from './app-settings';
+import {AppSettings} from '../app-settings';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
-import {User} from './model/user';
-import {TeamMember} from './model/team-member';
+import {User} from '../model/user';
+import {TeamMember} from '../model/team-member';
 
 @Injectable()
 export class UserService {

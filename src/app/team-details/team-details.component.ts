@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TeamMember} from '../model/team-member';
-import {TeamService} from '../team.service';
+import {TeamService} from '../services/team.service';
 import {Observable} from 'rxjs/Observable';
 import {Router} from '@angular/router';
 

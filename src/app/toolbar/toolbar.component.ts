@@ -1,8 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Team} from '../model/team';
 import {AppSettings} from '../app-settings';
-import {TeamService} from '../team.service';
-import {UserService} from '../user.service';
+import {TeamService} from '../services/team.service';
+import {UserService} from '../services/user.service';
 import {MatDrawer} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import {NavigationEnd, Router} from '@angular/router';

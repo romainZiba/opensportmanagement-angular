@@ -41,7 +41,7 @@
   </div>
   <div class="fab-container">
     <speed-dial #dial="speedDial">
-      <button *ngFor="let option of options" mat-mini-fab speed-dial-option [speedDialOptionLabel]="hasLabels ? option.label : null">
+      <button (click)="showEventCreationPanel(option.url)" *ngFor="let option of options" mat-mini-fab speed-dial-option [speedDialOptionLabel]="hasLabels ? option.label : null">
         <mat-icon [ngClass]="option.icon"></mat-icon>
       </button>
     </speed-dial>

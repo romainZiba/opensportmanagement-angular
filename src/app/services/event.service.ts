@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 
 import {Observable} from 'rxjs/Observable';
 
-import {Event} from './model/event';
+import {Event} from '../model/event';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {AppMessage} from './model/AppMessage';
+import {AppMessage} from '../model/AppMessage';
 
 @Injectable()
 export class EventService {

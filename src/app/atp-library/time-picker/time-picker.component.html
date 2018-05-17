@@ -1,0 +1,36 @@
+<div id="time-picker-wrapper" class="{{config.theme}}" [ngClass]="{'active': activeModal, 'static': !isPopup}" (click)="Close($event);">
+  <div id="time-picker" [ngClass]="{'active': activeModal, 'static': !isPopup}">
+    <div class="time-picker-header">
+      <div class="time-picker-selected-time">
+          <div class="time-picker-hour" (click)="HourClick()" [attr.disabled]="(config.onlyMinute) ? 'disabled' : null"
+            [ngClass]="{'selected' : clockType == 'hour'}">{{GetHour()}}</div>
+          <span class="time-seprator">{{GetSeparator()}}</span>
+          <div class="time-picker-minute" (click)="MinuteClick();" [attr.disabled]="(config.onlyHour) ? 'disabled' : null"
+            [ngClass]="{'selected' : clockType == 'minute'}">{{GetMinute()}}</div>
+      </div>
+    </div>
+    <div class="time-picker-content">
+        <div class="time-picker-clock" (mousemove)="getDegree($event);" (mousedown)="isClicked=true; getDegree($event);" (mouseup)="setTime()">
+          <button *ngFor="let clock of clockObject" [ngClass]="{'active' : nowTime == clock.time}" 
+            [id]="'timepicker-item-id-' + clock.time" 
+            [ngStyle]="{top: clock.top,left: clock.left, color: nowTime == clock.time ? config.arrowStyle.color :  '', background: nowTime == clock.time ? config.arrowStyle.background : 'transparent'}">
+            {{GetClockTime(clock)}}
+          </button>
+          
+          <div class="time-picker-clock-origin" [ngStyle]="{ background: config.arrowStyle.background }"></div>
+          <div *ngIf="clockType != 'minute'; else minute" id="tpc-arrow" class="time-picker-clock-arrow" [ngStyle]="{transform: 'rotate(' + this.degree + 'deg)','-webkit-transform': 'rotate(' + this.degree + 'deg)', background: config.arrowStyle.background, height: nowTime > 12 || nowTime == 0 ? '28%' : '41%', top: nowTime > 12 || nowTime == 0  ? '54px' : '22px' }">
+            <span [ngStyle]="{ background: config.arrowStyle.background }"></span>
+          </div>
+          <ng-template #minute>
+          <div id="tpc-arrow" class="time-picker-clock-arrow" [ngStyle]="{transform: 'rotate(' + this.degree + 'deg)','-webkit-transform': 'rotate(' + this.degree + 'deg)', background: config.arrowStyle.background}">
+            <span [ngStyle]="{ background: config.arrowStyle.background }"></span>
+          </div>
+        </ng-template>
+        </div>
+    </div>
+    <div class="time-picker-footer">
+        <button (click)="Close($event);">{{GetLabel('cancel')}}</button>
+        <button (click)="GetTime();Close($event);" class="atp-ref-dialog-close">{{GetLabel('ok')}}</button>
+    </div>
+  </div>
+</div>

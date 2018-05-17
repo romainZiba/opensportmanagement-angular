@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {EventService} from '../event.service';
+import {EventService} from '../services/event.service';
 import {switchMap} from 'rxjs/operators';
 import {Event} from '../model/event';
 import {AppSettings} from '../app-settings';
-import {TeamService} from '../team.service';
+import {TeamService} from '../services/team.service';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({

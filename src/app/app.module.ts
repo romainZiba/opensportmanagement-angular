@@ -1,7 +1,16 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {InjectionToken, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'; // <-- NgModel lives here
-import {MatButtonModule, MatCheckboxModule, MatChipsModule, MatInputModule, MatListModule, MatPaginatorModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatInputModule,
+  MatListModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatRadioModule
+} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -11,19 +20,20 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {SpeedDialModule} from './speed-dial';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {AppRoutingModule} from './app-routing.module';
 import {EventListComponent} from './event-list/event-list.component';
-import {EventService} from './event.service';
+import {EventService} from './services/event.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtModule} from '@auth0/angular-jwt';
-import {UserService} from './user.service';
+import {UserService} from './services/user.service';
 import {ApiUrlInterceptor} from './urlinterceptor';
 import {environment} from '../environments/environment';
-import {AuthGuardService} from './auth-guard.service';
-import {TeamService} from './team.service';
+import {AuthGuardService} from './services/auth-guard.service';
+import {TeamService} from './services/team.service';
 import {TeamDetailsComponent} from './team-details/team-details.component';
 import localeFr from '@angular/common/locales/fr';
 import {registerLocaleData} from '@angular/common';
@@ -35,7 +45,11 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {MemberInvitationComponent} from './member-invitation/member-invitation.component';
 import {MessagesComponent} from './messages/messages.component';
 import {StompConfig, StompService} from '@stomp/ng2-stompjs';
-import { EventCreationComponent } from './event-creation/event-creation.component';
+import {EventCreationComponent} from './event-creation/event-creation.component';
+import {AmazingTimePickerModule} from './atp-library/atp-time-picker.module';
+import {PlaceService} from './services/place.service';
+import {HelperService} from './services/helper.service';
+import {OpponentService} from './services/opponent.service';
 
 
 export function tokenGetter() {
@@ -100,6 +114,10 @@ const stompConfig: StompConfig = {
     MatPaginatorModule,
     SpeedDialModule,
     MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    AmazingTimePickerModule,
+    MatRadioModule,
     // Other modules
     AppRoutingModule,
     FormsModule,
@@ -119,6 +137,9 @@ const stompConfig: StompConfig = {
     UserService,
     AuthGuardService,
     TeamService,
+    PlaceService,
+    OpponentService,
+    HelperService,
     {provide: API_URL, useValue: environment.apiUrl},
     {provide: HTTP_INTERCEPTORS, useClass: ApiUrlInterceptor, multi: true, deps: [API_URL]},
     StompService,

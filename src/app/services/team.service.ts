@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {Team} from './model/team';
-import {Event} from './model/event';
+import {Team} from '../model/team';
+import {Event} from '../model/event';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {AppSettings} from './app-settings';
-import {TeamMember} from './model/team-member';
+import {AppSettings} from '../app-settings';
+import {TeamMember} from '../model/team-member';
 
 @Injectable()
 export class TeamService {
