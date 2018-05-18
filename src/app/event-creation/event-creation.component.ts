@@ -7,6 +7,7 @@ import {PlaceService} from '../services/place.service';
 import {HelperService} from '../services/helper.service';
 import {OpponentService} from '../services/opponent.service';
 import {Opponent} from '../model/opponent';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-event-creation',
@@ -18,25 +19,20 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   eventType: string;
 
   placesByGroup = [];
-  minDate = new Date();
-  placeControl = new FormControl();
-  opponentControl = new FormControl();
-  kindOfMatch = [
-    'Home',
-    'Away',
-    'None'
-  ];
+  minDate = moment();
+  kindOfMatch = ['Home', 'Away', 'None'];
   daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   opponents: Opponent[];
 
-
+  placeControl = new FormControl();
+  opponentControl = new FormControl();
   selectedKindOfMatch: string; // Home, away, or none
   selectedPlaceId: number;
   selectedOpponentId: number;
-  selectedStartDate = new FormControl(new Date());
-  selectedEndDate = new FormControl(new Date());
-  selectedStartTime: string;
-  selectedEndTime: string;
+  startDateControl = new FormControl(moment());
+  endDateControl = new FormControl(this.startDateControl.value);
+  selectedStartTime = new FormControl();
+  selectedEndTime = new FormControl;
   recurrentEvent = false;
   selectedDays = new FormControl();
   private disposables = [];
@@ -90,5 +86,12 @@ export class EventCreationComponent implements OnInit, OnDestroy {
 
   createPlace() {
     // TODO
+  }
+
+  saveEvent() {
+    console.log('selected kind of match: ' + this.selectedKindOfMatch);
+    console.log('selected place: ' + this.selectedPlaceId);
+    console.log('selected opponent: ' + this.selectedOpponentId);
+    console.log('selected start date: ' + JSON.stringify(this.startDateControl.value));
   }
 }

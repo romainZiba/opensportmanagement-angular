@@ -1,13 +1,14 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {InjectionToken, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'; // <-- NgModel lives here
+import {MatMomentDateModule, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
 import {
   MatButtonModule,
   MatCheckboxModule,
   MatChipsModule,
   MatInputModule,
   MatListModule,
-  MatNativeDateModule,
   MatPaginatorModule,
   MatRadioModule
 } from '@angular/material';
@@ -51,7 +52,6 @@ import {PlaceService} from './services/place.service';
 import {HelperService} from './services/helper.service';
 import {OpponentService} from './services/opponent.service';
 
-
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
@@ -59,6 +59,18 @@ export function tokenGetter() {
 export const API_URL = new InjectionToken<string>('apiUrl');
 
 registerLocaleData(localeFr, 'fr');
+
+// export const MY_FORMATS = {
+//   parse: {
+//     dateInput: 'LL',
+//   },
+//   display: {
+//     dateInput: 'LL',
+//     monthYearLabel: 'MMM YYYY',
+//     dateA11yLabel: 'LL',
+//     monthYearA11yLabel: 'MMMM YYYY',
+//   },
+// };
 
 const stompConfig: StompConfig = {
   url: `wss://${environment.host}:${environment.port}/messagesWS/websocket`,
@@ -80,8 +92,6 @@ const stompConfig: StompConfig = {
   // Will log diagnostics on console
   debug: true
 };
-
-
 
 @NgModule({
   declarations: [
@@ -115,7 +125,7 @@ const stompConfig: StompConfig = {
     SpeedDialModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatNativeDateModule,
+    MatMomentDateModule,
     AmazingTimePickerModule,
     MatRadioModule,
     // Other modules
@@ -143,7 +153,10 @@ const stompConfig: StompConfig = {
     {provide: API_URL, useValue: environment.apiUrl},
     {provide: HTTP_INTERCEPTORS, useClass: ApiUrlInterceptor, multi: true, deps: [API_URL]},
     StompService,
-    {provide: StompConfig, useValue: stompConfig}
+    {provide: StompConfig, useValue: stompConfig},
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    // {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
   ],
   bootstrap: [AppComponent]
 })

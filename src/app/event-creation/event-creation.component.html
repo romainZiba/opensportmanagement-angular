@@ -27,14 +27,14 @@
   <div class="row">
     <div class="col-sm-6 align-items-end">
       <mat-form-field class="mr-5">
-        <input matInput [min]="minDate" placeholder="Start date*" [matDatepicker]="startDatePicker" [formControl]="selectedStartDate" >
+        <input matInput [min]="minDate" placeholder="Start date*" [matDatepicker]="startDatePicker" [formControl]="startDateControl" >
         <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #startDatePicker></mat-datepicker>
       </mat-form-field>
     </div>
     <div class="col-sm-6">
       <mat-form-field>
-        <input matInput type="time" atp-time-picker placeholder="Start time" value="20:00">
+        <input matInput type="time" atp-time-picker placeholder="Start time" value="20:00" [formControl]="selectedStartTime">
       </mat-form-field>
     </div>
   </div>
@@ -42,14 +42,14 @@
   <div class="row">
     <div class="col-sm-6 align-items-end">
       <mat-form-field class="mr-5">
-        <input matInput [min]="selectedStartDate.value" placeholder="End date" [matDatepicker]="endDatePicker" [formControl]="selectedEndDate" >
+        <input matInput [min]="startDateControl.value" placeholder="End date" [matDatepicker]="endDatePicker" [formControl]="endDateControl" >
         <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #endDatePicker></mat-datepicker>
       </mat-form-field>
     </div>
     <div class="col-sm-6">
       <mat-form-field>
-        <input matInput type="time" atp-time-picker placeholder="End time" value="22:30">
+        <input matInput type="time" atp-time-picker placeholder="End time" value="22:30" [formControl]="selectedEndTime">
       </mat-form-field>
     </div>
   </div>
@@ -99,7 +99,7 @@
   <div class="row">
     <div class="col-12">
       <button class="mr-2" mat-raised-button color="primary">CANCEL</button>
-      <button mat-raised-button color="primary">SAVE</button>
+      <button mat-raised-button color="primary" (click)="saveEvent()">SAVE</button>
     </div>
   </div>
 </div>
