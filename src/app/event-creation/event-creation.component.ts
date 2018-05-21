@@ -1,13 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {DateAdapter} from '@angular/material';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DateAdapter, ErrorStateMatcher, MatSnackBar} from '@angular/material';
 import {AmazingTimePickerService} from '../atp-library/atp-time-picker.service';
-import {FormControl} from '@angular/forms';
+import {FormControl, Validators} from '@angular/forms';
 import {PlaceService} from '../services/place.service';
 import {HelperService} from '../services/helper.service';
 import {OpponentService} from '../services/opponent.service';
 import {Opponent} from '../model/opponent';
 import * as moment from 'moment';
+import {Moment} from 'moment';
+import {EventCreation} from '../model/event';
+import {TeamService} from '../services/team.service';
 
 @Component({
   selector: 'app-event-creation',
@@ -16,6 +19,7 @@ import * as moment from 'moment';
 })
 export class EventCreationComponent implements OnInit, OnDestroy {
 
+  selectedTeamId: number;
   eventType: string;
 
   placesByGroup = [];
@@ -24,22 +28,30 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   opponents: Opponent[];
 
+  nameMatcher = new ErrorStateMatcher();
+  toDateMatcher = new ErrorStateMatcher();
+
+  nameControl = new FormControl('', [Validators.required]);
   placeControl = new FormControl();
   opponentControl = new FormControl();
   selectedKindOfMatch: string; // Home, away, or none
   selectedPlaceId: number;
   selectedOpponentId: number;
-  startDateControl = new FormControl(moment());
-  endDateControl = new FormControl(this.startDateControl.value);
-  selectedStartTime = new FormControl();
-  selectedEndTime = new FormControl;
+  fromDateControl = new FormControl(moment());
+  toDateControl = new FormControl(this.fromDateControl.value);
+  fromTimeControl = new FormControl('20:00');
+  toTimeControl = new FormControl('22:30');
   recurrentEvent = false;
-  selectedDays = new FormControl();
+  daysControl = new FormControl([]);
+  selectedDays = [];
   private disposables = [];
 
   constructor(private route: ActivatedRoute,
-              private adapter: DateAdapter<any>,
+              private router: Router,
+              private snackBar: MatSnackBar,
+              private adapter: DateAdapter<Moment>,
               private atp: AmazingTimePickerService,
+              private teamService: TeamService,
               private placeService: PlaceService,
               private helperService: HelperService,
               private opponentService: OpponentService) { }
@@ -50,23 +62,29 @@ export class EventCreationComponent implements OnInit, OnDestroy {
       this.route.data.subscribe(value => this.eventType = value['eventtype'])
     );
     this.disposables.push(
-      this.placeService.getPlaces().subscribe(places => {
-        const groups = this.helperService.groupBy(places, 'type');
-        const types = Object.keys(groups);
-        const self = this;
-        types.forEach(function (type) {
-          self.placesByGroup.push({
-            type: type,
-            places: groups[type]
+      this.teamService.selectedTeam$
+        .flatMap(selectedTeam => {
+          this.selectedTeamId = selectedTeam._id;
+          return this.placeService.getPlaces(this.selectedTeamId);
+        })
+        .subscribe(places => {
+          const groups = this.helperService.groupBy(places, 'type');
+          const types = Object.keys(groups);
+          const self = this;
+          types.forEach(function (type) {
+            self.placesByGroup.push({
+              type: type,
+              places: groups[type]
+            });
           });
-        });
-      })
+        })
     );
-    this.disposables.push(
-      this.opponentService.getOpponents().subscribe(opponents => {
-        this.opponents = opponents;
-      })
-    );
+    // this.disposables.push(
+    //   this.opponentService.getOpponents().subscribe(opponents => {
+    //     this.opponents = opponents;
+    //   })
+    // );
+
     if (this.eventType === 'training') {
       this.recurrentEvent = true;
     }
@@ -89,9 +107,30 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   }
 
   saveEvent() {
-    console.log('selected kind of match: ' + this.selectedKindOfMatch);
-    console.log('selected place: ' + this.selectedPlaceId);
-    console.log('selected opponent: ' + this.selectedOpponentId);
-    console.log('selected start date: ' + JSON.stringify(this.startDateControl.value));
+    const eventCreation = new EventCreation();
+    eventCreation.name = this.nameControl.value;
+    eventCreation.fromDate = this.fromDateControl.value;
+    eventCreation.toDate = this.toDateControl.value;
+    eventCreation.fromTime = this.fromTimeControl.value;
+    eventCreation.toTime = this.toTimeControl.value;
+    eventCreation.placeId = this.selectedPlaceId;
+    eventCreation.isRecurrent = this.recurrentEvent;
+    eventCreation.recurrenceDays = this.selectedDays.map((day: string) => day.toUpperCase());
+    this.disposables.push(
+      this.teamService.createEvent(this.selectedTeamId, eventCreation).subscribe(response => {
+        if (response.status === 201) {
+          this.openSnackBar('Event successfully created');
+          this.router.navigate(['/event-list']);
+        } else {
+          this.openSnackBar('An error occurred');
+        }
+      })
+    );
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message,  '',  {
+      duration: 2000,
+    });
   }
 }

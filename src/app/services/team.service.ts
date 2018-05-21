@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Team} from '../model/team';
-import {Event} from '../model/event';
+import {Event, EventCreation} from '../model/event';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {AppSettings} from '../app-settings';
 import {TeamMember} from '../model/team-member';
@@ -43,5 +43,9 @@ export class TeamService {
 
   participate(eventId: number, isParticipating: boolean): Observable<Event> {
     return this.http.put<Event>(`/events/${eventId}/${isParticipating}`, '', { withCredentials: true });
+  }
+
+  createEvent(teamId: number, event: EventCreation): Observable<HttpResponse<any>> {
+    return this.http.post(`/teams/${teamId}/events`, event, { observe: 'response', withCredentials: true });
   }
 }

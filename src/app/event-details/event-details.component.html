@@ -4,7 +4,8 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>{{ event.name }}</mat-card-title>
-      <mat-card-subtitle>{{ event.fromDate | date:'fullDate':'':'fr' }} {{ event.fromDate | date:'shortTime':'':'fr' }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ event.fromDateTime | date:'fullDate':'':'fr' }} {{ event.fromDateTime |
+        date:'shortTime':'':'fr' }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
 

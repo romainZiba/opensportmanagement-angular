@@ -13,8 +13,8 @@
           <h5>{{event.name}}</h5>
           <span>{{event.presentMembers.length}} participants</span>
         </div>
-        <p>{{ event.fromDate | date:'fullDate':'':'fr' }}</p>
-        <p>{{ event.fromDate | date:'shortTime':'':'fr' }}</p>
+        <p>{{ event.fromDateTime | date:'fullDate':'':'fr' }}</p>
+        <p>{{ event.fromDateTime | date:'shortTime':'':'fr' }}</p>
 
         <div class="row d-flex align-items-center" *ngIf="event.done != null">
           <div class="col-4 text-center"><img class="img-fluid" src="{{event.localTeamImgUrl}}"></div>

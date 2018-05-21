@@ -1,11 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Place} from '../model/place';
 import {Observable} from 'rxjs/Observable';
+import {Team} from '../model/team';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class PlaceService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   private fakePlaces = [
     new Place(0, 'Stade Jean Mermoz', '97 Chemin d\'Aussonne, 31700 Blagnac, France', 'Stadium'),
@@ -15,7 +17,7 @@ export class PlaceService {
     new Place(4, 'Les sales gosses', '...', 'Other')
   ];
 
-  getPlaces(): Observable<Place[]> {
-    return Observable.of(this.fakePlaces);
+  getPlaces(teamId: number): Observable<Place[]> {
+    return this.http.get<Place[]>(`/teams/${teamId}/places`, { withCredentials: true });
   }
 }

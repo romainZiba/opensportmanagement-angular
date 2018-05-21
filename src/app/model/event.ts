@@ -4,8 +4,8 @@ export class Event {
   _id: number;
   name: string;
   description: string;
-  fromDate: string;
-  toDate: string;
+  fromDateTime: string;
+  toDateTime: string;
   placeId: number;
   done: boolean;
   localTeamName: string;
@@ -17,4 +17,15 @@ export class Event {
   presentMembers: TeamMember[];
   absentMembers: TeamMember[];
   waitingMembers: TeamMember[];
+}
+
+export class EventCreation {
+  name: string;
+  fromDate: string;
+  toDate: string;
+  fromTime: string;
+  toTime: string;
+  placeId: number;
+  isRecurrent: boolean;
+  recurrenceDays: string[];
 }
