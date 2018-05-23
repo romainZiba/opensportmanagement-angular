@@ -1,0 +1,56 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/opensportmanagement
+    docker:
+      - image: circleci/node:10.1.0-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install angular cli
+          command: sudo npm install -g @angular/cli
+      - run:
+          name: install-dependencies
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: angular-build
+          command: ng build --prod
+      - save_cache:
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+              - dist
+
+  # The deploy job
+  deploy:
+    working_directory: ~/opensportmanagement
+    machine: true
+    steps:
+      - restore_cache:
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          name: Remove existing folder and copy dist folder over SSH
+          command: |
+            ssh $SSH_USER@$SSH_HOST "rm -rf ~/opensportmanagement-angular/*"
+            scp -r dist/* $SSH_USER@$SSH_HOST:~/opensportmanagement-angular/
+      - run:
+          name: Launch the HTTP server
+          command: |
+            ssh $SSH_USER@$SSH_HOST "screen -dmS front http-server ~/opensportmanagement-angular/ -p $ALLOWED_PORT -S -K $PRIVKEY_PATH -C $CERT_PATH"
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
