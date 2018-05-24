@@ -7,6 +7,7 @@ import {MatDrawer} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import {NavigationEnd, Router} from '@angular/router';
 import {Location} from '@angular/common';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-toolbar',
@@ -23,7 +24,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   availableTeams: Team[];
   selectedTeam$: Observable<Team>;
 
-  disposables = [];
+  subscriptions = new Subscription();
   displayMenu = true;
 
 
@@ -33,7 +34,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
               private location: Location) { }
 
   ngOnInit() {
-    this.disposables.push(
+    this.subscriptions.add(
       this.userService.isLoggedIn.subscribe(logged => {
         // Only retrieve teams when the logged status is changing from false to true
         if (this.isLoggedIn === false && logged) {
@@ -46,7 +47,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.lastName$ = this.userService.userLastName$;
     this.selectedTeam$ = this.teamService.selectedTeam$;
 
-    this.disposables.push(
+    this.subscriptions.add(
       this.router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
           if (event.url === '/event-list') {
@@ -65,7 +66,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
 
   getTeams() {
-    this.disposables.push(
+    this.subscriptions.add(
       this.teamService.getTeams().subscribe(teams => {
         this.availableTeams = teams;
         const selectedTeamId = localStorage.getItem(AppSettings.currentTeamIdKey);
@@ -93,10 +94,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.disposables.forEach(function(sub) {
-      if (sub !== undefined) {
-        sub.unsubscribe();
-      }
-    });
+    this.subscriptions.unsubscribe();
   }
 }

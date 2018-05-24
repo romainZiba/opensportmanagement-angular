@@ -11,6 +11,7 @@ import * as moment from 'moment';
 import {Moment} from 'moment';
 import {EventCreation} from '../model/event';
 import {TeamService} from '../services/team.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-event-creation',
@@ -44,7 +45,7 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   recurrentEvent = false;
   daysControl = new FormControl([]);
   selectedDays = [];
-  private disposables = [];
+  private subscriptions = new Subscription();
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -58,10 +59,10 @@ export class EventCreationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.adapter.setLocale('fr');
-    this.disposables.push(
+    this.subscriptions.add(
       this.route.data.subscribe(value => this.eventType = value['eventtype'])
     );
-    this.disposables.push(
+    this.subscriptions.add(
       this.teamService.selectedTeam$
         .flatMap(selectedTeam => {
           this.selectedTeamId = selectedTeam._id;
@@ -70,32 +71,15 @@ export class EventCreationComponent implements OnInit, OnDestroy {
         .subscribe(places => {
           const groups = this.helperService.groupBy(places, 'type');
           const types = Object.keys(groups);
-          const self = this;
-          types.forEach(function (type) {
-            self.placesByGroup.push({
-              type: type,
-              places: groups[type]
-            });
+          this.placesByGroup = types.map(function(type) {
+            return { type: type, places: groups[type] };
           });
         })
     );
-    // this.disposables.push(
-    //   this.opponentService.getOpponents().subscribe(opponents => {
-    //     this.opponents = opponents;
-    //   })
-    // );
 
     if (this.eventType === 'training') {
       this.recurrentEvent = true;
     }
-  }
-
-  ngOnDestroy() {
-    this.disposables.forEach(function(sub) {
-      if (sub !== undefined) {
-        sub.unsubscribe();
-      }
-    });
   }
 
   createOpponent() {
@@ -116,7 +100,7 @@ export class EventCreationComponent implements OnInit, OnDestroy {
     eventCreation.placeId = this.selectedPlaceId;
     eventCreation.isRecurrent = this.recurrentEvent;
     eventCreation.recurrenceDays = this.selectedDays.map((day: string) => day.toUpperCase());
-    this.disposables.push(
+    this.subscriptions.add(
       this.teamService.createEvent(this.selectedTeamId, eventCreation).subscribe(response => {
         if (response.status === 201) {
           this.openSnackBar('Event successfully created');
@@ -132,5 +116,9 @@ export class EventCreationComponent implements OnInit, OnDestroy {
     this.snackBar.open(message,  '',  {
       duration: 2000,
     });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

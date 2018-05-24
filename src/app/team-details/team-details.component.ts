@@ -3,6 +3,7 @@ import {TeamMember} from '../model/team-member';
 import {TeamService} from '../services/team.service';
 import {Observable} from 'rxjs/Observable';
 import {Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-team-details',
@@ -12,13 +13,13 @@ import {Router} from '@angular/router';
 export class TeamDetailsComponent implements OnInit, OnDestroy {
 
   teamMembers: TeamMember[];
-  disposables = [];
+  subscriptions = new Subscription();
 
   constructor(private teamService: TeamService,
               private router: Router) { }
 
   ngOnInit() {
-    this.disposables.push(
+    this.subscriptions.add(
       this.teamService.selectedTeam$
         .flatMap(team => {
           if (team !== null && team !== undefined) {
@@ -30,15 +31,11 @@ export class TeamDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
-    this.disposables.forEach(function(sub) {
-      if (sub !== undefined) {
-        sub.unsubscribe();
-      }
-    });
-  }
-
   inviteMembers() {
     this.router.navigate(['/invite-members']);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

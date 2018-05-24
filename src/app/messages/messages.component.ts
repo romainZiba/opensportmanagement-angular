@@ -6,6 +6,7 @@ import {AppMessage} from '../model/AppMessage';
 import {UserService} from '../services/user.service';
 import {Observable} from 'rxjs/Observable';
 import {StompService} from '@stomp/ng2-stompjs';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-messages',
@@ -13,7 +14,7 @@ import {StompService} from '@stomp/ng2-stompjs';
   styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent implements OnInit, OnDestroy, AfterViewChecked {
-  disposables = [];
+  subscriptions = new Subscription();
   messages: AppMessage[];
   username$: Observable<string>;
   userMessage: string;
@@ -26,7 +27,7 @@ export class MessagesComponent implements OnInit, OnDestroy, AfterViewChecked {
               private stompService: StompService) { }
 
   ngOnInit() {
-    this.disposables.push(
+    this.subscriptions.add(
       this.route.paramMap.pipe(
         switchMap((params: ParamMap) => {
           this.eventId = params.get('id');
@@ -42,7 +43,7 @@ export class MessagesComponent implements OnInit, OnDestroy, AfterViewChecked {
         const msg = JSON.parse(msg_body) as AppMessage;
         this.messages.push(msg);
       });
-    this.disposables.push(wsSubscription);
+    this.subscriptions.add(wsSubscription);
     this.scrollToBottom();
   }
 
@@ -56,17 +57,13 @@ export class MessagesComponent implements OnInit, OnDestroy, AfterViewChecked {
     } catch (err) { }
   }
 
-  ngOnDestroy() {
-    this.disposables.forEach(function(sub) {
-      if (sub !== undefined) {
-        sub.unsubscribe();
-      }
-    });
-  }
-
   sendMessage() {
     this.eventService.postMessage(this.eventId, this.userMessage)
       .subscribe();
     this.userMessage = '';
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }
