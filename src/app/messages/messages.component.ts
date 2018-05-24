@@ -27,15 +27,14 @@ export class MessagesComponent implements OnInit, OnDestroy, AfterViewChecked {
               private stompService: StompService) { }
 
   ngOnInit() {
-    this.subscriptions.add(
-      this.route.paramMap.pipe(
-        switchMap((params: ParamMap) => {
-          this.eventId = params.get('id');
-          return this.eventService.getMessages(params.get('id'));
-        })
-      ).subscribe(messages => this.messages = messages)
-    );
     this.username$ = this.userService.username$;
+
+    const routeSubscription = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => {
+        this.eventId = params.get('id');
+        return this.eventService.getMessages(params.get('id'));
+      })
+    ).subscribe(messages => this.messages = messages);
     // TODO: refactor this, client should not be supposed to know the way conversation id is built
     const wsSubscription = this.stompService.subscribe(`/topic/conversation_${this.eventId}`)
       .map(message => message.body)
@@ -43,7 +42,7 @@ export class MessagesComponent implements OnInit, OnDestroy, AfterViewChecked {
         const msg = JSON.parse(msg_body) as AppMessage;
         this.messages.push(msg);
       });
-    this.subscriptions.add(wsSubscription);
+    this.subscriptions.add(wsSubscription).add(routeSubscription);
     this.scrollToBottom();
   }
 
@@ -58,8 +57,7 @@ export class MessagesComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   sendMessage() {
-    this.eventService.postMessage(this.eventId, this.userMessage)
-      .subscribe();
+    this.eventService.postMessage(this.eventId, this.userMessage);
     this.userMessage = '';
   }
 

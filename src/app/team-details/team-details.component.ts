@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TeamMember} from '../model/team-member';
 import {TeamService} from '../services/team.service';
-import {Observable} from 'rxjs/Observable';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
+import {List} from 'immutable';
 
 @Component({
   selector: 'app-team-details',
@@ -12,7 +12,7 @@ import {Subscription} from 'rxjs/Subscription';
 })
 export class TeamDetailsComponent implements OnInit, OnDestroy {
 
-  teamMembers: TeamMember[];
+  teamMembers: List<TeamMember>;
   subscriptions = new Subscription();
 
   constructor(private teamService: TeamService,
@@ -20,14 +20,10 @@ export class TeamDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.add(
-      this.teamService.selectedTeam$
-        .flatMap(team => {
-          if (team !== null && team !== undefined) {
-            return this.teamService.getTeamMembers(team._id);
-          }
-          return Observable.of([]);
-        })
-        .subscribe(members => this.teamMembers = members)
+      this.teamService.selectedTeam$.subscribe(team => this.teamService.getTeamMembers(team._id))
+    );
+    this.subscriptions.add(
+      this.teamService.teamMembers$.subscribe(members => this.teamMembers = members)
     );
   }
 

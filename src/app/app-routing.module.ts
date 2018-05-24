@@ -9,6 +9,7 @@ import {UserDetailsComponent} from './user-details/user-details.component';
 import {MemberInvitationComponent} from './member-invitation/member-invitation.component';
 import {MessagesComponent} from './messages/messages.component';
 import {EventCreationComponent} from './event-creation/event-creation.component';
+import {TeamCreationComponent} from './team-creation/team-creation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/event-list', pathMatch: 'full' },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'user-details', component: UserDetailsComponent, canActivate: [AuthGuardService] },
   { path: 'events/:id', component: EventDetailsComponent, canActivate: [AuthGuardService] },
   { path: 'invite-members', component: MemberInvitationComponent, canActivate: [AuthGuardService] },
-  { path: 'events/:id/messages', component: MessagesComponent, canActivate: [AuthGuardService] }
+  { path: 'events/:id/messages', component: MessagesComponent, canActivate: [AuthGuardService] },
+  { path: 'new-team', component: TeamCreationComponent, canActivate: [AuthGuardService] }
 ];
 
 @NgModule({

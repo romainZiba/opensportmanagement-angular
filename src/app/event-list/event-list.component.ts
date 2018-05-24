@@ -27,14 +27,13 @@ export class EventListComponent implements OnInit, OnDestroy {
   ];
   hasLabels = true;
   selectedTeam: Team;
-  selectedTeamSubscription: Subscription;
-  eventsSubscription: Subscription;
-  participationSubscription: Subscription;
+  subscriptions = new Subscription();
 
   constructor(private eventService: EventService,
               private teamService: TeamService,
               private router: Router) { }
 
+  // TODO: refactor duplicated code
   isUserPresent(event: Event): Presence {
     const currentUsername = localStorage.getItem(AppSettings.currentUsernameKey);
     if (event.presentMembers.map(member => member.username).indexOf(currentUsername) > -1) {
@@ -46,32 +45,41 @@ export class EventListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.selectedTeamSubscription = this.teamService.selectedTeam$.subscribe(team => {
-      if (team !== null && team !== undefined) {
-        this.selectedTeam = team;
-        this.loadEvents();
-      }
-    });
+    this.subscriptions.add(
+      this.teamService.selectedTeam$.subscribe(team => {
+        if (team !== null && team !== undefined) {
+          this.selectedTeam = team;
+          this.loadEvents();
+        }
+      })
+    );
+
+    this.subscriptions.add(
+      this.eventService.events$.subscribe(response => {
+        if (response.hasOwnProperty('page')) {
+          this.totalElements = response['page']['totalElements'];
+          this.currentPage = response['page']['number'];
+          this.pageSize = response['page']['size'];
+          if (this.totalElements > 0) {
+            this.events = response['_embedded']['eventDtoes'];
+          } else {
+            this.events = [];
+          }
+        }
+      })
+    );
   }
 
   loadEvents(page = this.currentPage, size = this.pageSize) {
-    this.eventsSubscription = this.eventService.getEvents(this.selectedTeam._id,  page, size).subscribe(response => {
-      this.totalElements = response['page']['totalElements'];
-      this.currentPage = response['page']['number'];
-      this.pageSize = response['page']['size'];
-      if (this.totalElements > 0) {
-        this.events = response['_embedded']['eventDtoes'];
-      } else {
-        this.events = [];
-      }
-    });
+    this.eventService.getEvents(this.selectedTeam._id,  page, size);
   }
 
   participate(matchId: number, isParticipating: boolean) {
-    this.participationSubscription = this.teamService.participate(matchId, isParticipating).subscribe(event => {
-      const index = this.events.map(e => e._id).indexOf(event._id);
-      this.events[index] = event;
-    });
+    this.subscriptions.add(this.teamService.participate(matchId, isParticipating).subscribe(event => {
+        const index = this.events.map(e => e._id).indexOf(event._id);
+        this.events[index] = event;
+      })
+    );
   }
 
   showDetails(eventId: number) {
@@ -79,15 +87,7 @@ export class EventListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.selectedTeamSubscription !== undefined) {
-      this.selectedTeamSubscription.unsubscribe();
-    }
-    if (this.participationSubscription !== undefined) {
-      this.participationSubscription.unsubscribe();
-    }
-    if (this.eventsSubscription !== undefined) {
-      this.eventsSubscription.unsubscribe();
-    }
+    this.subscriptions.unsubscribe();
   }
 
   showEventCreationPanel(url: string) {

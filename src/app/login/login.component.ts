@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../services/user.service';
-import {HttpResponse} from '@angular/common/http';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -14,7 +13,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   username = '';
   password = '';
   hide = true;
-  authenticationSubscription: Subscription;
+  subscriptions = new Subscription();
 
   constructor(private router: Router,
               private userService: UserService) { }
@@ -23,16 +22,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onClick(): void {
-    this.authenticationSubscription = this.userService.authenticate(this.username, this.password).subscribe(
-      (response: HttpResponse<any>) => {
-        this.router.navigate(['', 'event-list']);
-      }
+    this.subscriptions.add(
+      this.userService.authenticate(this.username, this.password).subscribe(() => this.router.navigate(['event-list']))
     );
   }
 
   ngOnDestroy() {
-    if (this.authenticationSubscription !== undefined) {
-      this.authenticationSubscription.unsubscribe();
-    }
+    this.subscriptions.unsubscribe();
   }
 }

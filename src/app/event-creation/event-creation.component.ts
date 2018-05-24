@@ -59,27 +59,29 @@ export class EventCreationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.adapter.setLocale('fr');
-    this.subscriptions.add(
-      this.route.data.subscribe(value => this.eventType = value['eventtype'])
-    );
-    this.subscriptions.add(
-      this.teamService.selectedTeam$
-        .flatMap(selectedTeam => {
-          this.selectedTeamId = selectedTeam._id;
-          return this.placeService.getPlaces(this.selectedTeamId);
-        })
-        .subscribe(places => {
-          const groups = this.helperService.groupBy(places, 'type');
-          const types = Object.keys(groups);
-          this.placesByGroup = types.map(function(type) {
-            return { type: type, places: groups[type] };
-          });
-        })
-    );
-
+    const routeSubscription = this.route.data.subscribe(value => this.eventType = value['eventtype']);
+    const selectedTeamSubscription = this.teamService.selectedTeam$.subscribe(team => {
+      if (team !== null) {
+        this.selectedTeamId = team._id;
+        this.placeService.getPlaces(this.selectedTeamId);
+      }
+    });
+    const placesSubscription = this.placeService.places$.subscribe(places => {
+      if (!places.isEmpty()) {
+        const map = places.groupBy(place => place.type);
+        // const groups = this.helperService.groupBy(places, 'type');
+        // const types = Object.keys(groups);
+        // console.log(places);
+        // this.placesByGroup = types.map(function(type) {
+        //   return { type: type, places: groups[type] };
+        // });
+        console.log('placesByGroup is ' + JSON.stringify(map));
+      }
+    });
     if (this.eventType === 'training') {
       this.recurrentEvent = true;
     }
+    this.subscriptions.add(routeSubscription).add(selectedTeamSubscription).add(placesSubscription);
   }
 
   createOpponent() {
@@ -100,16 +102,11 @@ export class EventCreationComponent implements OnInit, OnDestroy {
     eventCreation.placeId = this.selectedPlaceId;
     eventCreation.isRecurrent = this.recurrentEvent;
     eventCreation.recurrenceDays = this.selectedDays.map((day: string) => day.toUpperCase());
-    this.subscriptions.add(
-      this.teamService.createEvent(this.selectedTeamId, eventCreation).subscribe(response => {
-        if (response.status === 201) {
-          this.openSnackBar('Event successfully created');
-          this.router.navigate(['/event-list']);
-        } else {
-          this.openSnackBar('An error occurred');
-        }
-      })
-    );
+    this.teamService.createEvent(this.selectedTeamId, eventCreation)
+      .then(() => {
+        this.openSnackBar('Event successfully created');
+        this.router.navigate(['/event-list']);
+      }, () => this.openSnackBar('An error occurred'));
   }
 
   openSnackBar(message: string) {

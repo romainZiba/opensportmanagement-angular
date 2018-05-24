@@ -51,6 +51,7 @@ import {AmazingTimePickerModule} from './atp-library/atp-time-picker.module';
 import {PlaceService} from './services/place.service';
 import {HelperService} from './services/helper.service';
 import {OpponentService} from './services/opponent.service';
+import { TeamCreationComponent } from './team-creation/team-creation.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -105,6 +106,7 @@ const stompConfig: StompConfig = {
     MemberInvitationComponent,
     MessagesComponent,
     EventCreationComponent,
+    TeamCreationComponent,
   ],
   imports: [
     BrowserModule,

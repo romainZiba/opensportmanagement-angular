@@ -1,0 +1,9 @@
+<div class="container mt-3 d-flex flex-column">
+  <mat-form-field>
+    <input matInput placeholder="Name" [(ngModel)]="name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Sport" [(ngModel)]="sport">
+  </mat-form-field>
+  <button class="align-self-end" mat-raised-button color="primary" (click)="createTeam(name, sport)">CREATE</button>
+</div>

@@ -12,8 +12,10 @@
     <div class="dropdown-menu dropdown-menu-right">
       <button class="dropdown-item" type="button" (click)="showUserDetails()"><mat-icon class="fas fa-user mr-2"></mat-icon>My profile</button>
       <div class="dropdown-divider"></div>
-      <h6 class="dropdown-header">Team selection</h6>
-      <button class="dropdown-item" type="button" *ngFor="let team of availableTeams" (click)="chooseTeam(team)">{{ team.name }}</button>
+      <h6 class="dropdown-header">Select your team</h6>
+      <button class="dropdown-item" type="button" *ngFor="let team of (availableTeams$ | async)" (click)="chooseTeam(team)">{{ team.name }}</button>
+      <div class="dropdown-divider"></div>
+      <button class="dropdown-item" type="button" (click)="createTeam()">Create a new team</button>
       <div class="dropdown-divider"></div>
       <button class="dropdown-item" type="button" (click)="logOut()"><mat-icon class="fas fa-sign-out-alt mr-2"></mat-icon>Logout</button>
     </div>
