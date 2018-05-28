@@ -1,0 +1,11 @@
+<mat-form-field>
+  <input matInput placeholder="Name" [(ngModel)]="name">
+</mat-form-field>
+<mat-form-field>
+  <input matInput placeholder="Phone number" [(ngModel)]="phoneNumber">
+</mat-form-field>
+<mat-form-field>
+  <input matInput placeholder="Email" [(ngModel)]="email">
+</mat-form-field>
+<button class="align-self-end" mat-button (click)="cancel()">CANCEL</button>
+<button class="align-self-end" mat-button (click)="createOpponent(name, phoneNumber, email)">CREATE</button>

@@ -12,6 +12,7 @@ import {EventCreation} from '../model/event';
 import {TeamService} from '../services/team.service';
 import {Subscription} from 'rxjs/Subscription';
 import {PlaceCreationComponent} from '../place-creation/place-creation.component';
+import {OpponentCreationComponent} from '../opponent-creation/opponent-creation.component';
 
 @Component({
   selector: 'app-event-creation',
@@ -64,6 +65,7 @@ export class EventCreationComponent implements OnInit, OnDestroy {
       if (team !== null) {
         this.selectedTeamId = team._id;
         this.placeService.getPlaces(this.selectedTeamId);
+        this.opponentService.getOpponents(this.selectedTeamId);
       }
     });
     const placesSubscription = this.placeService.places$.subscribe(places => {
@@ -71,18 +73,27 @@ export class EventCreationComponent implements OnInit, OnDestroy {
         this.placesByGroup = places.groupBy(place => place.type).toJS();
       }
     });
+    const opponentsSubscription = this.opponentService.opponents$.subscribe(opponents => {
+      this.opponents = opponents.toJS();
+    });
     if (this.eventType === 'training') {
       this.recurrentEvent = true;
     }
-    this.subscriptions.add(routeSubscription).add(selectedTeamSubscription).add(placesSubscription);
+    this.subscriptions.add(routeSubscription)
+      .add(selectedTeamSubscription)
+      .add(placesSubscription)
+      .add(opponentsSubscription);
   }
 
   createOpponent() {
-    // TODO
+    this.dialog.open(OpponentCreationComponent, {
+      height: '400px',
+      width: '600px',
+    });
   }
 
   createPlace() {
-    const dialogRef = this.dialog.open(PlaceCreationComponent, {
+    this.dialog.open(PlaceCreationComponent, {
       height: '400px',
       width: '600px',
     });

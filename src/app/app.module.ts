@@ -52,6 +52,7 @@ import {PlaceService} from './services/place.service';
 import {OpponentService} from './services/opponent.service';
 import {TeamCreationComponent} from './team-creation/team-creation.component';
 import {PlaceCreationComponent} from './place-creation/place-creation.component';
+import { OpponentCreationComponent } from './opponent-creation/opponent-creation.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -108,6 +109,7 @@ const stompConfig: StompConfig = {
     EventCreationComponent,
     TeamCreationComponent,
     PlaceCreationComponent,
+    OpponentCreationComponent,
   ],
   imports: [
     BrowserModule,
@@ -162,7 +164,8 @@ const stompConfig: StompConfig = {
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ],
   entryComponents: [
-    PlaceCreationComponent
+    PlaceCreationComponent,
+    OpponentCreationComponent
   ],
   bootstrap: [AppComponent]
 })

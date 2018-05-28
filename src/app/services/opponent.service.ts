@@ -1,19 +1,30 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import {Opponent} from '../model/opponent';
+import {List} from 'immutable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class OpponentService {
+  private opponentsSource = new BehaviorSubject<List<Opponent>>(List());
 
-  constructor() { }
+  readonly opponents$ = this.opponentsSource.asObservable();
 
-  private fakeOpponents = [
-    new Opponent(0, 'Houston Rockets', '0010939300393', 'opponent@gmail.com', ''),
-    new Opponent(0, 'Golden\'s State Warriors', '0010939300393', 'opponent@gmail.com', ''),
-    new Opponent(0, 'San Antonio Spurs', '0010939300393', 'opponent@gmail.com', ''),
-  ];
+  constructor(private http: HttpClient) { }
 
-  getOpponents(): Observable<Opponent[]> {
-    return Observable.of(this.fakeOpponents);
+  getOpponents(teamId: number) {
+    this.http.get<Opponent[]>(`/teams/${teamId}/opponents`, { withCredentials: true })
+      .subscribe(opponents => this.opponentsSource.next(List(opponents)));
+  }
+
+  createOpponent(teamId: number, opponent: Opponent): Promise<boolean> {
+    return new Promise(resolve => {
+      const subscription = this.http.post<Opponent>(`/teams/${teamId}/opponents`, opponent, {withCredentials: true})
+        .subscribe(createdOpponent => {
+          this.opponentsSource.next(this.opponentsSource.getValue().push(createdOpponent));
+          resolve(true);
+        }, error => error(false));
+      setTimeout(function() { subscription.unsubscribe(); }, 5000);
+    });
   }
 }
