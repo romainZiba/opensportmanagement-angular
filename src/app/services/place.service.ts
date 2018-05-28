@@ -23,7 +23,7 @@ export class PlaceService {
         .subscribe(createdPlace => {
           this.placesSource.next(this.placesSource.getValue().push(createdPlace));
           resolve(true);
-        }, error => error(false));
+        }, error => resolve(false));
       setTimeout(function() { subscription.unsubscribe(); }, 5000);
     });
   }

@@ -23,7 +23,7 @@ export class OpponentService {
         .subscribe(createdOpponent => {
           this.opponentsSource.next(this.opponentsSource.getValue().push(createdOpponent));
           resolve(true);
-        }, error => error(false));
+        }, error => resolve(false));
       setTimeout(function() { subscription.unsubscribe(); }, 5000);
     });
   }

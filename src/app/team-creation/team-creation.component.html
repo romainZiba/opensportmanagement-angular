@@ -3,7 +3,11 @@
     <input matInput placeholder="Name" [(ngModel)]="name">
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Sport" [(ngModel)]="sport">
+    <mat-select placeholder="Type" [(ngModel)]="selectedSport">
+      <mat-option *ngFor="let sport of sports" [value]="sport">
+        {{sport}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
-  <button class="align-self-end" mat-raised-button color="primary" (click)="createTeam(name, sport)">CREATE</button>
+  <button class="align-self-end" mat-raised-button color="primary" (click)="createTeam(name, selectedSport)">CREATE</button>
 </div>

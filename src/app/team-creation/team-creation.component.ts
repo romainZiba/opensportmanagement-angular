@@ -3,6 +3,7 @@ import {TeamService} from '../services/team.service';
 import {Subscription} from 'rxjs/Subscription';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
+import {List} from 'immutable';
 
 @Component({
   selector: 'app-team-creation',
@@ -12,13 +13,15 @@ import {Router} from '@angular/router';
 export class TeamCreationComponent implements OnInit, OnDestroy {
   subscriptions = new Subscription();
   name: string;
-  sport: string;
+  selectedSport: string;
+  sports: List<String>;
 
   constructor(private teamService: TeamService,
               private snackBar: MatSnackBar,
               private router: Router) { }
 
   ngOnInit() {
+    this.teamService.getSports().subscribe(sports => this.sports = sports);
   }
 
   createTeam(name: string, sport: string) {

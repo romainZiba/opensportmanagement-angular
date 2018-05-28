@@ -36,6 +36,10 @@ export class TeamService {
     setTimeout(function() { subscription.unsubscribe(); }, 5000);
   }
 
+  getSports(): Observable<List<string>> {
+    return Observable.of(List(['BASKETBALL', 'FOOTBALL', 'HANDBALL', 'OTHER']));
+  }
+
   selectTeam(team: Team) {
     localStorage.setItem(AppSettings.currentTeamIdKey, team._id.toString());
     this.selectedTeamSource.next(team);
@@ -54,9 +58,9 @@ export class TeamService {
   createEvent(teamId: number, event: EventCreation): Promise<boolean> {
     return new Promise(resolve => {
       const subscription = this.http.post(`/teams/${teamId}/events`, event, { observe: 'response', withCredentials: true })
-        .subscribe(createdEvent => {
+        .subscribe(() => {
           resolve(true);
-        }, error => error(false));
+        }, () => resolve(false));
       setTimeout(function() { subscription.unsubscribe(); }, 5000);
     });
   }
@@ -72,7 +76,7 @@ export class TeamService {
         .subscribe(createdTeam => {
           this.teamsSource.next(this.teamsSource.getValue().push(createdTeam));
           resolve(true);
-        }, error => error(false));
+        }, () => resolve(false));
       setTimeout(function() { subscription.unsubscribe(); }, 5000);
     });
   }
