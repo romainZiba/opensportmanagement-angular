@@ -16,4 +16,15 @@ export class PlaceService {
     this.http.get<Place[]>(`/teams/${teamId}/places`, { withCredentials: true })
       .subscribe(places => this.placesSource.next(List(places)));
   }
+
+  createPlace(teamId: number, place: Place): Promise<boolean> {
+    return new Promise(resolve => {
+      const subscription = this.http.post<Place>(`/teams/${teamId}/places`, place, {withCredentials: true})
+        .subscribe(createdPlace => {
+          this.placesSource.next(this.placesSource.getValue().push(createdPlace));
+          resolve(true);
+        }, error => error(false));
+      setTimeout(function() { subscription.unsubscribe(); }, 5000);
+    });
+  }
 }

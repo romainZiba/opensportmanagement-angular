@@ -1,10 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DateAdapter, ErrorStateMatcher, MatSnackBar} from '@angular/material';
+import {DateAdapter, ErrorStateMatcher, MatDialog, MatSnackBar} from '@angular/material';
 import {AmazingTimePickerService} from '../atp-library/atp-time-picker.service';
 import {FormControl, Validators} from '@angular/forms';
 import {PlaceService} from '../services/place.service';
-import {HelperService} from '../services/helper.service';
 import {OpponentService} from '../services/opponent.service';
 import {Opponent} from '../model/opponent';
 import * as moment from 'moment';
@@ -12,6 +11,7 @@ import {Moment} from 'moment';
 import {EventCreation} from '../model/event';
 import {TeamService} from '../services/team.service';
 import {Subscription} from 'rxjs/Subscription';
+import {PlaceCreationComponent} from '../place-creation/place-creation.component';
 
 @Component({
   selector: 'app-event-creation',
@@ -19,7 +19,7 @@ import {Subscription} from 'rxjs/Subscription';
   styleUrls: ['./event-creation.component.css']
 })
 export class EventCreationComponent implements OnInit, OnDestroy {
-
+  objectKeys = Object.keys;
   selectedTeamId: number;
   eventType: string;
 
@@ -54,8 +54,8 @@ export class EventCreationComponent implements OnInit, OnDestroy {
               private atp: AmazingTimePickerService,
               private teamService: TeamService,
               private placeService: PlaceService,
-              private helperService: HelperService,
-              private opponentService: OpponentService) { }
+              private opponentService: OpponentService,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
     this.adapter.setLocale('fr');
@@ -68,14 +68,7 @@ export class EventCreationComponent implements OnInit, OnDestroy {
     });
     const placesSubscription = this.placeService.places$.subscribe(places => {
       if (!places.isEmpty()) {
-        const map = places.groupBy(place => place.type);
-        // const groups = this.helperService.groupBy(places, 'type');
-        // const types = Object.keys(groups);
-        // console.log(places);
-        // this.placesByGroup = types.map(function(type) {
-        //   return { type: type, places: groups[type] };
-        // });
-        console.log('placesByGroup is ' + JSON.stringify(map));
+        this.placesByGroup = places.groupBy(place => place.type).toJS();
       }
     });
     if (this.eventType === 'training') {
@@ -89,7 +82,10 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   }
 
   createPlace() {
-    // TODO
+    const dialogRef = this.dialog.open(PlaceCreationComponent, {
+      height: '400px',
+      width: '600px',
+    });
   }
 
   saveEvent() {

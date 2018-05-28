@@ -49,9 +49,9 @@ import {StompConfig, StompService} from '@stomp/ng2-stompjs';
 import {EventCreationComponent} from './event-creation/event-creation.component';
 import {AmazingTimePickerModule} from './atp-library/atp-time-picker.module';
 import {PlaceService} from './services/place.service';
-import {HelperService} from './services/helper.service';
 import {OpponentService} from './services/opponent.service';
-import { TeamCreationComponent } from './team-creation/team-creation.component';
+import {TeamCreationComponent} from './team-creation/team-creation.component';
+import {PlaceCreationComponent} from './place-creation/place-creation.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -107,6 +107,7 @@ const stompConfig: StompConfig = {
     MessagesComponent,
     EventCreationComponent,
     TeamCreationComponent,
+    PlaceCreationComponent,
   ],
   imports: [
     BrowserModule,
@@ -151,7 +152,6 @@ const stompConfig: StompConfig = {
     TeamService,
     PlaceService,
     OpponentService,
-    HelperService,
     {provide: API_URL, useValue: environment.apiUrl},
     {provide: HTTP_INTERCEPTORS, useClass: ApiUrlInterceptor, multi: true, deps: [API_URL]},
     StompService,
@@ -160,6 +160,9 @@ const stompConfig: StompConfig = {
     // {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+  ],
+  entryComponents: [
+    PlaceCreationComponent
   ],
   bootstrap: [AppComponent]
 })

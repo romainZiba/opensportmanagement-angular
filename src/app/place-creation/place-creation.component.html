@@ -1,0 +1,18 @@
+<mat-form-field>
+  <input matInput placeholder="Name" [(ngModel)]="name">
+</mat-form-field>
+<mat-form-field>
+  <input matInput placeholder="Address" [(ngModel)]="address">
+</mat-form-field>
+<mat-form-field>
+  <input matInput placeholder="City" [(ngModel)]="city">
+</mat-form-field>
+<mat-form-field>
+  <mat-select placeholder="Type" [(ngModel)]="selectedType" name="type">
+    <mat-option *ngFor="let type of types" [value]="type">
+      {{type}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<button class="align-self-end" mat-button (click)="cancel()">CANCEL</button>
+<button class="align-self-end" mat-button (click)="createPlace(name, address, city, selectedType)">CREATE</button>
