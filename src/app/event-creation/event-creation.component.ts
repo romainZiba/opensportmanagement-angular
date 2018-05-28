@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DateAdapter, ErrorStateMatcher, MatDialog, MatSnackBar} from '@angular/material';
-import {AmazingTimePickerService} from '../atp-library/atp-time-picker.service';
 import {FormControl, Validators} from '@angular/forms';
 import {PlaceService} from '../services/place.service';
 import {OpponentService} from '../services/opponent.service';
@@ -52,7 +51,6 @@ export class EventCreationComponent implements OnInit, OnDestroy {
               private router: Router,
               private snackBar: MatSnackBar,
               private adapter: DateAdapter<Moment>,
-              private atp: AmazingTimePickerService,
               private teamService: TeamService,
               private placeService: PlaceService,
               private opponentService: OpponentService,

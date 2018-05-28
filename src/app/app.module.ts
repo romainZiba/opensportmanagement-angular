@@ -47,7 +47,6 @@ import {MemberInvitationComponent} from './member-invitation/member-invitation.c
 import {MessagesComponent} from './messages/messages.component';
 import {StompConfig, StompService} from '@stomp/ng2-stompjs';
 import {EventCreationComponent} from './event-creation/event-creation.component';
-import {AmazingTimePickerModule} from './atp-library/atp-time-picker.module';
 import {PlaceService} from './services/place.service';
 import {OpponentService} from './services/opponent.service';
 import {TeamCreationComponent} from './team-creation/team-creation.component';
@@ -131,7 +130,6 @@ const stompConfig: StompConfig = {
     MatSnackBarModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    AmazingTimePickerModule,
     MatRadioModule,
     // Other modules
     AppRoutingModule,
