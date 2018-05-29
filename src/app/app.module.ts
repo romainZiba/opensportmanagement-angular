@@ -58,6 +58,7 @@ export function tokenGetter() {
 }
 
 export const API_URL = new InjectionToken<string>('apiUrl');
+export const FORMAT_DATE = 'YYYY-MM-DD';
 
 const stompConfig: StompConfig = {
   url: `wss://${environment.host}:${environment.port}/messagesWS/websocket`,

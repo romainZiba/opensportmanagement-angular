@@ -27,7 +27,7 @@ export class MessagesComponent implements OnInit, OnDestroy, AfterViewChecked {
               private stompService: StompService) { }
 
   ngOnInit() {
-    this.username$ = this.userService.username$;
+    this.username$ = this.userService.user$.flatMap(user => user.username);
 
     const routeSubscription = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {

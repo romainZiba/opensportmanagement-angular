@@ -5,6 +5,8 @@ import {TeamMember} from '../model/team-member';
 import {Team} from '../model/team';
 import {MatSnackBar} from '@angular/material';
 import {Subscription} from 'rxjs/Subscription';
+import {NgForm} from '@angular/forms';
+import {User} from '../model/user';
 
 @Component({
   selector: 'app-user-details',
@@ -13,10 +15,7 @@ import {Subscription} from 'rxjs/Subscription';
 })
 export class UserDetailsComponent implements OnInit, OnDestroy {
 
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
+  user: User;
   teamMember: TeamMember;
   selectedTeam: Team;
   subscriptions = new Subscription();
@@ -25,29 +24,24 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
               private teamService: TeamService,
               private snackBar: MatSnackBar) { }
   ngOnInit() {
-    this.subscriptions.add(this.userService.userFirstName$.subscribe(fn => this.firstName = fn));
-    this.subscriptions.add(this.userService.userLastName$.subscribe(ln => this.lastName = ln));
-    this.subscriptions.add(this.userService.email$.subscribe(email => this.email = email));
-    this.subscriptions.add(this.userService.phoneNumber$.subscribe(phoneNumber => this.phoneNumber = phoneNumber));
-    this.subscriptions.add(this.teamService.currentTeamMember$.subscribe(member => this.teamMember = member));
-    this.subscriptions.add(this.teamService.selectedTeam$.subscribe(team => this.selectedTeam = team));
+    const userSub = this.userService.user$.subscribe(user => this.user = user);
+    const teamMemberSub = this.teamService.currentTeamMember$.subscribe(member => this.teamMember = member);
+    const selectedTeamSub = this.teamService.selectedTeam$.subscribe(team => this.selectedTeam = team);
+    this.subscriptions.add(userSub)
+      .add(teamMemberSub)
+      .add(selectedTeamSub);
   }
 
-  saveRecords() {
-    this.subscriptions.add(
-      this.userService.updateUser(this.firstName, this.lastName, this.phoneNumber, this.email)
-        .subscribe(user => {
-            this.openSnackBar('User information successfully saved');
-          },
-          error => {
-            this.openSnackBar('An error occurred');
-          })
-    );
-    this.subscriptions.add(
-      this.userService.updateTeamMember(this.selectedTeam._id, this.teamMember.licenseNumber)
-        .subscribe(user => console.log('user updated: ' + JSON.stringify(user)),
-          error => console.log('error occurrred ' + JSON.stringify(error)))
-    );
+  saveUserDetails(userForm: NgForm) {
+    this.userService.updateUser(userForm.value['firstName'],
+      userForm.value['lastName'],
+      userForm.value['phoneNumber'],
+      userForm.value['email'],
+      this.selectedTeam._id,
+      userForm.value['licenseNumber'])
+    // TODO: i18n
+      .then(() => this.openSnackBar('Informations mises à jour'),
+        () => this.openSnackBar('Une erreur s\'est produite'));
   }
 
   openSnackBar(message: string) {

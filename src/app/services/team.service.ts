@@ -36,6 +36,22 @@ export class TeamService {
     setTimeout(function() { subscription.unsubscribe(); }, 5000);
   }
 
+  updateTeamMember(teamId: number, licenseNumber: string): Promise<boolean> {
+    const member = new TeamMember();
+    member.licenseNumber = licenseNumber;
+    return new Promise(resolve => {
+      const subscription = this.http.put<TeamMember>(`teams/${teamId}/members/me`, member, { observe: 'response', withCredentials: true })
+        .subscribe(response => {
+          if (response.status === 200) {
+            this.currentTeamMemberSource.next(response.body);
+          }
+          resolve(response.status === 200);
+        }, () => resolve(false));
+      setTimeout(function() { subscription.unsubscribe(); }, 5000);
+    });
+
+  }
+
   getSports(): Observable<List<string>> {
     return Observable.of(List(['BASKETBALL', 'FOOTBALL', 'HANDBALL', 'OTHER']));
   }
@@ -56,11 +72,12 @@ export class TeamService {
   }
 
   createEvent(teamId: number, event: EventCreation): Promise<boolean> {
+    console.log('create event');
     return new Promise(resolve => {
       const subscription = this.http.post(`/teams/${teamId}/events`, event, { observe: 'response', withCredentials: true })
-        .subscribe(() => {
-          resolve(true);
-        }, () => resolve(false));
+        .subscribe(response => resolve(response.status === 201),
+          () => resolve(false)
+        );
       setTimeout(function() { subscription.unsubscribe(); }, 5000);
     });
   }

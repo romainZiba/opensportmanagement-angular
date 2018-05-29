@@ -18,17 +18,11 @@ import {AppSettings} from '../app-settings';
 export class ToolbarComponent implements OnInit, OnDestroy {
   title = 'OSM';
   isLoggedIn: boolean;
-  firstName$: Observable<string>;
-  lastName$: Observable<string>;
   @Input() navDrawer: MatDrawer;
-
   availableTeams$: Observable<List<Team>>;
-
   selectedTeam$: Observable<Team>;
-
   subscriptions = new Subscription();
   displayMenu = true;
-
 
   constructor(private userService: UserService,
               private teamService: TeamService,
@@ -36,8 +30,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
               private location: Location) { }
 
   ngOnInit() {
-    this.firstName$ = this.userService.userFirstName$;
-    this.lastName$ = this.userService.userLastName$;
     this.selectedTeam$ = this.teamService.selectedTeam$;
     this.availableTeams$ = this.teamService.teams$;
 

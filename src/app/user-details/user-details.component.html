@@ -1,18 +1,24 @@
-<div class="container d-flex flex-column">
+<form class="container d-flex flex-column" #userForm="ngForm" (ngSubmit)="saveUserDetails(userForm)">
   <mat-form-field>
-    <input matInput i18n-placeholder="@@first-name" placeholder="First name" [(ngModel)]="firstName">
+    <input matInput type="text" i18n-placeholder="@@first-name" placeholder="First name"
+           name="firstName" [ngModel]="user.firstName" required>
   </mat-form-field>
   <mat-form-field>
-    <input matInput i18n-placeholder="@@last-name" placeholder="Last name" [(ngModel)]="lastName">
+    <input matInput type="text" i18n-placeholder="@@last-name" placeholder="Last name"
+           name="lastName" [ngModel]="user.lastName" required>
   </mat-form-field>
   <mat-form-field>
-    <input matInput i18n-placeholder="@@email" placeholder="Email" [(ngModel)]="email">
+    <input matInput type="email" email i18n-placeholder="@@email" placeholder="Email"
+           name="email" [ngModel]="user.email">
   </mat-form-field>
   <mat-form-field>
-    <input matInput i18n-placeholder="@@phone-number" placeholder="Phone number" [(ngModel)]="phoneNumber">
+    <input matInput type="tel" i18n-placeholder="@@phone-number" placeholder="Phone number"
+           name="phoneNumber" [ngModel]="user.phoneNumber">
   </mat-form-field>
   <mat-form-field *ngIf="teamMember">
-    <input matInput i18n-placeholder="@@license-number" placeholder="License number" [(ngModel)]="teamMember.licenseNumber">
+    <input matInput type="number" i18n-placeholder="@@license-number" placeholder="License number"
+           name="licenseNumber" [ngModel]="teamMember.licenseNumber">
   </mat-form-field>
-  <button i18n="@@save" class="align-self-end" mat-raised-button color="primary" (click)="saveRecords()">SAVE</button>
-</div>
+  <button i18n="@@save" type="submit" [disabled]="!userForm.valid" class="align-self-end"
+          mat-raised-button color="primary">SAVE</button>
+</form>

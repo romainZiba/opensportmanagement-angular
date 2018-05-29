@@ -18,7 +18,7 @@
   </div>
   <div id="message-form">
     <mat-form-field class="full-width">
-      <input matInput type="text" placeholder="Enter your message" [(ngModel)]="userMessage"/>
+      <textarea matInput type="text" placeholder="Enter your message" [(ngModel)]="userMessage"></textarea>
       <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="sendMessage()">
         <mat-icon>send</mat-icon>
       </button>

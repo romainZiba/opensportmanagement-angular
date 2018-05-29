@@ -1,11 +1,11 @@
 <mat-form-field>
-  <input matInput i18n-placeholder="@@name" placeholder="Name" [(ngModel)]="name">
+  <input matInput type="text" i18n-placeholder="@@name" placeholder="Name" [(ngModel)]="name">
 </mat-form-field>
 <mat-form-field>
-  <input matInput i18n-placeholder="@@address" placeholder="Address" [(ngModel)]="address">
+  <textarea matInput type="text" i18n-placeholder="@@address" placeholder="Address" [(ngModel)]="address"></textarea>
 </mat-form-field>
 <mat-form-field>
-  <input matInput i18n-placeholder="@@city" placeholder="City" [(ngModel)]="city">
+  <input matInput type="text" i18n-placeholder="@@city" placeholder="City" [(ngModel)]="city">
 </mat-form-field>
 <mat-form-field>
   <mat-select i18n-placeholder="@@type" placeholder="Type" [(ngModel)]="selectedType" name="type">

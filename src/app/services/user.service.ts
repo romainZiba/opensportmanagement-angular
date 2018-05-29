@@ -8,27 +8,19 @@ import {AppSettings} from '../app-settings';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 import {User} from '../model/user';
-import {TeamMember} from '../model/team-member';
+import {TeamService} from './team.service';
 
 @Injectable()
 export class UserService {
 
-  private username = new BehaviorSubject<string>('');
+  private userSource = new BehaviorSubject<User>(null);
   private loggedIn = new BehaviorSubject<boolean>(false);
-  private userFirstName = new BehaviorSubject<string>('');
-  private userLastName = new BehaviorSubject<string>('');
-  private email = new BehaviorSubject<string>('');
-  private phoneNumber = new BehaviorSubject<string>('');
-
-  username$ = this.username.asObservable();
-  userFirstName$ = this.userFirstName.asObservable();
-  userLastName$ = this.userLastName.asObservable();
-  email$ = this.email.asObservable();
-  phoneNumber$ = this.phoneNumber.asObservable();
+  user$ = this.userSource.asObservable();
 
   constructor(private http: HttpClient,
               private cookieService: CookieService,
-              private router: Router) {
+              private router: Router,
+              private teamService: TeamService) {
   }
 
   get isLoggedIn() {
@@ -47,15 +39,11 @@ export class UserService {
   }
 
   whoAmI(): Observable<HttpResponse<any>> {
-    return this.http.get('/users/me', { observe: 'response', withCredentials: true })
+    return this.http.get<User>('/users/me', { observe: 'response', withCredentials: true })
       .flatMap((response) => {
         this.loggedIn.next(true);
         localStorage.setItem(AppSettings.currentUsernameKey, response.body['username']);
-        this.userFirstName.next(response.body['firstName']);
-        this.userLastName.next(response.body['lastName']);
-        this.username.next(response.body['username']);
-        this.phoneNumber.next(response.body['phoneNumber']);
-        this.email.next(response.body['email']);
+        this.userSource.next(response.body);
         return of(response);
       }).catch((error) => {
         this.loggedIn.next(false);
@@ -63,18 +51,27 @@ export class UserService {
       });
   }
 
-  updateUser(firstName: string, lastName: string, phoneNumber: string, email: string): Observable<User> {
+  updateUser(firstName: string,
+             lastName: string,
+             phoneNumber: string,
+             email: string,
+             teamId: number,
+             licenseNumber: string): Promise<boolean> {
     const user = new User();
     user.firstName = firstName;
     user.lastName = lastName;
     user.phoneNumber = phoneNumber;
     user.email = email;
-    return this.http.put<User>(`users/me`, user, { withCredentials: true });
-  }
-
-  updateTeamMember(teamId: number, licenseNumber: string): Observable<TeamMember> {
-    const member = new TeamMember();
-    member.licenseNumber = licenseNumber;
-    return this.http.put<TeamMember>(`teams/${teamId}/members/me`, member, { withCredentials: true });
+    return new Promise(resolve => {
+      const subscription = this.http.put<User>(`users/me`, user, { withCredentials: true })
+        .subscribe(updatedUser => {
+          if (updatedUser !== null) {
+            this.userSource.next(updatedUser);
+            this.teamService.updateTeamMember(teamId, licenseNumber).then(() => resolve(true), () => resolve(false));
+          }
+          resolve(false);
+        });
+      setTimeout(function() { subscription.unsubscribe(); }, 5000);
+    });
   }
 }
