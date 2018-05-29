@@ -2,7 +2,6 @@
   <button *ngIf="displayMenu" mat-icon-button (click)="navDrawer.toggle()"><mat-icon>menu</mat-icon></button>
   <button *ngIf="!displayMenu" mat-icon-button (click)="goBack()"><mat-icon>arrow_back</mat-icon></button>
   <span *ngIf="displayMenu">{{ title }}</span>
-  <!-- This fills the remaining space of the current row -->
   <span class="fill-space"></span>
   <span *ngIf="selectedTeam$ | async">{{ (selectedTeam$ | async).name }}</span>
   <div class="btn-group">
@@ -10,14 +9,18 @@
       <mat-icon class="far fa-user"></mat-icon>
     </button>
     <div class="dropdown-menu dropdown-menu-right">
-      <button class="dropdown-item" type="button" (click)="showUserDetails()"><mat-icon class="fas fa-user mr-2"></mat-icon>My profile</button>
+      <button i18n="@@user-profile" class="dropdown-item" type="button" (click)="showUserDetails()">
+        <mat-icon class="fas fa-user mr-2"></mat-icon>My profile
+      </button>
       <div class="dropdown-divider"></div>
-      <h6 class="dropdown-header">Select your team</h6>
+      <h6 i18n="@@select-team" class="dropdown-header">Select your team</h6>
       <button class="dropdown-item" type="button" *ngFor="let team of (availableTeams$ | async)" (click)="chooseTeam(team)">{{ team.name }}</button>
       <div class="dropdown-divider"></div>
-      <button class="dropdown-item" type="button" (click)="createTeam()">Create a new team</button>
+      <button i18n="@@new-team" class="dropdown-item" type="button" (click)="createTeam()">Create a new team</button>
       <div class="dropdown-divider"></div>
-      <button class="dropdown-item" type="button" (click)="logOut()"><mat-icon class="fas fa-sign-out-alt mr-2"></mat-icon>Logout</button>
+      <button i18n="@@logout" class="dropdown-item" type="button" (click)="logOut()">
+        <mat-icon class="fas fa-sign-out-alt mr-2"></mat-icon>Logout
+      </button>
     </div>
   </div>
 </mat-toolbar>

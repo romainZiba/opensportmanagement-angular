@@ -4,8 +4,8 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>{{ event.name }}</mat-card-title>
-      <mat-card-subtitle>{{ event.fromDateTime | date:'fullDate':'':'fr' }} {{ event.fromDateTime |
-        date:'shortTime':'':'fr' }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ event.fromDateTime | date:'fullDate' }} {{ event.fromDateTime |
+        date:'shortTime' }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
 
@@ -21,31 +21,31 @@
       </div>
     </mat-card-content>
     <mat-card-actions align="start">
-      <button color="accent" mat-button (click)="showMessages(event._id)">MESSAGES</button>
-      <button color="accent" mat-button *ngSwitchCase="presence.Absent" (click)="participate(event._id, true)">PLAY</button>
-      <button color="accent" mat-button *ngSwitchCase="presence.Present" (click)="participate(event._id, false)">WITHDRAW</button>
-      <button color="accent" mat-button *ngSwitchDefault (click)="participate(event._id, true)">PLAY</button>
+      <button i18n="@@messages" color="accent" mat-button (click)="showMessages(event._id)">MESSAGES</button>
+      <button i18n="@@play" color="accent" mat-button *ngSwitchCase="presence.Absent" (click)="participate(event._id, true)">PLAY</button>
+      <button i18n="@@withdraw" color="accent" mat-button *ngSwitchCase="presence.Present" (click)="participate(event._id, false)">WITHDRAW</button>
+      <button i18n="@@play" color="accent" mat-button *ngSwitchDefault (click)="participate(event._id, true)">PLAY</button>
     </mat-card-actions>
     <mat-card-footer>
     </mat-card-footer>
   </mat-card>
 
   <mat-list>
-    <h3 mat-subheader>Presents</h3>
+    <h3 i18n mat-subheader>Presents</h3>
     <mat-list-item *ngFor="let presentMember of event.presentMembers">
       <mat-icon mat-list-icon></mat-icon>
       <h4 mat-line>{{presentMember.firstName}} {{presentMember.lastName}}</h4>
       <p mat-line> {{presentMember.licenseNumber }} </p>
     </mat-list-item>
     <mat-divider></mat-divider>
-    <h3 mat-subheader>Waiting</h3>
+    <h3 i18n mat-subheader>Waiting</h3>
     <mat-list-item *ngFor="let waitingMember of event.waitingMembers">
       <mat-icon mat-list-icon></mat-icon>
       <h4 mat-line>{{waitingMember.firstName}} {{waitingMember.lastName}}</h4>
       <p mat-line> {{waitingMember.licenseNumber}} </p>
     </mat-list-item>
     <mat-divider></mat-divider>
-    <h3 mat-subheader>Absents</h3>
+    <h3 i18n mat-subheader>Absents</h3>
     <mat-list-item *ngFor="let absentMember of event.absentMembers">
       <mat-icon mat-list-icon></mat-icon>
       <h4 mat-line>{{absentMember.firstName}} {{absentMember.lastName}}</h4>

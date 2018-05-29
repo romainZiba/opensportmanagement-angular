@@ -13,15 +13,15 @@
           <h5>{{event.name}}</h5>
           <span>{{event.presentMembers.length}} participants</span>
         </div>
-        <p>{{ event.fromDateTime | date:'fullDate':'':'fr' }}</p>
-        <p>{{ event.fromDateTime | date:'shortTime':'':'fr' }}</p>
+        <p>{{ event.fromDateTime | date:'fullDate' }}</p>
+        <p>{{ event.fromDateTime | date:'shortTime' }}</p>
 
         <div class="row d-flex align-items-center" *ngIf="event.done != null">
           <div class="col-4 text-center"><img class="img-fluid" src="{{event.localTeamImgUrl}}"></div>
           <div class="col-4 text-center">
             <p *ngIf="event.done">{{event.localTeamScore}}</p>
             <p *ngIf="event.done">{{event.visitorTeamScore}}</p>
-            <p *ngIf="!event.done">VS</p>
+            <p i18n="@@vs" *ngIf="!event.done">VS</p>
           </div>
           <div class="col-4 text-center"><img class="img-fluid" src="{{event.visitorTeamImgUrl}}"></div>
         </div>
@@ -31,10 +31,10 @@
           <div class="col-4 text-center"><p>{{event.visitorTeamName}}</p></div>
         </div>
         <div class="d-flex flex-row justify-content-start mt-2">
-          <button mat-raised-button color="primary" *ngSwitchCase="presence.Absent" (click)="participate(event._id, true)">PLAY</button>
-          <button mat-raised-button color="primary" *ngSwitchCase="presence.Present" (click)="participate(event._id, false)">WITHDRAW</button>
-          <button mat-raised-button color="primary" *ngSwitchDefault (click)="participate(event._id, true)">PLAY</button>
-          <button class="ml-2" mat-raised-button color="primary" (click)="showDetails(event._id)">DETAILS</button>
+          <button i18n="@@play" mat-raised-button color="primary" *ngSwitchCase="presence.Absent" (click)="participate(event._id, true)">PLAY</button>
+          <button i18n="@@withdraw" mat-raised-button color="primary" *ngSwitchCase="presence.Present" (click)="participate(event._id, false)">WITHDRAW</button>
+          <button i18n="@@play" mat-raised-button color="primary" *ngSwitchDefault (click)="participate(event._id, true)">PLAY</button>
+          <button i18n="@@details" class="ml-2" mat-raised-button color="primary" (click)="showDetails(event._id)">DETAILS</button>
         </div>
       </div>
     </div>

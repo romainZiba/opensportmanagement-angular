@@ -6,7 +6,7 @@
           <div class="col-8">
             <div class="row" [ngClass]="(username$ | async) === message.authorUserName ? 'justify-content-end mr-2' : ''">
               <strong *ngIf="(username$ | async) !== message.authorUserName" class="mr-2">{{message.authorFirstName}} {{message.authorLastName}}</strong>
-              <small>{{message.creationDate | date:'short':'':'fr'}}</small>
+              <small>{{message.creationDate | date:'short' }}</small>
             </div>
             <div class="row" [ngClass]="(username$ | async) === message.authorUserName ? 'justify-content-end mr-2' : ''">
               {{message.body}}

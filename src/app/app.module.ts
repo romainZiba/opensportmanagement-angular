@@ -59,20 +59,6 @@ export function tokenGetter() {
 
 export const API_URL = new InjectionToken<string>('apiUrl');
 
-registerLocaleData(localeFr, 'fr');
-
-// export const MY_FORMATS = {
-//   parse: {
-//     dateInput: 'LL',
-//   },
-//   display: {
-//     dateInput: 'LL',
-//     monthYearLabel: 'MMM YYYY',
-//     dateA11yLabel: 'LL',
-//     monthYearA11yLabel: 'MMMM YYYY',
-//   },
-// };
-
 const stompConfig: StompConfig = {
   url: `wss://${environment.host}:${environment.port}/messagesWS/websocket`,
 
@@ -157,7 +143,6 @@ const stompConfig: StompConfig = {
     StompService,
     {provide: StompConfig, useValue: stompConfig},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    // {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ],

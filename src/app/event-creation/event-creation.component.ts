@@ -1,12 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DateAdapter, ErrorStateMatcher, MatDialog, MatSnackBar} from '@angular/material';
+import {ErrorStateMatcher, MatDialog, MatSnackBar} from '@angular/material';
 import {FormControl, Validators} from '@angular/forms';
 import {PlaceService} from '../services/place.service';
 import {OpponentService} from '../services/opponent.service';
 import {Opponent} from '../model/opponent';
 import * as moment from 'moment';
-import {Moment} from 'moment';
 import {EventCreation} from '../model/event';
 import {TeamService} from '../services/team.service';
 import {Subscription} from 'rxjs/Subscription';
@@ -25,8 +24,9 @@ export class EventCreationComponent implements OnInit, OnDestroy {
 
   placesByGroup = [];
   minDate = moment();
-  kindOfMatch = ['Home', 'Away', 'None'];
-  daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  // TODO Internationalization: https://github.com/angular/angular/issues/11405
+  kindOfMatch = ['Domicile', 'Extérieur', 'Aucun'];
+  daysOfWeek = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
   opponents: Opponent[];
 
   nameMatcher = new ErrorStateMatcher();
@@ -50,14 +50,12 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private snackBar: MatSnackBar,
-              private adapter: DateAdapter<Moment>,
               private teamService: TeamService,
               private placeService: PlaceService,
               private opponentService: OpponentService,
               private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.adapter.setLocale('fr');
     const routeSubscription = this.route.data.subscribe(value => this.eventType = value['eventtype']);
     const selectedTeamSubscription = this.teamService.selectedTeam$.subscribe(team => {
       if (team !== null) {

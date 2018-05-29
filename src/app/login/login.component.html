@@ -5,22 +5,22 @@
   <div class="row">
     <div class="col-sm">
       <mat-form-field>
-        <input matInput placeholder="Username" [(ngModel)]="username">
+        <input matInput i18n-placeholder="The username to log in@@username" placeholder="Username" [(ngModel)]="username">
       </mat-form-field>
     </div>
   </div>
   <div class="row">
     <div class="col-sm">
       <mat-form-field>
-        <input matInput placeholder="Enter your password" [(ngModel)]="password" [type]="hide ? 'password' : 'text'">
+        <input matInput i18n-placeholder="The password to log in@@password" placeholder="Enter your password"
+               [(ngModel)]="password" [type]="hide ? 'password' : 'text'">
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
       </mat-form-field>
     </div>
   </div>
-
   <div class="row">
     <div class="col-sm">
-      <button mat-raised-button color="primary" (click)="onClick()">Login</button>
+      <button i18n="@@login" mat-raised-button color="primary" (click)="onClick()">Login</button>
     </div>
   </div>
 </div>

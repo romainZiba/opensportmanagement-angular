@@ -45,6 +45,14 @@
                 }
               ],
               "serviceWorker": true
+            },
+            "fr": {
+              "aot": true,
+              "outputPath": "dist/my-project-fr/",
+              "i18nFile": "src/locale/messages.fr.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "fr",
+              "i18nMissingTranslation": "error"
             }
           }
         },
@@ -56,6 +64,9 @@
           "configurations": {
             "production": {
               "browserTarget": "opensportmanagement-angular:build:production"
+            },
+            "fr": {
+              "browserTarget": "opensportmanagement-angular:build:fr"
             }
           }
         },

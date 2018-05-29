@@ -1,12 +1,12 @@
 <div class="container d-flex flex-column">
   <mat-form-field>
-    <input matInput placeholder="First name" [(ngModel)]="firstName">
+    <input matInput i18n-placeholder="@@first-name" placeholder="First name" [(ngModel)]="firstName">
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Last name" [(ngModel)]="lastName">
+    <input matInput i18n-placeholder="@@last-name" placeholder="Last name" [(ngModel)]="lastName">
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Email" [(ngModel)]="email">
+    <input matInput i18n-placeholder="@@email" placeholder="Email" [(ngModel)]="email">
   </mat-form-field>
-  <button class="align-self-end" mat-raised-button color="primary" (click)="saveUserAndNotify()">NOTIFY</button>
+  <button i18n="@@notify" class="align-self-end" mat-raised-button color="primary" (click)="saveUserAndNotify()">NOTIFY</button>
 </div>

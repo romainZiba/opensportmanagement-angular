@@ -21,9 +21,10 @@ export class EventListComponent implements OnInit, OnDestroy {
   totalElements: number;
   pageSize = 25;
   options = [
-    { label: 'New training', icon: 'far fa-calendar-alt', url: '/new-training' },
-    { label: 'New match', icon: 'fas fa-basketball-ball', url: '/new-match' },
-    { label: 'New event', icon: 'fas fa-beer', url: '/new-event' },
+    // TODO Internationalization: https://github.com/angular/angular/issues/11405
+    { label: 'Nouvel entraînement', icon: 'far fa-calendar-alt', url: '/new-training' },
+    { label: 'Nouveau match', icon: 'fas fa-basketball-ball', url: '/new-match' },
+    { label: 'Nouvel évènement', icon: 'fas fa-beer', url: '/new-event' },
   ];
   hasLabels = true;
   selectedTeam: Team;

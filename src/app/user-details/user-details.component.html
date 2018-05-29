@@ -1,18 +1,18 @@
 <div class="container d-flex flex-column">
   <mat-form-field>
-    <input matInput placeholder="First name" [(ngModel)]="firstName">
+    <input matInput i18n-placeholder="@@first-name" placeholder="First name" [(ngModel)]="firstName">
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Last name" [(ngModel)]="lastName">
+    <input matInput i18n-placeholder="@@last-name" placeholder="Last name" [(ngModel)]="lastName">
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Email" [(ngModel)]="email">
+    <input matInput i18n-placeholder="@@email" placeholder="Email" [(ngModel)]="email">
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Phone number" [(ngModel)]="phoneNumber">
+    <input matInput i18n-placeholder="@@phone-number" placeholder="Phone number" [(ngModel)]="phoneNumber">
   </mat-form-field>
   <mat-form-field *ngIf="teamMember">
-    <input matInput placeholder="License number" [(ngModel)]="teamMember.licenseNumber">
+    <input matInput i18n-placeholder="@@license-number" placeholder="License number" [(ngModel)]="teamMember.licenseNumber">
   </mat-form-field>
-  <button class="align-self-end" mat-raised-button color="primary" (click)="saveRecords()">SAVE</button>
+  <button i18n="@@save" class="align-self-end" mat-raised-button color="primary" (click)="saveRecords()">SAVE</button>
 </div>

@@ -1,11 +1,11 @@
 <mat-form-field>
-  <input matInput placeholder="Name" [(ngModel)]="name">
+  <input matInput i18n-placeholder="@@name" placeholder="Name" [(ngModel)]="name">
 </mat-form-field>
 <mat-form-field>
-  <input matInput placeholder="Phone number" [(ngModel)]="phoneNumber">
+  <input matInput i18n-placeholder="@@phone-number" placeholder="Phone number" [(ngModel)]="phoneNumber">
 </mat-form-field>
 <mat-form-field>
-  <input matInput placeholder="Email" [(ngModel)]="email">
+  <input matInput i18n-placeholder="@@email" placeholder="Email" [(ngModel)]="email">
 </mat-form-field>
-<button class="align-self-end" mat-button (click)="cancel()">CANCEL</button>
-<button class="align-self-end" mat-button (click)="createOpponent(name, phoneNumber, email)">CREATE</button>
+<button i18n="@@cancel" class="align-self-end" mat-button (click)="cancel()">CANCEL</button>
+<button i18n="@@create" class="align-self-end" mat-button (click)="createOpponent(name, phoneNumber, email)">CREATE</button>
