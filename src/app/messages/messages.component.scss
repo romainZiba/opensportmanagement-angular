@@ -1,5 +1,5 @@
 #chat-container {
-  height: calc(100% - 64px); // 64px is max size of the top app bar
+  height: 100%;
 
   #messages-container {
     height: calc(100% - 70px); // 65.5px is the size of the message-form
