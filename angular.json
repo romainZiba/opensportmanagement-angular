@@ -46,6 +46,29 @@
               ],
               "serviceWorker": true
             },
+            "production-fr": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "serviceWorker": true,
+              "outputPath": "dist/",
+              "i18nFile": "src/locale/messages.fr.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "fr",
+              "i18nMissingTranslation": "error"
+            },
             "fr": {
               "aot": true,
               "outputPath": "dist/my-project-fr/",

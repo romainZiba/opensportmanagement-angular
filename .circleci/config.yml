@@ -20,7 +20,7 @@ jobs:
             - ./node_modules
       - run:
           name: angular-build
-          command: ng build --prod
+          command: ng build --prod --configuration=production-fr
       - save_cache:
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
