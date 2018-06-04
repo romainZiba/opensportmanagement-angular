@@ -39,7 +39,7 @@ export class UserService {
   }
 
   whoAmI(): Observable<HttpResponse<any>> {
-    return this.http.get<User>('/users/me', { observe: 'response', withCredentials: true })
+    return this.http.get<User>('/accounts/me', { observe: 'response', withCredentials: true })
       .flatMap((response) => {
         this.loggedIn.next(true);
         localStorage.setItem(AppSettings.currentUsernameKey, response.body['username']);
@@ -63,7 +63,7 @@ export class UserService {
     user.phoneNumber = phoneNumber;
     user.email = email;
     return new Promise(resolve => {
-      const subscription = this.http.put<User>(`users/me`, user, { withCredentials: true })
+      const subscription = this.http.put<User>(`accounts/me`, user, { withCredentials: true })
         .subscribe(updatedUser => {
           if (updatedUser !== null) {
             this.userSource.next(updatedUser);
@@ -71,6 +71,19 @@ export class UserService {
           }
           resolve(false);
         });
+      setTimeout(function() { subscription.unsubscribe(); }, 5000);
+    });
+  }
+
+  confirmAccount(confirmationId: string,
+                 password: string): Promise<boolean> {
+    const confirmationBody = {
+      confirmationId: confirmationId,
+      password: password
+    };
+    return new Promise(resolve => {
+      const subscription = this.http.put<User>(`accounts/confirmation`, confirmationBody)
+        .subscribe(updatedUser => updatedUser === null ? resolve(false) : resolve(true));
       setTimeout(function() { subscription.unsubscribe(); }, 5000);
     });
   }

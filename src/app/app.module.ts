@@ -52,6 +52,7 @@ import {OpponentService} from './services/opponent.service';
 import {TeamCreationComponent} from './team-creation/team-creation.component';
 import {PlaceCreationComponent} from './place-creation/place-creation.component';
 import { OpponentCreationComponent } from './opponent-creation/opponent-creation.component';
+import { AccountConfirmationComponent } from './account-confirmation/account-confirmation.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -96,6 +97,7 @@ const stompConfig: StompConfig = {
     TeamCreationComponent,
     PlaceCreationComponent,
     OpponentCreationComponent,
+    AccountConfirmationComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,10 +10,12 @@ import {MemberInvitationComponent} from './member-invitation/member-invitation.c
 import {MessagesComponent} from './messages/messages.component';
 import {EventCreationComponent} from './event-creation/event-creation.component';
 import {TeamCreationComponent} from './team-creation/team-creation.component';
+import {AccountConfirmationComponent} from './account-confirmation/account-confirmation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/event-list', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'confirmation', component: AccountConfirmationComponent },
   { path: 'event-list', component: EventListComponent, canActivate: [AuthGuardService] },
   { path: 'new-training', component: EventCreationComponent, data: { eventtype: 'training' }, canActivate: [AuthGuardService] },
   { path: 'new-event', component: EventCreationComponent, data: { eventtype: 'event' }, canActivate: [AuthGuardService] },
