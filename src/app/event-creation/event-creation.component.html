@@ -22,7 +22,7 @@
       <mat-form-field>
         <mat-select i18n-placeholder="@@days-week"
                     placeholder="Days of week" formControlName="daysControl" multiple required>
-          <mat-option *ngFor="let dayOfWeek of daysOfWeek" [value]="dayOfWeek.toLocaleString()">{{dayOfWeek}}</mat-option>
+          <mat-option *ngFor="let dayOfWeek of daysOfWeek" [value]="dayOfWeek.id">{{dayOfWeek.name}}</mat-option>
         </mat-select>
         <mat-error i18n="@@daysOfWeekRequired" *ngIf="daysControl.hasError('required')">
           At least one day must be selected
@@ -87,7 +87,7 @@
           </mat-optgroup>
         </mat-select>
       </mat-form-field>
-      <button mat-button mat-icon-button aria-label="Add" (click)="createPlace()">
+      <button type="button" mat-button mat-icon-button aria-label="Add" (click)="createPlace()">
         <mat-icon>add_circle_outline</mat-icon>
       </button>
     </div>
@@ -102,15 +102,14 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button mat-button mat-icon-button aria-label="Add" (click)="createOpponent()">
+      <button type="button" mat-button mat-icon-button aria-label="Add" (click)="createOpponent()">
         <mat-icon>add_circle_outline</mat-icon>
       </button>
     </div>
   </div>
   <div class="row">
     <div class="col-12">
-      <button i18n="@@cancel" class="mr-2" mat-raised-button color="primary">CANCEL</button>
-      <button i18n="@@save" [disabled]="!eventForm.valid" mat-raised-button color="primary">SAVE</button>
+      <button type="submit" i18n="@@save" [disabled]="!eventForm.valid" mat-raised-button color="primary">SAVE</button>
     </div>
   </div>
 </form>

@@ -35,7 +35,7 @@ import {ApiUrlInterceptor} from './urlinterceptor';
 import {environment} from '../environments/environment';
 import {AuthGuardService} from './services/auth-guard.service';
 import {TeamService} from './services/team.service';
-import {TeamDetailsComponent} from './team-details/team-details.component';
+import {TeamMembersComponent} from './team-members/team-members.component';
 import localeFr from '@angular/common/locales/fr';
 import {registerLocaleData} from '@angular/common';
 import {EventDetailsComponent} from './event-details/event-details.component';
@@ -87,7 +87,7 @@ const stompConfig: StompConfig = {
     AppComponent,
     LoginComponent,
     EventListComponent,
-    TeamDetailsComponent,
+    TeamMembersComponent,
     EventDetailsComponent,
     ToolbarComponent,
     UserDetailsComponent,

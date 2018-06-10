@@ -27,7 +27,8 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   placesByGroup = [];
   // TODO i18n: https://github.com/angular/angular/issues/11405
   kindOfMatch = ['Home', 'Away', 'None'];
-  daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  daysOfWeek = [{id: 'Monday', name: 'Lundi'}, {id: 'Tuesday', name: 'Mardi'}, {id: 'Wednesday', name: 'Mercredi'},
+    {id: 'Thursday', name: 'Jeudi'}, {id: 'Friday', name: 'Vendredi'}, {id: 'Saturday', name: 'Samedi'}, {id: 'Sunday', name: 'Dimanche'}];
   opponents: Opponent[];
 
   kindOfMatchControl = new FormControl(); // Home, away, or none

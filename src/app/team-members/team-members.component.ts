@@ -7,10 +7,10 @@ import {List} from 'immutable';
 
 @Component({
   selector: 'app-team-details',
-  templateUrl: './team-details.component.html',
-  styleUrls: ['./team-details.component.css']
+  templateUrl: './team-members.component.html',
+  styleUrls: ['./team-members.component.css']
 })
-export class TeamDetailsComponent implements OnInit, OnDestroy {
+export class TeamMembersComponent implements OnInit, OnDestroy {
 
   teamMembers: List<TeamMember>;
   subscriptions = new Subscription();

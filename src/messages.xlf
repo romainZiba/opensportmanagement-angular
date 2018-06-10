@@ -2,6 +2,20 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="events" datatype="html">
+        <source>Events</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="team-members" datatype="html">
+        <source>Team members</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="username" datatype="html">
         <source>Username</source>
         <context-group purpose="location">
@@ -14,7 +28,7 @@
         <source>Enter your password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <note priority="1" from="description">The password to log in</note>
       </trans-unit>
@@ -22,7 +36,7 @@
         <source>Login</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="vs" datatype="html">
@@ -72,7 +86,7 @@
       <trans-unit id="98b2b6e1226c5baca62de3fe220cb2a9e9150373" datatype="html">
         <source>Team members</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/team-details/team-details.component.ts</context>
+          <context context-type="sourcefile">app/team-details/team-members.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
         <note priority="1" from="description">team-members</note>

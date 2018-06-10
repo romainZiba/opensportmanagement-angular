@@ -97,4 +97,15 @@ export class TeamService {
       setTimeout(function() { subscription.unsubscribe(); }, 5000);
     });
   }
+
+  createTeamMember(teamId: number, member: TeamMember): Promise<boolean> {
+    return new Promise(resolve => {
+      const subscription = this.http.post<TeamMember>(`/teams/${teamId}/members`, member, { withCredentials: true })
+        .subscribe(createdMember => {
+          this.teamMembersSource.next(this.teamMembersSource.getValue().push(createdMember));
+          resolve(true);
+        }, () => resolve(false));
+      setTimeout(function() { subscription.unsubscribe(); }, 5000);
+    });
+  }
 }

@@ -2,8 +2,8 @@
   <mat-sidenav #navigationDrawer mode="over">
     <img alt="Open Sport Management" src="../assets/img/logo.png" class="mt-4 ml-4 center">
     <mat-nav-list class="mt-4">
-      <a mat-list-item routerLink="/dashboard" (click)="navigationDrawer.close()">Events</a>
-      <a mat-list-item routerLink="/team" (click)="navigationDrawer.close()">Team</a>
+      <a i18n="@@events" mat-list-item routerLink="/dashboard" (click)="navigationDrawer.close()">Events</a>
+      <a i18n="@@team-members" mat-list-item routerLink="/team" (click)="navigationDrawer.close()">Team members</a>
     </mat-nav-list>
   </mat-sidenav>
   <app-toolbar [navDrawer]="navigationDrawer"></app-toolbar>

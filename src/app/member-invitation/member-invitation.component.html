@@ -1,12 +1,22 @@
-<div class="container d-flex flex-column">
+<form class="container d-flex flex-column" [formGroup]="form" (ngSubmit)="createTeamMember()">
   <mat-form-field>
-    <input matInput type="text" i18n-placeholder="@@first-name" placeholder="First name" [(ngModel)]="firstName">
+    <input matInput type="text" i18n-placeholder="@@first-name"
+           placeholder="First name" formControlName="firstNameControl" required>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="text" i18n-placeholder="@@last-name" placeholder="Last name" [(ngModel)]="lastName">
+    <input matInput type="text" i18n-placeholder="@@last-name"
+           placeholder="Last name" formControlName="lastNameControl" required>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="email" i18n-placeholder="@@email" placeholder="Email" [(ngModel)]="email">
+    <input matInput type="email" i18n-placeholder="@@email"
+           placeholder="Email" formControlName="emailControl" required>
   </mat-form-field>
-  <button i18n="@@notify" class="align-self-end" mat-raised-button color="primary" (click)="saveUserAndNotify()">NOTIFY</button>
-</div>
+  <mat-form-field>
+    <mat-select placeholder="Roles" formControlName="rolesControl" multiple>
+      <mat-option *ngFor="let role of possibleRoles" [value]="role.id">{{role.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button type="submit" i18n="@@notify" class="align-self-start" mat-raised-button color="primary" [disabled]="!form.valid">
+    NOTIFY
+  </button>
+</form>
