@@ -22,7 +22,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   availableTeams$: Observable<List<Team>>;
   selectedTeam$: Observable<Team>;
   subscriptions = new Subscription();
-  displayMenu = true;
+  toolbarButtonState: ToolbarState = ToolbarState.HAMBURGER;
+  hamburgerState = ToolbarState.HAMBURGER;
+  backState = ToolbarState.BACK;
 
   constructor(private userService: UserService,
               private teamService: TeamService,
@@ -56,7 +58,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
-          this.displayMenu = event.url === '/event-list';
+          event.url === '/event-list' ? this.toolbarButtonState = ToolbarState.HAMBURGER : this.toolbarButtonState = ToolbarState.BACK;
         }
       })
     );
@@ -85,4 +87,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
+}
+
+export enum ToolbarState {
+  HAMBURGER,
+  BACK,
 }

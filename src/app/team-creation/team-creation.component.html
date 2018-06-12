@@ -3,7 +3,7 @@
     <input matInput type="text" i18n-placeholder="@@name" placeholder="Name" [(ngModel)]="name">
   </mat-form-field>
   <mat-form-field>
-    <mat-select i18n-placeholder="@@type" placeholder="Type" [(ngModel)]="selectedSport">
+    <mat-select i18n-placeholder="@@sport" placeholder="Sport" [(ngModel)]="selectedSport">
       <mat-option *ngFor="let sport of sports" [value]="sport">
         {{sport}}
       </mat-option>

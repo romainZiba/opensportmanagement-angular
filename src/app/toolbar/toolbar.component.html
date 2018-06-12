@@ -1,7 +1,9 @@
 <mat-toolbar *ngIf="isLoggedIn" color="primary">
-  <button *ngIf="displayMenu" mat-icon-button (click)="navDrawer.toggle()"><mat-icon>menu</mat-icon></button>
-  <button *ngIf="!displayMenu" mat-icon-button (click)="goBack()"><mat-icon>arrow_back</mat-icon></button>
-  <span *ngIf="displayMenu">{{ title }}</span>
+  <ng-container *ngIf="selectedTeam$ | async">
+    <button *ngIf="toolbarButtonState === hamburgerState" mat-icon-button (click)="navDrawer.toggle()"><mat-icon>menu</mat-icon></button>
+    <button *ngIf="toolbarButtonState === backState" mat-icon-button (click)="goBack()"><mat-icon>arrow_back</mat-icon></button>
+  </ng-container>
+  <span>{{ title }}</span>
   <span class="fill-space"></span>
   <span *ngIf="selectedTeam$ | async">{{ (selectedTeam$ | async).name }}</span>
   <div class="btn-group">

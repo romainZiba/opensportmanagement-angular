@@ -7,6 +7,9 @@ import {AppSettings} from '../app-settings';
 import {Router} from '@angular/router';
 import {speedDialAnimation} from '../speed-dial';
 import {Subscription} from 'rxjs/Subscription';
+import {UserService} from '../services/user.service';
+import {User} from '../model/user';
+import {TeamMember} from '../model/team-member';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,13 +24,13 @@ export class EventListComponent implements OnInit, OnDestroy {
   totalElements: number;
   pageSize = 25;
   options = [
-    // TODO Internationalization: https://github.com/angular/angular/issues/11405
-    { label: 'Nouvel entraînement', icon: 'far fa-calendar-alt', url: '/new-training' },
-    { label: 'Nouveau match', icon: 'fas fa-basketball-ball', url: '/new-match' },
-    { label: 'Nouvel évènement', icon: 'fas fa-beer', url: '/new-event' },
+    // TODO i18n: https://github.com/angular/angular/issues/11405
+    { label: 'Nouvel entraînement', admin: false, icon: 'far fa-calendar-alt', url: '/new-training' },
+    { label: 'Nouveau match', admin: true, icon: 'fas fa-basketball-ball', url: '/new-match' },
+    { label: 'Nouvel évènement', admin: false, icon: 'fas fa-beer', url: '/new-event' },
   ];
-  hasLabels = true;
   selectedTeam: Team;
+  currentMember: TeamMember;
   subscriptions = new Subscription();
 
   constructor(private eventService: EventService,
@@ -46,29 +49,26 @@ export class EventListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscriptions.add(
-      this.teamService.selectedTeam$.subscribe(team => {
-        if (team !== null && team !== undefined) {
-          this.selectedTeam = team;
-          this.loadEvents();
+    const teamSub = this.teamService.selectedTeam$.subscribe(team => {
+      if (team !== null && team !== undefined) {
+        this.selectedTeam = team;
+        this.loadEvents();
+      }
+    });
+    const eventSub = this.eventService.events$.subscribe(response => {
+      if (response.hasOwnProperty('page')) {
+        this.totalElements = response['page']['totalElements'];
+        this.currentPage = response['page']['number'];
+        this.pageSize = response['page']['size'];
+        if (this.totalElements > 0) {
+          this.events = response['_embedded']['eventDtoes'];
+        } else {
+          this.events = [];
         }
-      })
-    );
-
-    this.subscriptions.add(
-      this.eventService.events$.subscribe(response => {
-        if (response.hasOwnProperty('page')) {
-          this.totalElements = response['page']['totalElements'];
-          this.currentPage = response['page']['number'];
-          this.pageSize = response['page']['size'];
-          if (this.totalElements > 0) {
-            this.events = response['_embedded']['eventDtoes'];
-          } else {
-            this.events = [];
-          }
-        }
-      })
-    );
+      }
+    });
+    const memberSub = this.teamService.currentTeamMember$.subscribe(member => this.currentMember = member);
+    this.subscriptions.add(teamSub).add(eventSub).add(memberSub);
   }
 
   loadEvents(page = this.currentPage, size = this.pageSize) {
