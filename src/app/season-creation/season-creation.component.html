@@ -1,0 +1,21 @@
+<form class="container" [formGroup]="form" (ngSubmit)="createSeason()">
+  <mat-form-field>
+    <input matInput type="text" i18n-placeholder="@@name" placeholder="Name" formControlName="nameControl">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="date" i18n-placeholder="@@start-date" placeholder="Start date"
+           formControlName="fromDateControl">
+    <mat-error i18n="@@startDateRequired" *ngIf="fromDateControl.hasError('required')">
+      Start date is <strong>required</strong>
+    </mat-error>
+    <mat-error i18n="@@startDateLowerThanMinDate" *ngIf="fromDateControl.hasError('minDate')">
+      Start date must be greater than current date
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="date" i18n-placeholder="@@end-date" placeholder="End date"
+           formControlName="toDateControl">
+  </mat-form-field>
+  <button type="button" i18n="@@cancel" class="align-self-end" mat-button (click)="cancel()">CANCEL</button>
+  <button type="submit" i18n="@@create" class="align-self-end" mat-button>CREATE</button>
+</form>

@@ -8,7 +8,7 @@ import {AppSettings} from '../app-settings';
 import {TeamMember} from '../model/team-member';
 import {List} from 'immutable';
 import {Season} from '../model/season';
-import {Championship} from '../model/championship';
+import {Championship, IChampionship} from '../model/championship';
 
 @Injectable()
 export class TeamService {
@@ -18,12 +18,14 @@ export class TeamService {
   private selectedTeamSource = new BehaviorSubject<Team>(null);
   private currentTeamMemberSource =  new BehaviorSubject<TeamMember>(null);
   private seasonsSource = new BehaviorSubject<List<Season>>(List());
+  private championshipsSource = new BehaviorSubject<List<Championship>>(List());
 
   readonly teams$ = this.teamsSource.asObservable();
   readonly teamMembers$ = this.teamMembersSource.asObservable();
   readonly selectedTeam$ = this.selectedTeamSource.asObservable();
   readonly currentTeamMember$ = this.currentTeamMemberSource.asObservable();
   readonly seasons$ = this.seasonsSource.asObservable();
+  readonly championships$ = this.championshipsSource.asObservable();
 
   constructor(private http: HttpClient) {
   }
@@ -117,8 +119,10 @@ export class TeamService {
       .subscribe(seasons => this.seasonsSource.next(List(seasons)));
   }
 
-  getChampionships(seasonId: number): Observable<Championship[]> {
-    return this.http.get<Championship[]>(`/seasons/${seasonId}/championships`, { withCredentials: true });
+  getChampionships(seasonId: number) {
+    const subscription = this.http.get<Championship[]>(`/seasons/${seasonId}/championships`, { withCredentials: true })
+      .subscribe(ch => this.championshipsSource.next(List(ch)));
+    setTimeout(function() { subscription.unsubscribe(); }, 5000);
   }
 
   createMatch(championshipId: number, eventCreation: EventCreation): Promise<boolean> {
@@ -126,6 +130,32 @@ export class TeamService {
       const subscription = this.http.post(`/championships/${championshipId}/matches`,
         eventCreation, { observe: 'response', withCredentials: true })
         .subscribe(response => resolve(response.status === 201),
+          () => resolve(false)
+        );
+      setTimeout(function() { subscription.unsubscribe(); }, 5000);
+    });
+  }
+
+  createSeason(teamId: number, season: Season): Promise<boolean> {
+    return new Promise(resolve => {
+      const subscription = this.http.post<Season>(`/teams/${teamId}/seasons`, season, { withCredentials: true })
+        .subscribe(createdSeason => {
+            this.seasonsSource.next(this.seasonsSource.value.push(createdSeason));
+            resolve(true);
+          },
+          () => resolve(false)
+        );
+      setTimeout(function() { subscription.unsubscribe(); }, 5000);
+    });
+  }
+
+  createChampionship(championship: IChampionship, seasonId: number): Promise<boolean> {
+    return new Promise(resolve => {
+      const subscription = this.http.post<Championship>(`/seasons/${seasonId}/championships`, championship, { withCredentials: true })
+        .subscribe(createdChamp => {
+            this.championshipsSource.next(this.championshipsSource.value.push(createdChamp));
+            resolve(true);
+          },
           () => resolve(false)
         );
       setTimeout(function() { subscription.unsubscribe(); }, 5000);

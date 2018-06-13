@@ -30,10 +30,11 @@ export class OpponentCreationComponent implements OnInit {
     opponent.email = email;
     this.teamService.selectedTeam$.subscribe(selectedTeam =>
       this.opponentService.createOpponent(selectedTeam._id, opponent).then(
-        () => {
-          this.openSnackBar('Opponent successfully created');
+        success => {
+          // TODO: i18n
+          success ? this.openSnackBar('Adversaire créé avec succès') : this.openSnackBar('Une erreur s\'est produite');
           this.dialogRef.close();
-        }, () => this.openSnackBar('An error occurred')
+        }, () => this.openSnackBar('Une erreur s\'est produite')
       )
     );
   }

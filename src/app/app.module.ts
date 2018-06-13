@@ -36,8 +36,6 @@ import {environment} from '../environments/environment';
 import {AuthGuardService} from './services/auth-guard.service';
 import {TeamService} from './services/team.service';
 import {TeamMembersComponent} from './team-members/team-members.component';
-import localeFr from '@angular/common/locales/fr';
-import {registerLocaleData} from '@angular/common';
 import {EventDetailsComponent} from './event-details/event-details.component';
 import {ToolbarComponent} from './toolbar/toolbar.component';
 import {CookieService} from 'ngx-cookie-service';
@@ -51,8 +49,10 @@ import {PlaceService} from './services/place.service';
 import {OpponentService} from './services/opponent.service';
 import {TeamCreationComponent} from './team-creation/team-creation.component';
 import {PlaceCreationComponent} from './place-creation/place-creation.component';
-import { OpponentCreationComponent } from './opponent-creation/opponent-creation.component';
-import { AccountConfirmationComponent } from './account-confirmation/account-confirmation.component';
+import {OpponentCreationComponent} from './opponent-creation/opponent-creation.component';
+import {AccountConfirmationComponent} from './account-confirmation/account-confirmation.component';
+import {SeasonCreationComponent} from './season-creation/season-creation.component';
+import {ChampionshipCreationComponent} from './championship-creation/championship-creation.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -98,6 +98,8 @@ const stompConfig: StompConfig = {
     PlaceCreationComponent,
     OpponentCreationComponent,
     AccountConfirmationComponent,
+    SeasonCreationComponent,
+    ChampionshipCreationComponent,
   ],
   imports: [
     BrowserModule,
@@ -151,7 +153,9 @@ const stompConfig: StompConfig = {
   ],
   entryComponents: [
     PlaceCreationComponent,
-    OpponentCreationComponent
+    OpponentCreationComponent,
+    SeasonCreationComponent,
+    ChampionshipCreationComponent
   ],
   bootstrap: [AppComponent]
 })

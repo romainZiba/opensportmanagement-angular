@@ -1,12 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog, MatSnackBar} from '@angular/material';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PlaceService} from '../services/place.service';
 import {OpponentService} from '../services/opponent.service';
 import {Opponent} from '../model/opponent';
 import * as moment from 'moment';
-import {Moment} from 'moment';
 import {TeamService} from '../services/team.service';
 import {Subscription} from 'rxjs/Subscription';
 import {PlaceCreationComponent} from '../place-creation/place-creation.component';
@@ -15,6 +14,9 @@ import {FORMAT_DATE} from '../app.module';
 import {EventCreation, EventType} from '../model/event';
 import {Season} from '../model/season';
 import {Championship} from '../model/championship';
+import {SeasonCreationComponent} from '../season-creation/season-creation.component';
+import {ChampionshipCreationComponent} from '../championship-creation/championship-creation.component';
+import {DateValidator} from '../validators/DateValidator';
 
 @Component({
   selector: 'app-event-creation',
@@ -35,6 +37,8 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   seasons: Season[];
   championships: Championship[];
 
+  private subscriptions = new Subscription();
+
   kindOfMatchControl = new FormControl(); // Home, away, or none
   eventNameControl = new FormControl('', [Validators.required]);
   recurrentControl = new FormControl(false);
@@ -42,14 +46,13 @@ export class EventCreationComponent implements OnInit, OnDestroy {
     [Validators.required, DateValidator.dateMinimum(moment().startOf('day'))]);
   toDateControl = new FormControl(moment().format(FORMAT_DATE),
     [Validators.required, DateValidator.dateMinimum(moment().startOf('day'))]);
-  seasonControl = new FormControl('', [Validators.required]);
+  seasonControl = new FormControl('');
   championshipControl = new FormControl('', Validators.required);
   placeControl = new FormControl('', [Validators.required]);
   opponentControl = new FormControl('', Validators.required);
-  fromTimeControl = new FormControl('20:00');
-  toTimeControl = new FormControl('22:30');
+  fromTimeControl = new FormControl('20:00', Validators.required);
+  toTimeControl = new FormControl('22:30', Validators.required);
   daysControl = new FormControl();
-  private subscriptions = new Subscription();
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -93,15 +96,18 @@ export class EventCreationComponent implements OnInit, OnDestroy {
       case EventType.TRAINING:
         this.recurrentControl.setValue(true);
       case EventType.OTHER:
-        this.championshipControl.disable();
-        this.opponentControl.disable();
+        this.championshipControl.setValidators(null);
+        this.opponentControl.setValidators(null);
+        this.championshipControl.updateValueAndValidity();
+        this.opponentControl.updateValueAndValidity();
         break;
       case EventType.MATCH:
         const seasonsSub = this.teamService.seasons$.subscribe(seasons => this.seasons = seasons.toJS());
-        const championshipsSub = this.seasonControl.valueChanges
-          .flatMap(seasonId => this.teamService.getChampionships(seasonId))
-          .subscribe(champ => this.championships = champ);
+        const championshipsSub = this.teamService.championships$.subscribe(ch => this.championships = ch.toJS());
+        const seasonsChangesSub = this.seasonControl.valueChanges
+          .subscribe(seasonId => this.teamService.getChampionships(seasonId))
         this.subscriptions.add(seasonsSub)
+          .add(seasonsChangesSub)
           .add(championshipsSub);
         break;
     }
@@ -136,11 +142,7 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   }
 
   private onRecurrentChecked() {
-    if (this.recurrentControl.value) {
-      this.daysControl.setValidators(Validators.required);
-    } else {
-      this.daysControl.setValidators(null);
-    }
+    this.recurrentControl.value ? this.daysControl.setValidators(Validators.required) : this.daysControl.setValidators(null);
     this.daysControl.updateValueAndValidity();
   }
 
@@ -171,7 +173,18 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   }
 
   createSeason() {
+    this.dialog.open(SeasonCreationComponent, {
+      height: '400px',
+      width: '600px',
+    });
+  }
 
+  createChampionship() {
+    this.dialog.open(ChampionshipCreationComponent, {
+      height: '400px',
+      width: '600px',
+      data: { seasonId: this.seasonControl.value }
+    });
   }
 
   saveEvent() {
@@ -228,25 +241,5 @@ export class EventCreationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
-  }
-}
-
-export class DateValidator {
-  static dateMinimum(date: Moment): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (control.value == null) {
-        return null;
-      }
-      const inputDate = moment(control.value);
-      if (!inputDate.isValid()) {
-        return null;
-      }
-      return inputDate.isSameOrAfter(date) ? null : {
-        'minDate': {
-          'minDate': date.format(FORMAT_DATE),
-          'actual': inputDate.format(FORMAT_DATE)
-        }
-      };
-    };
   }
 }
