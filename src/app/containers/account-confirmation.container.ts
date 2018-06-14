@@ -3,6 +3,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../services/user.service';
 import {MatSnackBar} from '@angular/material';
+import {BaseComponent} from './base.container';
 
 @Component({
   selector: 'app-account-confirmation',
@@ -12,7 +13,7 @@ import {MatSnackBar} from '@angular/material';
     </account-confirmation>
   `
 })
-export class AccountConfirmationSmartComponent implements OnInit, OnDestroy {
+export class AccountConfirmationSmartComponent extends BaseComponent implements OnInit, OnDestroy {
 
   subscriptions = new Subscription();
   confirmationId: string;
@@ -20,7 +21,9 @@ export class AccountConfirmationSmartComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private userService: UserService,
               private router: Router,
-              private snackBar: MatSnackBar) { }
+              private snackbar: MatSnackBar) {
+    super(snackbar);
+  }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -38,12 +41,6 @@ export class AccountConfirmationSmartComponent implements OnInit, OnDestroy {
       },
       () => this.openSnackBar('Une erreur s\'est produite')
     );
-  }
-
-  openSnackBar(message: string) {
-    this.snackBar.open(message,  '',  {
-      duration: 2000,
-    });
   }
 
   ngOnDestroy() {
