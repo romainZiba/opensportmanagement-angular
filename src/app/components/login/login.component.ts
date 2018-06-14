@@ -1,33 +1,18 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {UserService} from '../../services/user.service';
-import {Subscription} from 'rxjs/Subscription';
+import {Component, EventEmitter, Output} from '@angular/core';
+import {Credentials} from '../../model/credentials';
 
 @Component({
-  selector: 'app-login',
+  selector: 'login-form',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, OnDestroy {
-
-  username = '';
-  password = '';
+export class LoginComponent {
   hide = true;
-  subscriptions = new Subscription();
 
-  constructor(private router: Router,
-              private userService: UserService) { }
+  @Output('credentials')
+  credentialsEmitter = new EventEmitter<Credentials>();
 
-  ngOnInit() {
-  }
-
-  onClick(): void {
-    this.subscriptions.add(
-      this.userService.authenticate(this.username, this.password).subscribe(() => this.router.navigate(['event-list']))
-    );
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+  onLogin(username: string, password: string): void {
+    this.credentialsEmitter.emit(new Credentials(username, password));
   }
 }

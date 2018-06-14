@@ -53,6 +53,7 @@ import {OpponentCreationComponent} from './components/opponent-creation/opponent
 import {AccountConfirmationComponent} from './components/account-confirmation/account-confirmation.component';
 import {SeasonCreationComponent} from './components/season-creation/season-creation.component';
 import {ChampionshipCreationComponent} from './components/championship-creation/championship-creation.component';
+import {LoginSmartComponent} from './containers/login.container';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -86,6 +87,7 @@ const stompConfig: StompConfig = {
   declarations: [
     AppComponent,
     LoginComponent,
+    LoginSmartComponent,
     EventListComponent,
     TeamMembersComponent,
     EventDetailsComponent,
