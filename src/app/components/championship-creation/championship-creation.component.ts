@@ -1,42 +1,23 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {EventCreationComponent} from '../event-creation/event-creation.component';
-import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
-import {TeamService} from '../../services/team.service';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {IChampionship} from '../../model/championship';
 
 @Component({
-  selector: 'app-championship-creation',
+  selector: 'championship-creation',
   templateUrl: './championship-creation.component.html',
   styleUrls: ['./championship-creation.component.css']
 })
-export class ChampionshipCreationComponent implements OnInit {
+export class ChampionshipCreationComponent {
 
-  constructor(private dialogRef: MatDialogRef<EventCreationComponent>,
-              private snackBar: MatSnackBar,
-              private teamService: TeamService,
-              @Inject(MAT_DIALOG_DATA) public data: any) { }
+  @Output('championship')
+  championshipEmitter = new EventEmitter<IChampionship>();
+  @Output('cancel')
+  cancelEmitter = new EventEmitter();
 
-  ngOnInit() { }
-
-  createChampionship(championship: IChampionship) {
-    this.teamService.createChampionship(championship, this.data.seasonId).then(success => {
-      if (success) {
-        this.openSnackBar('Championnat créé avec succès');
-        this.dialogRef.close();
-      } else {
-        this.openSnackBar('Une erreur s\'est produite');
-      }
-    });
+  onCreate(championship: IChampionship) {
+    this.championshipEmitter.emit(championship);
   }
 
-  openSnackBar(message: string) {
-    this.snackBar.open(message,  '',  {
-      duration: 2000,
-    });
+  onCancel() {
+    this.cancelEmitter.emit();
   }
-
-  cancel() {
-    this.dialogRef.close();
-  }
-
 }

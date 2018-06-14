@@ -15,8 +15,8 @@ import {EventCreation, EventType} from '../../model/event';
 import {Season} from '../../model/season';
 import {Championship} from '../../model/championship';
 import {SeasonCreationComponent} from '../season-creation/season-creation.component';
-import {ChampionshipCreationComponent} from '../championship-creation/championship-creation.component';
 import {DateValidator} from '../../validators/DateValidator';
+import {ChampionshipCreationSmartComponent} from '../../containers/championship-creation.container';
 
 @Component({
   selector: 'app-event-creation',
@@ -180,7 +180,7 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   }
 
   createChampionship() {
-    this.dialog.open(ChampionshipCreationComponent, {
+    this.dialog.open(ChampionshipCreationSmartComponent, {
       height: '400px',
       width: '600px',
       data: { seasonId: this.seasonControl.value }
