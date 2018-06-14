@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef, MatSnackBar} from '@angular/material';
-import {TeamService} from '../services/team.service';
+import {TeamService} from '../../services/team.service';
 import {EventCreationComponent} from '../event-creation/event-creation.component';
-import {Opponent} from '../model/opponent';
-import {OpponentService} from '../services/opponent.service';
+import {Opponent} from '../../model/opponent';
+import {OpponentService} from '../../services/opponent.service';
 
 @Component({
   selector: 'app-opponent-creation',

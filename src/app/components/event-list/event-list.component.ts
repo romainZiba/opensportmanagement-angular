@@ -1,15 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {EventService} from '../services/event.service';
-import {Event} from '../model/event';
-import {Team} from '../model/team';
-import {TeamService} from '../services/team.service';
-import {AppSettings} from '../app-settings';
+import {EventService} from '../../services/event.service';
+import {Event} from '../../model/event';
+import {Team} from '../../model/team';
+import {TeamService} from '../../services/team.service';
+import {AppSettings} from '../../app-settings';
 import {Router} from '@angular/router';
-import {speedDialAnimation} from '../speed-dial';
+import {speedDialAnimation} from '../../speed-dial/index';
 import {Subscription} from 'rxjs/Subscription';
-import {UserService} from '../services/user.service';
-import {User} from '../model/user';
-import {TeamMember} from '../model/team-member';
+import {UserService} from '../../services/user.service';
+import {User} from '../../model/user';
+import {TeamMember} from '../../model/team-member';
 
 @Component({
   selector: 'app-dashboard',

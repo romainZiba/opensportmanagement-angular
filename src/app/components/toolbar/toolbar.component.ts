@@ -1,14 +1,14 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Team} from '../model/team';
-import {TeamService} from '../services/team.service';
-import {UserService} from '../services/user.service';
+import {Team} from '../../model/team';
+import {TeamService} from '../../services/team.service';
+import {UserService} from '../../services/user.service';
 import {MatDrawer} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import {NavigationEnd, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {Subscription} from 'rxjs/Subscription';
 import {List} from 'immutable';
-import {AppSettings} from '../app-settings';
+import {AppSettings} from '../../app-settings';
 
 @Component({
   selector: 'app-toolbar',

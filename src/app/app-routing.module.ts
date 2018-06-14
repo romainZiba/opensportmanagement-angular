@@ -1,16 +1,16 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LoginComponent} from './login/login.component';
-import {EventListComponent} from './event-list/event-list.component';
+import {LoginComponent} from './components/login/login.component';
+import {EventListComponent} from './components/event-list/event-list.component';
 import {AuthGuardService} from './services/auth-guard.service';
-import {TeamMembersComponent} from './team-members/team-members.component';
-import {EventDetailsComponent} from './event-details/event-details.component';
-import {UserDetailsComponent} from './user-details/user-details.component';
-import {MemberInvitationComponent} from './member-invitation/member-invitation.component';
-import {MessagesComponent} from './messages/messages.component';
-import {EventCreationComponent} from './event-creation/event-creation.component';
-import {TeamCreationComponent} from './team-creation/team-creation.component';
-import {AccountConfirmationComponent} from './account-confirmation/account-confirmation.component';
+import {TeamMembersComponent} from './components/team-members/team-members.component';
+import {EventDetailsComponent} from './components/event-details/event-details.component';
+import {UserDetailsComponent} from './components/user-details/user-details.component';
+import {MemberInvitationComponent} from './components/member-invitation/member-invitation.component';
+import {MessagesComponent} from './components/messages/messages.component';
+import {EventCreationComponent} from './components/event-creation/event-creation.component';
+import {TeamCreationComponent} from './components/team-creation/team-creation.component';
+import {AccountConfirmationComponent} from './components/account-confirmation/account-confirmation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/event-list', pathMatch: 'full' },

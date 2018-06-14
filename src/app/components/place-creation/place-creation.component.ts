@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Place, PlaceType} from '../model/place';
-import {PlaceService} from '../services/place.service';
-import {TeamService} from '../services/team.service';
+import {Place, PlaceType} from '../../model/place';
+import {PlaceService} from '../../services/place.service';
+import {TeamService} from '../../services/team.service';
 import {MatDialogRef, MatSnackBar} from '@angular/material';
 import {EventCreationComponent} from '../event-creation/event-creation.component';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';

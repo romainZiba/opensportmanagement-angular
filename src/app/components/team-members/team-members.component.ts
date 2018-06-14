@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {TeamMember} from '../model/team-member';
-import {TeamService} from '../services/team.service';
+import {TeamMember} from '../../model/team-member';
+import {TeamService} from '../../services/team.service';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {List} from 'immutable';

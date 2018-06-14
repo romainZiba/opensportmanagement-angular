@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {FORMAT_DATE} from '../app.module';
+import {FORMAT_DATE} from '../../app.module';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EventCreationComponent} from '../event-creation/event-creation.component';
 import {MatDialogRef, MatSnackBar} from '@angular/material';
-import {DateValidator} from '../validators/DateValidator';
+import {DateValidator} from '../../validators/DateValidator';
 import * as moment from 'moment';
-import {TeamService} from '../services/team.service';
-import {Season} from '../model/season';
+import {TeamService} from '../../services/team.service';
+import {Season} from '../../model/season';
 
 @Component({
   selector: 'app-season-creation',

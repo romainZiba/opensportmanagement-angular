@@ -2,21 +2,21 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {PlaceService} from '../services/place.service';
-import {OpponentService} from '../services/opponent.service';
-import {Opponent} from '../model/opponent';
+import {PlaceService} from '../../services/place.service';
+import {OpponentService} from '../../services/opponent.service';
+import {Opponent} from '../../model/opponent';
 import * as moment from 'moment';
-import {TeamService} from '../services/team.service';
+import {TeamService} from '../../services/team.service';
 import {Subscription} from 'rxjs/Subscription';
 import {PlaceCreationComponent} from '../place-creation/place-creation.component';
 import {OpponentCreationComponent} from '../opponent-creation/opponent-creation.component';
-import {FORMAT_DATE} from '../app.module';
-import {EventCreation, EventType} from '../model/event';
-import {Season} from '../model/season';
-import {Championship} from '../model/championship';
+import {FORMAT_DATE} from '../../app.module';
+import {EventCreation, EventType} from '../../model/event';
+import {Season} from '../../model/season';
+import {Championship} from '../../model/championship';
 import {SeasonCreationComponent} from '../season-creation/season-creation.component';
 import {ChampionshipCreationComponent} from '../championship-creation/championship-creation.component';
-import {DateValidator} from '../validators/DateValidator';
+import {DateValidator} from '../../validators/DateValidator';
 
 @Component({
   selector: 'app-event-creation',

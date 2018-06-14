@@ -1,9 +1,9 @@
 import {AfterViewChecked, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
-import {EventService} from '../services/event.service';
-import {AppMessage} from '../model/AppMessage';
-import {UserService} from '../services/user.service';
+import {EventService} from '../../services/event.service';
+import {AppMessage} from '../../model/AppMessage';
+import {UserService} from '../../services/user.service';
 import {Observable} from 'rxjs/Observable';
 import {StompService} from '@stomp/ng2-stompjs';
 import {Subscription} from 'rxjs/Subscription';

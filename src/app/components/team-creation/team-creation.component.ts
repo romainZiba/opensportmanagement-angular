@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {TeamService} from '../services/team.service';
+import {TeamService} from '../../services/team.service';
 import {Subscription} from 'rxjs/Subscription';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';

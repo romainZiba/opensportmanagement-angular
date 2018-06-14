@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {EventCreationComponent} from '../event-creation/event-creation.component';
 import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
-import {TeamService} from '../services/team.service';
-import {IChampionship} from '../model/championship';
+import {TeamService} from '../../services/team.service';
+import {IChampionship} from '../../model/championship';
 
 @Component({
   selector: 'app-championship-creation',
