@@ -9,13 +9,13 @@ import {MemberInvitationComponent} from './components/member-invitation/member-i
 import {MessagesComponent} from './components/messages/messages.component';
 import {EventCreationComponent} from './components/event-creation/event-creation.component';
 import {TeamCreationComponent} from './components/team-creation/team-creation.component';
-import {AccountConfirmationComponent} from './components/account-confirmation/account-confirmation.component';
 import {LoginSmartComponent} from './containers/login.container';
+import {AccountConfirmationSmartComponent} from './containers/account-confirmation.container';
 
 const routes: Routes = [
   { path: '', redirectTo: '/event-list', pathMatch: 'full' },
   { path: 'login', component: LoginSmartComponent },
-  { path: 'confirmation', component: AccountConfirmationComponent },
+  { path: 'confirmation', component: AccountConfirmationSmartComponent },
   { path: 'event-list', component: EventListComponent, canActivate: [AuthGuardService] },
   { path: 'new-training', component: EventCreationComponent, data: { eventtype: 'training' }, canActivate: [AuthGuardService] },
   { path: 'new-event', component: EventCreationComponent, data: { eventtype: 'event' }, canActivate: [AuthGuardService] },
