@@ -62,7 +62,7 @@ export class EventCreationComponent implements OnInit, OnDestroy {
     [Validators.required, DateValidator.dateMinimum(moment().startOf('day'))]);
   toDateControl = new FormControl(moment().format(FORMAT_DATE),
     [Validators.required, DateValidator.dateMinimum(moment().startOf('day'))]);
-  seasonControl = new FormControl('');
+  seasonControl = new FormControl(null);
   championshipControl = new FormControl('', Validators.required);
   placeControl = new FormControl('', [Validators.required]);
   opponentControl = new FormControl('', Validators.required);
