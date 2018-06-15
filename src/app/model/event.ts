@@ -1,5 +1,4 @@
 import {TeamMember} from './team-member';
-import {Championship} from './championship';
 
 export class Event {
   _id: number;
@@ -21,6 +20,7 @@ export class Event {
 }
 
 export class EventCreation {
+  teamId: number;
   name: string;
   fromDate: string;
   toDate: string;
@@ -30,6 +30,7 @@ export class EventCreation {
   isRecurrent: boolean;
   recurrenceDays: string[];
   opponentId: number;
+  championshipId: number;
 }
 
 export enum EventType {

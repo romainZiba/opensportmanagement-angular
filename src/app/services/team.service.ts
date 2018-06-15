@@ -77,9 +77,9 @@ export class TeamService {
     return this.http.put<Event>(`/events/${eventId}/${isParticipating}`, '', { withCredentials: true });
   }
 
-  createEvent(teamId: number, event: EventCreation): Promise<boolean> {
+  createEvent(event: EventCreation): Promise<boolean> {
     return new Promise(resolve => {
-      const subscription = this.http.post(`/teams/${teamId}/events`, event, { observe: 'response', withCredentials: true })
+      const subscription = this.http.post(`/teams/${event.teamId}/events`, event, { observe: 'response', withCredentials: true })
         .subscribe(response => resolve(response.status === 201),
           () => resolve(false)
         );
@@ -125,9 +125,9 @@ export class TeamService {
     setTimeout(function() { subscription.unsubscribe(); }, 5000);
   }
 
-  createMatch(championshipId: number, eventCreation: EventCreation): Promise<boolean> {
+  createMatch(eventCreation: EventCreation): Promise<boolean> {
     return new Promise(resolve => {
-      const subscription = this.http.post(`/championships/${championshipId}/matches`,
+      const subscription = this.http.post(`/championships/${eventCreation.championshipId}/matches`,
         eventCreation, { observe: 'response', withCredentials: true })
         .subscribe(response => resolve(response.status === 201),
           () => resolve(false)

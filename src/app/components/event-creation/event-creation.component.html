@@ -1,4 +1,7 @@
-<form class="container" [formGroup]="eventForm" (ngSubmit)="saveEvent()">
+<form class="container" [formGroup]="form"
+      (ngSubmit)="onSaveEvent(eventNameControl.value, seasonControl.value, championshipControl.value,
+       recurrentControl.value, daysControl.value, fromDateControl.value, fromTimeControl.value, toDateControl.value,
+       toTimeControl.value, kindOfMatchControl.value, placeControl.value, opponentControl.value)">
   <div class="row">
     <div class="col-12">
       <mat-form-field>
@@ -20,7 +23,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button type="button" mat-button mat-icon-button aria-label="Add" (click)="createSeason()">
+      <button type="button" mat-button mat-icon-button aria-label="Add" (click)="onCreateSeason()">
         <mat-icon>add_circle_outline</mat-icon>
       </button>
     </div>
@@ -35,7 +38,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button type="button" mat-button mat-icon-button aria-label="Add" (click)="createChampionship()">
+      <button type="button" mat-button mat-icon-button aria-label="Add" (click)="onCreateChampionship()">
         <mat-icon>add_circle_outline</mat-icon>
       </button>
     </div>
@@ -117,7 +120,7 @@
           </mat-optgroup>
         </mat-select>
       </mat-form-field>
-      <button type="button" mat-button mat-icon-button aria-label="Add" (click)="createPlace()">
+      <button type="button" mat-button mat-icon-button aria-label="Add" (click)="onCreatePlace()">
         <mat-icon>add_circle_outline</mat-icon>
       </button>
     </div>
@@ -132,14 +135,14 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button type="button" mat-button mat-icon-button aria-label="Add" (click)="createOpponent()">
+      <button type="button" mat-button mat-icon-button aria-label="Add" (click)="onCreateOpponent()">
         <mat-icon>add_circle_outline</mat-icon>
       </button>
     </div>
   </div>
   <div class="row">
     <div class="col-12">
-      <button type="submit" i18n="@@save" [disabled]="!eventForm.valid" mat-raised-button color="primary">SAVE</button>
+      <button type="submit" i18n="@@save" [disabled]="!form.valid" mat-raised-button color="primary">SAVE</button>
     </div>
   </div>
 </form>

@@ -1,41 +1,57 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {PlaceService} from '../../services/place.service';
-import {OpponentService} from '../../services/opponent.service';
 import {Opponent} from '../../model/opponent';
 import * as moment from 'moment';
-import {TeamService} from '../../services/team.service';
 import {Subscription} from 'rxjs/Subscription';
-import {PlaceCreationComponent} from '../place-creation/place-creation.component';
-import {OpponentCreationComponent} from '../opponent-creation/opponent-creation.component';
 import {FORMAT_DATE} from '../../app.module';
 import {EventCreation, EventType} from '../../model/event';
 import {Season} from '../../model/season';
 import {Championship} from '../../model/championship';
-import {SeasonCreationComponent} from '../season-creation/season-creation.component';
 import {DateValidator} from '../../validators/DateValidator';
+import {Team} from '../../model/team';
+import {List} from 'immutable';
+import {Place} from '../../model/place';
+import {PlaceCreationComponent} from '../place-creation/place-creation.component';
+import {OpponentCreationComponent} from '../opponent-creation/opponent-creation.component';
+import {SeasonCreationComponent} from '../season-creation/season-creation.component';
 import {ChampionshipCreationSmartComponent} from '../../containers/championship-creation.container';
+import {MatDialog} from '@angular/material';
 
 @Component({
-  selector: 'app-event-creation',
+  selector: 'event-creation',
   templateUrl: './event-creation.component.html',
   styleUrls: ['./event-creation.component.css']
 })
 export class EventCreationComponent implements OnInit, OnDestroy {
   objectKeys = Object.keys;
-  eventForm: FormGroup;
-  selectedTeamId: number;
-  eventType: EventType;
-  placesByGroup = [];
+  form: FormGroup;
+
   // TODO i18n: https://github.com/angular/angular/issues/11405
   kindOfMatch = ['Home', 'Away', 'None'];
   daysOfWeek = [{id: 'Monday', name: 'Lundi'}, {id: 'Tuesday', name: 'Mardi'}, {id: 'Wednesday', name: 'Mercredi'},
     {id: 'Thursday', name: 'Jeudi'}, {id: 'Friday', name: 'Vendredi'}, {id: 'Saturday', name: 'Samedi'}, {id: 'Sunday', name: 'Dimanche'}];
-  opponents: Opponent[];
-  seasons: Season[];
-  championships: Championship[];
+
+  placesByGroup = [];
+
+  @Input()
+  eventType: EventType;
+  @Input()
+  selectedTeam: Team;
+  @Input()
+  seasons: List<Season>;
+  @Input()
+  championships: List<Championship>;
+  @Input()
+  set places(places: List<Place>) {
+    this.placesByGroup = places.isEmpty() ? [] : places.groupBy(place => place.type).toJS();
+  }
+  @Input()
+  opponents: List<Opponent>;
+
+  @Output('selectedSeason')
+  seasonEmitter = new EventEmitter<number>();
+  @Output('event')
+  eventEmitter = new EventEmitter<EventCreation>();
 
   private subscriptions = new Subscription();
 
@@ -54,15 +70,9 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   toTimeControl = new FormControl('22:30', Validators.required);
   daysControl = new FormControl();
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private snackBar: MatSnackBar,
-              private teamService: TeamService,
-              private placeService: PlaceService,
-              private opponentService: OpponentService,
-              private dialog: MatDialog,
-              fb: FormBuilder) {
-    this.eventForm = fb.group({
+  constructor(private dialog: MatDialog,
+              private fb: FormBuilder) {
+    this.form = fb.group({
       eventNameControl: this.eventNameControl,
       recurrentControl: this.recurrentControl,
       placeControl: this.placeControl,
@@ -79,66 +89,21 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const routeSubscription = this.route.data.subscribe(routeData => this.getEventType(routeData));
-    const selectedTeamSubscription = this.teamService.selectedTeam$.subscribe(team => this.onTeamSelected(team));
-    const placesSubscription = this.placeService.places$.subscribe(places => this.onPlacesReceived(places));
-    const opponentsSubscription = this.opponentService.opponents$.subscribe(opponents => this.opponents = opponents.toJS());
-    const fromDateChangeSub = this.fromDateControl.valueChanges.subscribe(() => this.onFromDateChanged());
-    const recurrentChangeSub = this.recurrentControl.valueChanges.subscribe(() => this.onRecurrentChecked());
-    this.subscriptions.add(routeSubscription)
-      .add(selectedTeamSubscription)
-      .add(placesSubscription)
-      .add(opponentsSubscription)
-      .add(fromDateChangeSub)
-      .add(recurrentChangeSub);
-
-    switch (this.eventType) {
-      case EventType.TRAINING:
-        this.recurrentControl.setValue(true);
-      case EventType.OTHER:
-        this.championshipControl.setValidators(null);
-        this.opponentControl.setValidators(null);
-        this.championshipControl.updateValueAndValidity();
-        this.opponentControl.updateValueAndValidity();
-        break;
-      case EventType.MATCH:
-        const seasonsSub = this.teamService.seasons$.subscribe(seasons => this.seasons = seasons.toJS());
-        const championshipsSub = this.teamService.championships$.subscribe(ch => this.championships = ch.toJS());
-        const seasonsChangesSub = this.seasonControl.valueChanges
-          .subscribe(seasonId => this.teamService.getChampionships(seasonId))
-        this.subscriptions.add(seasonsSub)
-          .add(seasonsChangesSub)
-          .add(championshipsSub);
-        break;
+    if (this.eventType !== EventType.MATCH) {
+      this.championshipControl.setValidators(null);
+      this.opponentControl.setValidators(null);
+      this.championshipControl.updateValueAndValidity();
+      this.opponentControl.updateValueAndValidity();
     }
-  }
-
-  private onPlacesReceived(places) {
-    if (!places.isEmpty()) {
-      this.placesByGroup = places.groupBy(place => place.type).toJS();
-    }
-  }
-
-  private getEventType(value) {
-    switch (value['eventtype']) {
-      case 'training':
-        this.eventType = EventType.TRAINING;
-        break;
-      case 'match':
-        this.eventType = EventType.MATCH;
-        break;
-      default:
-        this.eventType = EventType.OTHER;
-    }
-  }
-
-  private onTeamSelected(team) {
-    if (team !== null) {
-      this.selectedTeamId = team._id;
-      this.placeService.getPlaces(this.selectedTeamId);
-      this.opponentService.getOpponents(this.selectedTeamId);
-      this.teamService.getSeasons(this.selectedTeamId);
-    }
+    const fromDateChangeSub = this.fromDateControl.valueChanges
+      .subscribe(() => this.onFromDateChanged());
+    const recurrentChangeSub = this.recurrentControl.valueChanges
+      .subscribe(() => this.onRecurrentChecked());
+    const seasonsChangesSub = this.seasonControl.valueChanges
+      .subscribe(seasonId => this.seasonEmitter.emit(seasonId));
+    this.subscriptions.add(fromDateChangeSub)
+      .add(recurrentChangeSub)
+      .add(seasonsChangesSub);
   }
 
   private onRecurrentChecked() {
@@ -158,28 +123,28 @@ export class EventCreationComponent implements OnInit, OnDestroy {
     return this.eventType === EventType.MATCH;
   }
 
-  createOpponent() {
+  onCreateOpponent() {
     this.dialog.open(OpponentCreationComponent, {
       height: '400px',
       width: '600px',
     });
   }
 
-  createPlace() {
+  onCreatePlace() {
     this.dialog.open(PlaceCreationComponent, {
       height: '400px',
       width: '600px',
     });
   }
 
-  createSeason() {
+  onCreateSeason() {
     this.dialog.open(SeasonCreationComponent, {
       height: '400px',
       width: '600px',
     });
   }
 
-  createChampionship() {
+  onCreateChampionship() {
     this.dialog.open(ChampionshipCreationSmartComponent, {
       height: '400px',
       width: '600px',
@@ -187,56 +152,23 @@ export class EventCreationComponent implements OnInit, OnDestroy {
     });
   }
 
-  saveEvent() {
+  onSaveEvent(eventName: string, season: string, championshipId: number, recurrent: boolean, days: string[], fromDate: string,
+              fromTime: string, toDate: string, toTime: string, kindOfMatch: string, placeId: number, opponentId: number) {
     const eventCreation = new EventCreation();
-    eventCreation.name = this.eventNameControl.value;
-    eventCreation.fromDate = this.fromDateControl.value;
-    eventCreation.toDate = this.toDateControl.value;
-    eventCreation.fromTime = this.fromTimeControl.value;
-    eventCreation.toTime = this.toTimeControl.value;
-    eventCreation.placeId = this.placeControl.value;
-    eventCreation.isRecurrent = this.recurrentControl.value;
-    eventCreation.opponentId = this.opponentControl.value;
-    if (this.daysControl.value !== null) {
-      eventCreation.recurrenceDays = this.daysControl.value.map((day: string) => day.toUpperCase());
+    eventCreation.name = eventName;
+    eventCreation.fromDate = fromDate;
+    eventCreation.toDate = toDate;
+    eventCreation.fromTime = fromTime;
+    eventCreation.toTime = toTime;
+    eventCreation.placeId = placeId;
+    eventCreation.isRecurrent = recurrent;
+    eventCreation.opponentId = opponentId;
+    eventCreation.teamId = this.selectedTeam._id;
+    eventCreation.championshipId = championshipId;
+    if (days !== null) {
+      eventCreation.recurrenceDays = days.map((day: string) => day.toUpperCase());
     }
-    if (this.eventType === EventType.MATCH) {
-      this.createMatch(this.championshipControl.value, eventCreation);
-    } else {
-      this.createEvent(this.selectedTeamId, eventCreation);
-    }
-  }
-
-  private createMatch(championshipId: number, eventCreation: EventCreation) {
-    this.teamService.createMatch(championshipId, eventCreation)
-      .then(success => {
-        // TODO: i18n
-        if (success) {
-          this.openSnackBar('Le match a été créé avec succès');
-          this.router.navigate(['/event-list']);
-        } else {
-          this.openSnackBar('Une erreur est survenue');
-        }
-      }, () => this.openSnackBar('Une erreur est survenue'));
-  }
-
-  private createEvent(teamId: number, eventCreation: EventCreation) {
-    this.teamService.createEvent(teamId, eventCreation)
-      .then(success => {
-        // TODO: i18n
-        if (success) {
-          this.openSnackBar('L\'évènement a été créé avec succès');
-          this.router.navigate(['/event-list']);
-        } else {
-          this.openSnackBar('Une erreur est survenue');
-        }
-      }, () => this.openSnackBar('Une erreur est survenue'));
-  }
-
-  openSnackBar(message: string) {
-    this.snackBar.open(message,  '',  {
-      duration: 2000,
-    });
+    this.eventEmitter.emit(eventCreation);
   }
 
   ngOnDestroy() {

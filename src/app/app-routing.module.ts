@@ -7,19 +7,19 @@ import {EventDetailsComponent} from './components/event-details/event-details.co
 import {UserDetailsComponent} from './components/user-details/user-details.component';
 import {MemberInvitationComponent} from './components/member-invitation/member-invitation.component';
 import {MessagesComponent} from './components/messages/messages.component';
-import {EventCreationComponent} from './components/event-creation/event-creation.component';
 import {TeamCreationComponent} from './components/team-creation/team-creation.component';
 import {LoginSmartComponent} from './containers/login.container';
 import {AccountConfirmationSmartComponent} from './containers/account-confirmation.container';
+import {EventCreationSmartComponent} from './containers/event-creation.container';
 
 const routes: Routes = [
   { path: '', redirectTo: '/event-list', pathMatch: 'full' },
   { path: 'login', component: LoginSmartComponent },
   { path: 'confirmation', component: AccountConfirmationSmartComponent },
   { path: 'event-list', component: EventListComponent, canActivate: [AuthGuardService] },
-  { path: 'new-training', component: EventCreationComponent, data: { eventtype: 'training' }, canActivate: [AuthGuardService] },
-  { path: 'new-event', component: EventCreationComponent, data: { eventtype: 'event' }, canActivate: [AuthGuardService] },
-  { path: 'new-match', component: EventCreationComponent, data: { eventtype: 'match' }, canActivate: [AuthGuardService] },
+  { path: 'new-training', component: EventCreationSmartComponent, data: { eventtype: 'training' }, canActivate: [AuthGuardService] },
+  { path: 'new-event', component: EventCreationSmartComponent, data: { eventtype: 'event' }, canActivate: [AuthGuardService] },
+  { path: 'new-match', component: EventCreationSmartComponent, data: { eventtype: 'match' }, canActivate: [AuthGuardService] },
   { path: 'team', component: TeamMembersComponent, canActivate: [AuthGuardService] },
   { path: 'user-details', component: UserDetailsComponent, canActivate: [AuthGuardService] },
   { path: 'events/:id', component: EventDetailsComponent, canActivate: [AuthGuardService] },
