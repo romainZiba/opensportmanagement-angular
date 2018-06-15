@@ -56,16 +56,16 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
 
   kindOfMatchControl = new FormControl(); // Home, away, or none
-  eventNameControl = new FormControl('', [Validators.required]);
+  eventNameControl = new FormControl('');
   recurrentControl = new FormControl(false);
   fromDateControl = new FormControl(moment().format(FORMAT_DATE),
     [Validators.required, DateValidator.dateMinimum(moment().startOf('day'))]);
   toDateControl = new FormControl(moment().format(FORMAT_DATE),
     [Validators.required, DateValidator.dateMinimum(moment().startOf('day'))]);
   seasonControl = new FormControl(null);
-  championshipControl = new FormControl('', Validators.required);
+  championshipControl = new FormControl({value: null, disabled: true});
   placeControl = new FormControl('', [Validators.required]);
-  opponentControl = new FormControl('', Validators.required);
+  opponentControl = new FormControl(null);
   fromTimeControl = new FormControl('20:00', Validators.required);
   toTimeControl = new FormControl('22:30', Validators.required);
   daysControl = new FormControl();
@@ -89,18 +89,32 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.eventType !== EventType.MATCH) {
-      this.championshipControl.setValidators(null);
-      this.opponentControl.setValidators(null);
-      this.championshipControl.updateValueAndValidity();
-      this.opponentControl.updateValueAndValidity();
+    switch (this.eventType) {
+      case EventType.MATCH:
+        console.log('Event is match');
+        this.championshipControl.setValidators(Validators.required);
+        this.opponentControl.setValidators(Validators.required);
+        this.championshipControl.updateValueAndValidity();
+        this.opponentControl.updateValueAndValidity();
+        break;
+      case EventType.TRAINING:
+        break;
+      default:
+        console.log('Event is other');
+        this.eventNameControl.setValidators(Validators.required);
+        break;
     }
     const fromDateChangeSub = this.fromDateControl.valueChanges
       .subscribe(() => this.onFromDateChanged());
     const recurrentChangeSub = this.recurrentControl.valueChanges
       .subscribe(() => this.onRecurrentChecked());
     const seasonsChangesSub = this.seasonControl.valueChanges
-      .subscribe(seasonId => this.seasonEmitter.emit(seasonId));
+      .subscribe(seasonId => {
+        (seasonId !== null && seasonId !== undefined) ? (
+          this.championshipControl.enable(),
+            this.seasonEmitter.emit(seasonId)
+        ) : this.championshipControl.disable();
+      });
     this.subscriptions.add(fromDateChangeSub)
       .add(recurrentChangeSub)
       .add(seasonsChangesSub);
@@ -152,6 +166,10 @@ export class EventCreationComponent implements OnInit, OnDestroy {
     });
   }
 
+  isNameDisplayed() {
+    return this.eventType === EventType.OTHER;
+  }
+
   onSaveEvent(eventName: string, season: string, championshipId: number, recurrent: boolean, days: string[], fromDate: string,
               fromTime: string, toDate: string, toTime: string, kindOfMatch: string, placeId: number, opponentId: number) {
     const eventCreation = new EventCreation();
@@ -165,6 +183,7 @@ export class EventCreationComponent implements OnInit, OnDestroy {
     eventCreation.opponentId = opponentId;
     eventCreation.teamId = this.selectedTeam._id;
     eventCreation.championshipId = championshipId;
+    eventCreation.type = this.eventType;
     if (days !== null) {
       eventCreation.recurrenceDays = days.map((day: string) => day.toUpperCase());
     }

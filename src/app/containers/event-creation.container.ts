@@ -86,10 +86,12 @@ export class EventCreationSmartComponent extends BaseComponent implements OnInit
   }
 
   create(event: EventCreation) {
-    if (this.eventType === EventType.MATCH) {
-      this.createMatch(event);
-    } else {
-      this.createEvent(event);
+    switch (event.type) {
+      case EventType.MATCH:
+        this.createMatch(event);
+        break;
+      default:
+        this.createEvent(event);
     }
   }
 

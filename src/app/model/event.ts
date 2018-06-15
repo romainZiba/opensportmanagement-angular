@@ -31,10 +31,11 @@ export class EventCreation {
   recurrenceDays: string[];
   opponentId: number;
   championshipId: number;
+  type: EventType;
 }
 
 export enum EventType {
-  TRAINING,
-  MATCH,
-  OTHER
+  TRAINING = 'TRAINING',
+  MATCH = 'MATCH',
+  OTHER = 'OTHER'
 }
