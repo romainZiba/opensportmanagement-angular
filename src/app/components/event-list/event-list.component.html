@@ -1,9 +1,9 @@
 <div *ngIf="selectedTeam" class="container">
   <mat-paginator [length]="totalElements"
                  [pageSize]="pageSize"
-                 [pageIndex]="currentPage"
+                 [pageIndex]="page"
                  [pageSizeOptions]="[10, 25, 50]"
-                 (page)="loadEvents($event.pageIndex, $event.pageSize)">
+                 (page)="onLoadEvents($event.pageIndex, $event.pageSize)">
   </mat-paginator>
   <div class="list-group">
     <div class="list-group-item flex-column align-items-start" *ngFor="let event of events"
@@ -30,17 +30,17 @@
         <div class="col-4 text-center"><p>{{event.visitorTeamName}}</p></div>
       </div>
       <div class="d-flex flex-row justify-content-start mt-2">
-        <button i18n="@@play" mat-raised-button color="primary" *ngSwitchCase="presence.Absent" (click)="participate(event._id, true)">PLAY</button>
-        <button i18n="@@withdraw" mat-raised-button color="primary" *ngSwitchCase="presence.Present" (click)="participate(event._id, false)">WITHDRAW</button>
-        <button i18n="@@play" mat-raised-button color="primary" *ngSwitchDefault (click)="participate(event._id, true)">PLAY</button>
+        <button i18n="@@play" mat-raised-button color="primary" *ngSwitchCase="presence.Absent" (click)="onParticipate(event._id, true)">PLAY</button>
+        <button i18n="@@withdraw" mat-raised-button color="primary" *ngSwitchCase="presence.Present" (click)="onParticipate(event._id, false)">WITHDRAW</button>
+        <button i18n="@@play" mat-raised-button color="primary" *ngSwitchDefault (click)="onParticipate(event._id, true)">PLAY</button>
         <button i18n="@@details" class="ml-2" mat-raised-button color="primary" (click)="showDetails(event._id)">DETAILS</button>
       </div>
     </div>
   </div>
-  <div *ngIf="currentMember" class="fab-container">
+  <div *ngIf="teamMember" class="fab-container">
     <speed-dial #dial="speedDial">
       <ng-container *ngFor="let option of options">
-        <button *ngIf="!option.admin || currentMember.roles.includes('ADMIN')" (click)="showEventCreationPanel(option.url)"  mat-mini-fab speed-dial-option
+        <button *ngIf="!option.admin || teamMember.roles.includes('ADMIN')" (click)="onShowEventCreationPanel(option.url)"  mat-mini-fab speed-dial-option
                 [speedDialOptionLabel]="option.label">
           <mat-icon [ngClass]="option.icon"></mat-icon>
         </button>

@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {EventListComponent} from './components/event-list/event-list.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import {TeamMembersComponent} from './components/team-members/team-members.component';
 import {EventDetailsComponent} from './components/event-details/event-details.component';
@@ -15,12 +14,13 @@ import {OpponentCreationComponent} from './components/opponent-creation/opponent
 import {PlaceCreationComponent} from './components/place-creation/place-creation.component';
 import {SeasonCreationComponent} from './components/season-creation/season-creation.component';
 import {ChampionshipCreationSmartComponent} from './containers/championship-creation.container';
+import {EventListSmartComponent} from './containers/event-list.container';
 
 const routes: Routes = [
   { path: '', redirectTo: '/event-list', pathMatch: 'full' },
   { path: 'login', component: LoginSmartComponent },
   { path: 'confirmation', component: AccountConfirmationSmartComponent },
-  { path: 'event-list', component: EventListComponent, canActivate: [AuthGuardService] },
+  { path: 'event-list', component: EventListSmartComponent, canActivate: [AuthGuardService] },
   { path: 'new-training', component: EventCreationSmartComponent, data: { eventtype: 'training' }, canActivate: [AuthGuardService] },
   { path: 'new-event', component: EventCreationSmartComponent, data: { eventtype: 'event' }, canActivate: [AuthGuardService] },
   { path: 'new-match', component: EventCreationSmartComponent, data: { eventtype: 'match' }, canActivate: [AuthGuardService] },

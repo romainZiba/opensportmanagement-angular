@@ -57,6 +57,7 @@ import {LoginSmartComponent} from './containers/login.container';
 import {AccountConfirmationSmartComponent} from './containers/account-confirmation.container';
 import {ChampionshipCreationSmartComponent} from './containers/championship-creation.container';
 import {EventCreationSmartComponent} from './containers/event-creation.container';
+import {EventListSmartComponent} from './containers/event-list.container';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -92,6 +93,7 @@ const stompConfig: StompConfig = {
     LoginComponent,
     LoginSmartComponent,
     EventListComponent,
+    EventListSmartComponent,
     TeamMembersComponent,
     EventDetailsComponent,
     ToolbarComponent,

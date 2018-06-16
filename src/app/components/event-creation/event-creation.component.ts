@@ -96,7 +96,6 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   ngOnInit() {
     switch (this.eventType) {
       case EventType.MATCH:
-        console.log('Event is match');
         this.championshipControl.setValidators(Validators.required);
         this.opponentControl.setValidators(Validators.required);
         this.championshipControl.updateValueAndValidity();
@@ -105,7 +104,6 @@ export class EventCreationComponent implements OnInit, OnDestroy {
       case EventType.TRAINING:
         break;
       default:
-        console.log('Event is other');
         this.eventNameControl.setValidators(Validators.required);
         break;
     }
