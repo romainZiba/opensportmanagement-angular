@@ -4,7 +4,6 @@ import {EventService} from '../../services/event.service';
 import {switchMap} from 'rxjs/operators';
 import {Event} from '../../model/event';
 import {AppSettings} from '../../app-settings';
-import {TeamService} from '../../services/team.service';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -21,8 +20,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private eventService: EventService,
-              private teamService: TeamService) { }
+              private eventService: EventService) { }
 
   // TODO: refactor duplicated code
   isUserPresent(event: Event): Presence {
@@ -35,9 +33,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     return Presence.Unknown;
   }
   participate(matchId: number, isParticipating: boolean) {
-    this.participationSub = this.teamService.participate(matchId, isParticipating).subscribe(event => {
-      this.event = event;
-    });
+    this.eventService.participate(matchId, isParticipating);
   }
 
   ngOnInit() {
@@ -45,6 +41,10 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
       switchMap((params: ParamMap) =>
         this.eventService.getEvent(params.get('id')))
     ).subscribe(event => this.event = event);
+
+    this.eventService.event$
+      .filter(event => event !== null)
+      .subscribe(event => this.event = event);
   }
 
   ngOnDestroy() {

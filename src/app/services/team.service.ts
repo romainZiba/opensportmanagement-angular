@@ -74,10 +74,6 @@ export class TeamService {
     setTimeout(function() { subscription.unsubscribe(); }, 5000);
   }
 
-  participate(eventId: number, isParticipating: boolean): Observable<Event> {
-    return this.http.put<Event>(`/events/${eventId}/${isParticipating}`, '', { withCredentials: true });
-  }
-
   createEvent(event: EventCreation): Promise<boolean> {
     return new Promise(resolve => {
       const subscription = this.http.post(`/teams/${event.teamId}/events`, event, { observe: 'response', withCredentials: true })

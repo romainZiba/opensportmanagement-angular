@@ -5,9 +5,9 @@ import {TeamService} from '../services/team.service';
 import {Observable} from 'rxjs/Observable';
 import {Team} from '../model/team';
 import {PageEvent, Participation} from '../components/event-list/event-list.component';
-import {List} from 'immutable';
 import {Router} from '@angular/router';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {BaseComponent} from './base.container';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-event-list',
@@ -25,40 +25,26 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
   `,
 
 })
-export class EventListSmartComponent implements OnInit, OnDestroy {
-  private currentPageSource = new BehaviorSubject(0);
-  private pageSizeSource = new BehaviorSubject(25);
-  private totalElementsSource = new BehaviorSubject(0);
-
+export class EventListSmartComponent extends BaseComponent implements OnInit, OnDestroy {
   subscriptions = new Subscription();
   selectedTeam$: Observable<Team>;
-  events$: Observable<List<Event>>;
-  totalElements$ = this.totalElementsSource.asObservable();
+  events$ = this.eventService.events$;
+  totalElements$ = this.eventService.totalElements$;
   teamMember$ = this.teamService.currentTeamMember$;
-  currentPage$ = this.currentPageSource.asObservable();
-  pageSize$ = this.pageSizeSource.asObservable();
+  currentPage$ = this.eventService.currentPage$;
+  pageSize$ = this.eventService.pageSize$;
 
   constructor(private eventService: EventService,
               private teamService: TeamService,
-              private router: Router) { }
+              private router: Router,
+              private snackbar: MatSnackBar) {
+    super(snackbar);
+  }
 
   ngOnInit() {
     this.selectedTeam$ = this.teamService.selectedTeam$
       .filter(team => team !== null);
     this._loadEvents(0, 25);
-
-    this.events$ = this.eventService.events$
-      .filter(response => response.hasOwnProperty('page'))
-      .flatMap(response => {
-        this.currentPageSource.next(response['page']['number']);
-        this.pageSizeSource.next(response['page']['size']);
-        this.totalElementsSource.next(response['page']['totalElements']);
-        if (response['page']['totalElements'] > 0) {
-          return Observable.of(response['_embedded']['eventDtoes']);
-        } else {
-          return Observable.of(List());
-        }
-      });
   }
 
   private _loadEvents(currentPage: number, pageSize: number) {
@@ -84,9 +70,12 @@ export class EventListSmartComponent implements OnInit, OnDestroy {
   }
 
   _participate(eventId: number, isParticipating: boolean) {
-    this.subscriptions.add(this.teamService.participate(eventId, isParticipating).subscribe(event => {
-        // TODO: single source of truth, this should modified eventsSource in event service !!!
-      })
+    this.eventService.participate(eventId, isParticipating).then(
+      success => {
+        if (!success) {
+          this.openSnackBar('L\'évènement a déjà eu lieu');
+        }
+      }
     );
   }
 
