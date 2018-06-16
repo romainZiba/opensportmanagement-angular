@@ -73,6 +73,5 @@ export class EventService {
           resolve(true);
         }, () => resolve(false));
     });
-
   }
 }

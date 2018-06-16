@@ -5,13 +5,15 @@ import {switchMap} from 'rxjs/operators';
 import {Event} from '../../model/event';
 import {AppSettings} from '../../app-settings';
 import {Subscription} from 'rxjs/Subscription';
+import {BaseComponent} from '../../containers/base.container';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-event-details',
   templateUrl: './event-details.component.html',
   styleUrls: ['./event-details.component.css']
 })
-export class EventDetailsComponent implements OnInit, OnDestroy {
+export class EventDetailsComponent extends BaseComponent implements OnInit, OnDestroy {
 
   event: Event;
   presence = Presence;
@@ -20,9 +22,11 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private eventService: EventService) { }
+              private eventService: EventService,
+              private snackbar: MatSnackBar) {
+    super(snackbar);
+  }
 
-  // TODO: refactor duplicated code
   isUserPresent(event: Event): Presence {
     const currentUsername = localStorage.getItem(AppSettings.currentUsernameKey);
     if (event.presentMembers.map(member => member.username).indexOf(currentUsername) > -1) {
@@ -32,8 +36,14 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     }
     return Presence.Unknown;
   }
+
   participate(matchId: number, isParticipating: boolean) {
-    this.eventService.participate(matchId, isParticipating);
+    this.eventService.participate(matchId, isParticipating).then(success => {
+        if (!success) {
+          this.openSnackBar('Inscription impossible');
+        }
+      }
+    );
   }
 
   ngOnInit() {
@@ -61,7 +71,6 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   }
 }
 
-// TODO: refactor duplicated code
 enum Presence {
   Present = 'Present',
   Absent = 'Absent',
