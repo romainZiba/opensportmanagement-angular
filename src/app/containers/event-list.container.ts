@@ -4,7 +4,7 @@ import {EventService} from '../services/event.service';
 import {TeamService} from '../services/team.service';
 import {Observable} from 'rxjs/Observable';
 import {Team} from '../model/team';
-import {PageEvent, Participation} from '../components/event-list/event-list.component';
+import {PageEvent} from '../components/event-list/event-list.component';
 import {Router} from '@angular/router';
 import {BaseComponent} from './base.container';
 import {MatSnackBar} from '@angular/material';
@@ -19,7 +19,6 @@ import {MatSnackBar} from '@angular/material';
                 [pageSize]="pageSize$ | async"
                 [totalElements]="totalElements$ | async"
                 (pager)="loadEvents($event)"
-                (participation)="participate($event)"
                 (details)="showDetails($event)"
                 (eventCreation)="showEventCreationPanel($event)"></event-list>
   `,
@@ -48,9 +47,10 @@ export class EventListSmartComponent extends BaseComponent implements OnInit, On
   }
 
   private _loadEvents(currentPage: number, pageSize: number) {
-    this.selectedTeam$
+    const sub = this.selectedTeam$
       .map(team => this.eventService.getEvents(team._id,  currentPage, pageSize))
       .subscribe();
+    this.subscriptions.add(sub);
   }
 
   showDetails(eventId: number) {
@@ -63,20 +63,6 @@ export class EventListSmartComponent extends BaseComponent implements OnInit, On
 
   loadEvents(pager: PageEvent) {
     this._loadEvents(pager.currentPage, pager.pageSize);
-  }
-
-  participate(event: Participation) {
-    this._participate(event.eventId, event.presence);
-  }
-
-  _participate(eventId: number, isParticipating: boolean) {
-    this.eventService.participate(eventId, isParticipating).then(
-      success => {
-        if (!success) {
-          this.openSnackBar('L\'évènement a déjà eu lieu');
-        }
-      }
-    );
   }
 
   ngOnDestroy() {

@@ -7,14 +7,13 @@
   </mat-paginator>
   <div class="list-group">
     <div class="list-group-item flex-column align-items-start" *ngFor="let event of events"
-         [ngSwitch]="isUserPresent(event)">
+         (click)="onShowDetails(event._id)">
       <div class="d-flex justify-content-between">
         <h5>{{event.name}}</h5>
         <span>{{event.presentMembers.length}} participants</span>
       </div>
       <p>{{ event.fromDateTime | date:'fullDate' }}</p>
       <p>{{ event.fromDateTime | date:'shortTime' }}</p>
-
       <div class="row d-flex align-items-center" *ngIf="event.done != null">
         <div class="col-4 text-center"><img class="img-fluid" src="{{event.localTeamImgUrl}}"></div>
         <div class="col-4 text-center">
@@ -28,12 +27,6 @@
         <div class="col-4 text-center"><p>{{event.localTeamName}}</p></div>
         <div class="col-4 text-center"></div>
         <div class="col-4 text-center"><p>{{event.visitorTeamName}}</p></div>
-      </div>
-      <div class="d-flex flex-row justify-content-start mt-2">
-        <button i18n="@@play" mat-raised-button color="primary" *ngSwitchCase="presence.Absent" (click)="onParticipate(event._id, true)">PLAY</button>
-        <button i18n="@@withdraw" mat-raised-button color="primary" *ngSwitchCase="presence.Present" (click)="onParticipate(event._id, false)">WITHDRAW</button>
-        <button i18n="@@play" mat-raised-button color="primary" *ngSwitchDefault (click)="onParticipate(event._id, true)">PLAY</button>
-        <button i18n="@@details" class="ml-2" mat-raised-button color="primary" (click)="showDetails(event._id)">DETAILS</button>
       </div>
     </div>
   </div>
