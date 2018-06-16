@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {IChampionship} from '../../model/championship';
 
 @Component({
   selector: 'championship-creation',
@@ -9,15 +8,13 @@ import {IChampionship} from '../../model/championship';
 export class ChampionshipCreationComponent {
 
   @Output('championship')
-  championshipEmitter = new EventEmitter<IChampionship>();
-  @Output('cancel')
-  cancelEmitter = new EventEmitter();
+  championshipEmitter = new EventEmitter<ChampionshipForm>();
 
-  onCreate(championship: IChampionship) {
+  onCreate(championship: ChampionshipForm) {
     this.championshipEmitter.emit(championship);
   }
+}
 
-  onCancel() {
-    this.cancelEmitter.emit();
-  }
+export interface ChampionshipForm {
+  name: string;
 }

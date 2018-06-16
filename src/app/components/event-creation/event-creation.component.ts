@@ -11,10 +11,6 @@ import {DateValidator} from '../../validators/DateValidator';
 import {Team} from '../../model/team';
 import {List} from 'immutable';
 import {Place} from '../../model/place';
-import {PlaceCreationComponent} from '../place-creation/place-creation.component';
-import {OpponentCreationComponent} from '../opponent-creation/opponent-creation.component';
-import {SeasonCreationComponent} from '../season-creation/season-creation.component';
-import {ChampionshipCreationSmartComponent} from '../../containers/championship-creation.container';
 import {MatDialog} from '@angular/material';
 
 @Component({
@@ -52,6 +48,15 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   seasonEmitter = new EventEmitter<number>();
   @Output('event')
   eventEmitter = new EventEmitter<EventCreation>();
+  @Output('new-place')
+  newPlaceClickEmitter = new EventEmitter();
+  @Output('new-opponent')
+  newOpponentClickEmitter = new EventEmitter();
+  @Output('new-season')
+  newSeasonClickEmitter = new EventEmitter();
+  @Output('new-championship')
+  newChampionshipClickEmitter = new EventEmitter<number>();
+
 
   private subscriptions = new Subscription();
 
@@ -110,7 +115,7 @@ export class EventCreationComponent implements OnInit, OnDestroy {
       .subscribe(() => this.onRecurrentChecked());
     const seasonsChangesSub = this.seasonControl.valueChanges
       .subscribe(seasonId => {
-        (seasonId !== null && seasonId !== undefined) ? (
+        this.isSeasonSelected(seasonId) ? (
           this.championshipControl.enable(),
             this.seasonEmitter.emit(seasonId)
         ) : this.championshipControl.disable();
@@ -118,6 +123,10 @@ export class EventCreationComponent implements OnInit, OnDestroy {
     this.subscriptions.add(fromDateChangeSub)
       .add(recurrentChangeSub)
       .add(seasonsChangesSub);
+  }
+
+  isSeasonSelected(seasonId) {
+    return seasonId !== null && seasonId !== undefined;
   }
 
   private onRecurrentChecked() {
@@ -138,32 +147,19 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   }
 
   onCreateOpponent() {
-    this.dialog.open(OpponentCreationComponent, {
-      height: '400px',
-      width: '600px',
-    });
+    this.newOpponentClickEmitter.emit();
   }
 
   onCreatePlace() {
-    this.dialog.open(PlaceCreationComponent, {
-      height: '400px',
-      width: '600px',
-    });
+    this.newPlaceClickEmitter.emit();
   }
 
   onCreateSeason() {
-    this.dialog.open(SeasonCreationComponent, {
-      height: '400px',
-      width: '600px',
-    });
+    this.newSeasonClickEmitter.emit();
   }
 
   onCreateChampionship() {
-    this.dialog.open(ChampionshipCreationSmartComponent, {
-      height: '400px',
-      width: '600px',
-      data: { seasonId: this.seasonControl.value }
-    });
+    this.newChampionshipClickEmitter.emit(this.seasonControl.value);
   }
 
   isNameDisplayed() {

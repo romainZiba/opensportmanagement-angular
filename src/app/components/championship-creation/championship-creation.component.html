@@ -1,7 +1,6 @@
-<form class="container" #form="ngForm" (ngSubmit)="onCreate(form.value)">
+<form class="container d-flex flex-column" #form="ngForm" (ngSubmit)="onCreate(form.value)">
   <mat-form-field>
     <input name="name" matInput type="text" i18n-placeholder="@@name" placeholder="Name" ngModel>
   </mat-form-field>
-  <button type="button" i18n="@@cancel" class="align-self-end" mat-button (click)="onCancel()">CANCEL</button>
-  <button type="submit" i18n="@@create" class="align-self-end" mat-button>CREATE</button>
+  <button type="submit" i18n="@@create" class="align-self-end" mat-button [disabled]="!form.valid">CREATE</button>
 </form>

@@ -1,19 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {FORMAT_DATE} from '../../app.module';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {EventCreationComponent} from '../event-creation/event-creation.component';
-import {MatDialogRef, MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 import {DateValidator} from '../../validators/DateValidator';
 import * as moment from 'moment';
 import {TeamService} from '../../services/team.service';
 import {Season} from '../../model/season';
+import {BaseComponent} from '../../containers/base.container';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-season-creation',
   templateUrl: './season-creation.component.html',
   styleUrls: ['./season-creation.component.css']
 })
-export class SeasonCreationComponent implements OnInit {
+export class SeasonCreationComponent extends BaseComponent implements OnInit {
 
   form: FormGroup;
   nameControl = new FormControl('', Validators.required);
@@ -23,10 +24,11 @@ export class SeasonCreationComponent implements OnInit {
     [Validators.required, DateValidator.dateMinimum(moment().startOf('day'))]);
   selectedTeamId: number;
 
-  constructor(private dialogRef: MatDialogRef<EventCreationComponent>,
-              private fb: FormBuilder,
+  constructor(private fb: FormBuilder,
               private teamService: TeamService,
-              private snackBar: MatSnackBar) {
+              private snackbar: MatSnackBar,
+              private location: Location) {
+    super(snackbar);
     this.form = fb.group({
       nameControl: this.nameControl,
       fromDateControl: this.fromDateControl,
@@ -35,7 +37,9 @@ export class SeasonCreationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.teamService.selectedTeam$.subscribe(team => this.selectedTeamId = team._id);
+    this.teamService.selectedTeam$
+      .filter(team => team !== null)
+      .subscribe(team => this.selectedTeamId = team._id);
   }
 
   createSeason() {
@@ -46,20 +50,10 @@ export class SeasonCreationComponent implements OnInit {
     this.teamService.createSeason(this.selectedTeamId, season).then(success => {
       if (success) {
         this.openSnackBar('Saison créé avec succès');
-        this.dialogRef.close();
+        this.location.back();
       } else {
         this.openSnackBar('Une erreur s\'est produite');
       }
     });
-  }
-
-  openSnackBar(message: string) {
-    this.snackBar.open(message,  '',  {
-      duration: 2000,
-    });
-  }
-
-  cancel() {
-    this.dialogRef.close();
   }
 }

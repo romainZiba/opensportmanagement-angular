@@ -1,4 +1,4 @@
-<form class="container" [formGroup]="form" (ngSubmit)="createSeason()">
+<form class="container d-flex flex-column" [formGroup]="form" (ngSubmit)="createSeason()">
   <mat-form-field>
     <input matInput type="text" i18n-placeholder="@@name" placeholder="Name" formControlName="nameControl">
   </mat-form-field>
@@ -16,6 +16,6 @@
     <input matInput type="date" i18n-placeholder="@@end-date" placeholder="End date"
            formControlName="toDateControl">
   </mat-form-field>
-  <button type="button" i18n="@@cancel" class="align-self-end" mat-button (click)="cancel()">CANCEL</button>
-  <button type="submit" i18n="@@create" class="align-self-end" mat-button>CREATE</button>
+  <button type="submit" i18n="@@create" class="align-self-end" mat-raised-button color="primary"
+          [disabled]="!form.valid">CREATE</button>
 </form>

@@ -38,7 +38,8 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button type="button" mat-button mat-icon-button aria-label="Add" (click)="onCreateChampionship()">
+      <button *ngIf="isSeasonSelected(seasonControl.value)" type="button" mat-button mat-icon-button aria-label="Add"
+              (click)="onCreateChampionship()">
         <mat-icon>add_circle_outline</mat-icon>
       </button>
     </div>

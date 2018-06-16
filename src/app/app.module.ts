@@ -160,10 +160,6 @@ const stompConfig: StompConfig = {
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ],
   entryComponents: [
-    PlaceCreationComponent,
-    OpponentCreationComponent,
-    SeasonCreationComponent,
-    ChampionshipCreationSmartComponent
   ],
   bootstrap: [AppComponent]
 })

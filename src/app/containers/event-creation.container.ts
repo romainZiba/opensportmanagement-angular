@@ -23,7 +23,11 @@ import {Team} from '../model/team';
                     [seasons]="seasons$ | async"
                     [championships]="championships$ | async"
                     (selectedSeason)="getChampionships($event)"
-                    (event)="create($event)"></event-creation>`
+                    (event)="create($event)"
+                    (new-opponent)="showNewOpponent()"
+                    (new-place)="showNewPlace()"
+                    (new-season)="showNewSeason()"
+                    (new-championship)="showNewChampionship($event)"></event-creation>`
 })
 export class EventCreationSmartComponent extends BaseComponent implements OnInit, OnDestroy {
   eventType$: Observable<EventType>;
@@ -119,6 +123,22 @@ export class EventCreationSmartComponent extends BaseComponent implements OnInit
           this.openSnackBar('Une erreur est survenue');
         }
       }, () => this.openSnackBar('Une erreur est survenue'));
+  }
+
+  showNewOpponent() {
+    this.router.navigate(['/new-opponent']);
+  }
+
+  showNewPlace() {
+    this.router.navigate(['/new-place']);
+  }
+
+  showNewSeason() {
+    this.router.navigate(['/new-season']);
+  }
+
+  showNewChampionship(seasonId: number) {
+    this.router.navigate(['/seasons', seasonId, 'new-championship']);
   }
 
   ngOnDestroy() {

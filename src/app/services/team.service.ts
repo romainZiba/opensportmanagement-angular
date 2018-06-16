@@ -8,7 +8,8 @@ import {AppSettings} from '../app-settings';
 import {TeamMember} from '../model/team-member';
 import {List} from 'immutable';
 import {Season} from '../model/season';
-import {Championship, IChampionship} from '../model/championship';
+import {Championship} from '../model/championship';
+import {ChampionshipForm} from '../components/championship-creation/championship-creation.component';
 
 @Injectable()
 export class TeamService {
@@ -149,7 +150,7 @@ export class TeamService {
     });
   }
 
-  createChampionship(championship: IChampionship, seasonId: number): Promise<boolean> {
+  createChampionship(championship: ChampionshipForm, seasonId: number): Promise<boolean> {
     return new Promise(resolve => {
       const subscription = this.http.post<Championship>(`/seasons/${seasonId}/championships`, championship, { withCredentials: true })
         .subscribe(createdChamp => {
