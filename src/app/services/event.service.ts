@@ -45,8 +45,9 @@ export class EventService {
     setTimeout(function() { subscription.unsubscribe(); }, 5000);
   }
 
-  getEvent(id: string): Observable<Event> {
-    return this.http.get<Event>(`/events/${id}`, { withCredentials: true });
+  getEvent(id: number) {
+    this.http.get<Event>(`/events/${id}`, { withCredentials: true })
+      .subscribe(event => this.eventSource.next(event));
   }
 
   getMessages(eventId: string) {

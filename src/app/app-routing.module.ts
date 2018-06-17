@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuardService} from './services/auth-guard.service';
 import {TeamMembersComponent} from './components/team-members/team-members.component';
-import {EventDetailsComponent} from './components/event-details/event-details.component';
 import {UserDetailsComponent} from './components/user-details/user-details.component';
 import {MemberInvitationComponent} from './components/member-invitation/member-invitation.component';
 import {MessagesComponent} from './components/messages/messages.component';
@@ -15,6 +14,8 @@ import {PlaceCreationComponent} from './components/place-creation/place-creation
 import {SeasonCreationComponent} from './components/season-creation/season-creation.component';
 import {ChampionshipCreationSmartComponent} from './containers/championship-creation.container';
 import {EventListSmartComponent} from './containers/event-list.container';
+import {EventDetailsSmartComponent} from './containers/event-details.container';
+import {EventSettingsComponent} from './components/event-settings/event-settings.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/event-list', pathMatch: 'full' },
@@ -26,14 +27,15 @@ const routes: Routes = [
   { path: 'new-match', component: EventCreationSmartComponent, data: { eventtype: 'match' }, canActivate: [AuthGuardService] },
   { path: 'team', component: TeamMembersComponent, canActivate: [AuthGuardService] },
   { path: 'user-details', component: UserDetailsComponent, canActivate: [AuthGuardService] },
-  { path: 'events/:id', component: EventDetailsComponent, canActivate: [AuthGuardService] },
+  { path: 'events/:id', component: EventDetailsSmartComponent, canActivate: [AuthGuardService] },
   { path: 'invite-members', component: MemberInvitationComponent, canActivate: [AuthGuardService] },
   { path: 'events/:id/messages', component: MessagesComponent, canActivate: [AuthGuardService] },
   { path: 'new-team', component: TeamCreationComponent, canActivate: [AuthGuardService] },
   { path: 'new-opponent', component: OpponentCreationComponent, canActivate: [AuthGuardService] },
   { path: 'new-place', component: PlaceCreationComponent, canActivate: [AuthGuardService] },
   { path: 'new-season', component: SeasonCreationComponent, canActivate: [AuthGuardService] },
-  { path: 'seasons/:id/new-championship', component: ChampionshipCreationSmartComponent, canActivate: [AuthGuardService] }
+  { path: 'seasons/:id/new-championship', component: ChampionshipCreationSmartComponent, canActivate: [AuthGuardService] },
+  { path: 'events/:id/settings', component: EventSettingsComponent, canActivate: [AuthGuardService] },
 ];
 
 @NgModule({

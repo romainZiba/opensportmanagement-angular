@@ -58,6 +58,8 @@ import {AccountConfirmationSmartComponent} from './containers/account-confirmati
 import {ChampionshipCreationSmartComponent} from './containers/championship-creation.container';
 import {EventCreationSmartComponent} from './containers/event-creation.container';
 import {EventListSmartComponent} from './containers/event-list.container';
+import {EventDetailsSmartComponent} from './containers/event-details.container';
+import {EventSettingsComponent} from './components/event-settings/event-settings.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -96,6 +98,7 @@ const stompConfig: StompConfig = {
     EventListSmartComponent,
     TeamMembersComponent,
     EventDetailsComponent,
+    EventDetailsSmartComponent,
     ToolbarComponent,
     UserDetailsComponent,
     MemberInvitationComponent,
@@ -109,7 +112,8 @@ const stompConfig: StompConfig = {
     AccountConfirmationSmartComponent,
     SeasonCreationComponent,
     ChampionshipCreationComponent,
-    ChampionshipCreationSmartComponent
+    ChampionshipCreationSmartComponent,
+    EventSettingsComponent
   ],
   imports: [
     BrowserModule,

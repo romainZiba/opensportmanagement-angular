@@ -1,6 +1,5 @@
 <div class="container" *ngIf = "event"
      [ngSwitch]="isUserPresent(event)">
-
   <mat-card>
     <mat-card-header>
       <mat-card-title>{{ event.name }}</mat-card-title>
@@ -8,28 +7,42 @@
         date:'shortTime' }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-
       <div class="d-flex justify-content-center" *ngIf="event.done != null">
         <p class="align-self-center">{{event.localTeamName}}</p>
         <img class="img-fluid mr-3" src="{{event.localTeamImgUrl}}">
         <p class="align-self-center" *ngIf="event.done">{{event.localTeamScore}}</p>
         <p class="align-self-center" *ngIf="event.done">{{event.visitorTeamScore}}</p>
         <p class="align-self-center" *ngIf="!event.done">VS</p>
-
         <img class="img-fluid ml-3" src="{{event.visitorTeamImgUrl}}">
         <p class="align-self-center">{{event.visitorTeamName}}</p>
       </div>
     </mat-card-content>
-    <mat-card-actions align="start">
-      <button i18n="@@messages" color="accent" mat-button (click)="showMessages(event._id)">MESSAGES</button>
-      <button i18n="@@play" color="accent" mat-button *ngSwitchCase="presence.Absent" (click)="participate(event._id, true)">PLAY</button>
-      <button i18n="@@withdraw" color="accent" mat-button *ngSwitchCase="presence.Present" (click)="participate(event._id, false)">WITHDRAW</button>
-      <button i18n="@@play" color="accent" mat-button *ngSwitchDefault (click)="participate(event._id, true)">PLAY</button>
+    <mat-card-actions>
+      <div class="d-flex">
+        <button class="mr-auto suppl" i18n="@@play" color="accent" mat-button
+                *ngSwitchCase="presence.Absent"
+                (click)="onParticipate(true)">
+          PLAY
+        </button>
+        <button class="mr-auto suppl" i18n="@@withdraw" color="accent" mat-button
+                *ngSwitchCase="presence.Present"
+                (click)="onParticipate(false)">
+          WITHDRAW
+        </button>
+        <button class="mr-auto suppl" i18n="@@play" color="accent" mat-button
+                *ngSwitchDefault
+                (click)="onParticipate(true)">
+          PLAY
+        </button>
+        <button class="suppl" color="accent" mat-button (click)="onShowMessages()">
+          <mat-icon>chat</mat-icon>
+        </button>
+        <button class="suppl" color="accent" mat-button (click)="onShowSettings()">
+          <mat-icon>settings</mat-icon>
+        </button>
+      </div>
     </mat-card-actions>
-    <mat-card-footer>
-    </mat-card-footer>
   </mat-card>
-
   <mat-list>
     <h3 i18n mat-subheader>Presents</h3>
     <mat-list-item *ngFor="let presentMember of event.presentMembers">

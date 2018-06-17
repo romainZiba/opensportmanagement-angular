@@ -1,31 +1,25 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {EventService} from '../../services/event.service';
-import {switchMap} from 'rxjs/operators';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Event} from '../../model/event';
 import {AppSettings} from '../../app-settings';
-import {Subscription} from 'rxjs/Subscription';
-import {BaseComponent} from '../../containers/base.container';
-import {MatSnackBar} from '@angular/material';
 
 @Component({
-  selector: 'app-event-details',
+  selector: 'event-details',
   templateUrl: './event-details.component.html',
   styleUrls: ['./event-details.component.css']
 })
-export class EventDetailsComponent extends BaseComponent implements OnInit, OnDestroy {
+export class EventDetailsComponent {
 
+  @Input()
   event: Event;
-  presence = Presence;
-  routeSub: Subscription;
-  participationSub: Subscription;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private eventService: EventService,
-              private snackbar: MatSnackBar) {
-    super(snackbar);
-  }
+  @Output('participation')
+  participationEmitter = new EventEmitter<boolean>();
+  @Output('messages')
+  messagesEmitter = new EventEmitter();
+  @Output('settings')
+  settingsEmitter = new EventEmitter();
+
+  presence = Presence;
 
   isUserPresent(event: Event): Presence {
     const currentUsername = localStorage.getItem(AppSettings.currentUsernameKey);
@@ -37,37 +31,16 @@ export class EventDetailsComponent extends BaseComponent implements OnInit, OnDe
     return Presence.Unknown;
   }
 
-  participate(matchId: number, isParticipating: boolean) {
-    this.eventService.participate(matchId, isParticipating).then(success => {
-        if (!success) {
-          this.openSnackBar('Inscription impossible');
-        }
-      }
-    );
+  onParticipate(isParticipating: boolean) {
+    this.participationEmitter.emit(isParticipating);
   }
 
-  ngOnInit() {
-    this.routeSub = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.eventService.getEvent(params.get('id')))
-    ).subscribe(event => this.event = event);
-
-    this.eventService.event$
-      .filter(event => event !== null)
-      .subscribe(event => this.event = event);
+  onShowMessages() {
+    this.messagesEmitter.emit();
   }
 
-  ngOnDestroy() {
-    if (this.routeSub !== undefined) {
-      this.routeSub.unsubscribe();
-    }
-    if (this.participationSub !== undefined) {
-      this.participationSub.unsubscribe();
-    }
-  }
-
-  showMessages(eventId: number) {
-    this.router.navigate([`/events/${eventId}/messages`]);
+  onShowSettings() {
+    this.settingsEmitter.emit();
   }
 }
 
