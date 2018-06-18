@@ -37,7 +37,7 @@
         <button class="suppl" color="accent" mat-button (click)="onShowMessages()">
           <mat-icon>chat</mat-icon>
         </button>
-        <button class="suppl" color="accent" mat-button (click)="onShowSettings()">
+        <button *ngIf="isAdmin" class="suppl" color="accent" mat-button (click)="onShowSettings()">
           <mat-icon>settings</mat-icon>
         </button>
       </div>

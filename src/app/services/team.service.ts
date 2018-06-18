@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Team} from '../model/team';
-import {Event, EventCreation} from '../model/event';
+import {Event, EventCreateUpdate} from '../model/event';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {AppSettings} from '../app-settings';
 import {TeamMember} from '../model/team-member';
@@ -74,7 +74,7 @@ export class TeamService {
     setTimeout(function() { subscription.unsubscribe(); }, 5000);
   }
 
-  createEvent(event: EventCreation): Promise<boolean> {
+  createEvent(event: EventCreateUpdate): Promise<boolean> {
     return new Promise(resolve => {
       const subscription = this.http.post(`/teams/${event.teamId}/events`, event, { observe: 'response', withCredentials: true })
         .subscribe(response => resolve(response.status === 201),
@@ -122,7 +122,7 @@ export class TeamService {
     setTimeout(function() { subscription.unsubscribe(); }, 5000);
   }
 
-  createMatch(eventCreation: EventCreation): Promise<boolean> {
+  createMatch(eventCreation: EventCreateUpdate): Promise<boolean> {
     return new Promise(resolve => {
       const subscription = this.http.post(`/championships/${eventCreation.championshipId}/matches`,
         eventCreation, { observe: 'response', withCredentials: true })

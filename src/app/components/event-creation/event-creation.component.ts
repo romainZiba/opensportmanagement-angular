@@ -4,14 +4,13 @@ import {Opponent} from '../../model/opponent';
 import * as moment from 'moment';
 import {Subscription} from 'rxjs/Subscription';
 import {FORMAT_DATE} from '../../app.module';
-import {EventCreation, EventType} from '../../model/event';
+import {EventCreateUpdate, EventType} from '../../model/event';
 import {Season} from '../../model/season';
 import {Championship} from '../../model/championship';
 import {DateValidator} from '../../validators/DateValidator';
 import {Team} from '../../model/team';
 import {List} from 'immutable';
 import {Place} from '../../model/place';
-import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'event-creation',
@@ -47,7 +46,7 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   @Output('selectedSeason')
   seasonEmitter = new EventEmitter<number>();
   @Output('event')
-  eventEmitter = new EventEmitter<EventCreation>();
+  eventEmitter = new EventEmitter<EventCreateUpdate>();
   @Output('new-place')
   newPlaceClickEmitter = new EventEmitter();
   @Output('new-opponent')
@@ -75,8 +74,7 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   toTimeControl = new FormControl('22:30', Validators.required);
   daysControl = new FormControl();
 
-  constructor(private dialog: MatDialog,
-              private fb: FormBuilder) {
+  constructor(private fb: FormBuilder) {
     this.form = fb.group({
       eventNameControl: this.eventNameControl,
       recurrentControl: this.recurrentControl,
@@ -166,7 +164,7 @@ export class EventCreationComponent implements OnInit, OnDestroy {
 
   onSaveEvent(eventName: string, season: string, championshipId: number, recurrent: boolean, days: string[], fromDate: string,
               fromTime: string, toDate: string, toTime: string, kindOfMatch: string, placeId: number, opponentId: number) {
-    const eventCreation = new EventCreation();
+    const eventCreation = new EventCreateUpdate();
     eventCreation.name = eventName;
     eventCreation.fromDate = fromDate;
     eventCreation.toDate = toDate;

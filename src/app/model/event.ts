@@ -19,7 +19,7 @@ export class Event {
   waitingMembers: TeamMember[];
 }
 
-export class EventCreation {
+export class EventCreateUpdate {
   teamId: number;
   name: string;
   fromDate: string;

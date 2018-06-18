@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 
 import {Observable} from 'rxjs/Observable';
 
-import {Event} from '../model/event';
+import {Event, EventCreateUpdate} from '../model/event';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {AppMessage} from '../model/AppMessage';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
@@ -48,6 +48,16 @@ export class EventService {
   getEvent(id: number) {
     this.http.get<Event>(`/events/${id}`, { withCredentials: true })
       .subscribe(event => this.eventSource.next(event));
+  }
+
+  updateEvent(id: number, event: EventCreateUpdate): Promise<boolean> {
+    return new Promise(resolve =>
+      this.http.put<Event>(`/events/${id}`, event, { withCredentials: true })
+        .subscribe(updatedEvent => {
+          this.eventSource.next(updatedEvent);
+          resolve(true);
+        }, () => resolve(false))
+    );
   }
 
   getMessages(eventId: string) {

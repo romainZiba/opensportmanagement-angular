@@ -11,6 +11,8 @@ export class EventDetailsComponent {
 
   @Input()
   event: Event;
+  @Input()
+  isAdmin = false;
 
   @Output('participation')
   participationEmitter = new EventEmitter<boolean>();

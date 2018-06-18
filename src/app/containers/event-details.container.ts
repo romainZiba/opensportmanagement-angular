@@ -13,6 +13,7 @@ import {Event} from '../model/event';
   selector: 'app-event-details',
   template: `
     <event-details [event]="event$ | async"
+                   [isAdmin]="isUserAdmin$ | async"
                    (participation)="participate($event)"
                    (messages)="showMessages()"
                    (settings)="showSettings()"></event-details>
@@ -23,6 +24,7 @@ export class EventDetailsSmartComponent extends BaseComponent implements OnInit,
   event$: Observable<Event>;
   selectedTeam$: Observable<Team>;
   eventId: number;
+  isUserAdmin$: Observable<boolean>;
 
   constructor(private router: Router,
               private eventService: EventService,
@@ -33,6 +35,8 @@ export class EventDetailsSmartComponent extends BaseComponent implements OnInit,
   }
 
   ngOnInit() {
+    this.isUserAdmin$ = this.teamService.currentTeamMember$
+      .map(member => member !== null && member.roles.includes('ADMIN'));
     this.eventId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     // // Fetch the event from network
     this.eventService.getEvent(this.eventId);

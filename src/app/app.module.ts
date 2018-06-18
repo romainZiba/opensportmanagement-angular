@@ -60,6 +60,7 @@ import {EventCreationSmartComponent} from './containers/event-creation.container
 import {EventListSmartComponent} from './containers/event-list.container';
 import {EventDetailsSmartComponent} from './containers/event-details.container';
 import {EventSettingsComponent} from './components/event-settings/event-settings.component';
+import {EventSettingsSmartComponent} from './containers/event-settings.container';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -67,6 +68,7 @@ export function tokenGetter() {
 
 export const API_URL = new InjectionToken<string>('apiUrl');
 export const FORMAT_DATE = 'YYYY-MM-DD';
+export const FORMAT_TIME = 'HH:mm';
 
 const stompConfig: StompConfig = {
   url: `wss://${environment.host}:${environment.port}/messagesWS/websocket`,
@@ -113,7 +115,8 @@ const stompConfig: StompConfig = {
     SeasonCreationComponent,
     ChampionshipCreationComponent,
     ChampionshipCreationSmartComponent,
-    EventSettingsComponent
+    EventSettingsComponent,
+    EventSettingsSmartComponent
   ],
   imports: [
     BrowserModule,

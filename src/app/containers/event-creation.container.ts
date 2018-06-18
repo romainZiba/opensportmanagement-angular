@@ -5,7 +5,7 @@ import {MatSnackBar} from '@angular/material';
 import {TeamService} from '../services/team.service';
 import {OpponentService} from '../services/opponent.service';
 import {PlaceService} from '../services/place.service';
-import {EventCreation, EventType} from '../model/event';
+import {EventCreateUpdate, EventType} from '../model/event';
 import {Observable} from 'rxjs/Observable';
 import {List} from 'immutable';
 import {Season} from '../model/season';
@@ -89,7 +89,7 @@ export class EventCreationSmartComponent extends BaseComponent implements OnInit
     this.teamService.getChampionships(seasonId);
   }
 
-  create(event: EventCreation) {
+  create(event: EventCreateUpdate) {
     switch (event.type) {
       case EventType.MATCH:
         this.createMatch(event);
@@ -99,7 +99,7 @@ export class EventCreationSmartComponent extends BaseComponent implements OnInit
     }
   }
 
-  private createMatch(eventCreation: EventCreation) {
+  private createMatch(eventCreation: EventCreateUpdate) {
     this.teamService.createMatch(eventCreation)
       .then(success => {
         // TODO: i18n
@@ -112,7 +112,7 @@ export class EventCreationSmartComponent extends BaseComponent implements OnInit
       }, () => this.openSnackBar('Une erreur est survenue'));
   }
 
-  private createEvent(eventCreation: EventCreation) {
+  private createEvent(eventCreation: EventCreateUpdate) {
     this.teamService.createEvent(eventCreation)
       .then(success => {
         // TODO: i18n

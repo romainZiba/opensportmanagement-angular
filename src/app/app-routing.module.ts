@@ -15,7 +15,7 @@ import {SeasonCreationComponent} from './components/season-creation/season-creat
 import {ChampionshipCreationSmartComponent} from './containers/championship-creation.container';
 import {EventListSmartComponent} from './containers/event-list.container';
 import {EventDetailsSmartComponent} from './containers/event-details.container';
-import {EventSettingsComponent} from './components/event-settings/event-settings.component';
+import {EventSettingsSmartComponent} from './containers/event-settings.container';
 
 const routes: Routes = [
   { path: '', redirectTo: '/event-list', pathMatch: 'full' },
@@ -35,7 +35,7 @@ const routes: Routes = [
   { path: 'new-place', component: PlaceCreationComponent, canActivate: [AuthGuardService] },
   { path: 'new-season', component: SeasonCreationComponent, canActivate: [AuthGuardService] },
   { path: 'seasons/:id/new-championship', component: ChampionshipCreationSmartComponent, canActivate: [AuthGuardService] },
-  { path: 'events/:id/settings', component: EventSettingsComponent, canActivate: [AuthGuardService] },
+  { path: 'events/:id/settings', component: EventSettingsSmartComponent, canActivate: [AuthGuardService] },
 ];
 
 @NgModule({
