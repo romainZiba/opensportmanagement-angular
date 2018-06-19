@@ -14,6 +14,8 @@ import {Team} from '../../model/team';
 export class EventListComponent implements OnInit {
 
   @Input()
+  allEvents: boolean;
+  @Input()
   selectedTeam: Team;
   @Input()
   teamMember: TeamMember;
@@ -51,25 +53,18 @@ export class EventListComponent implements OnInit {
     this.creationEmitter.emit(url);
   }
 
-  onLoadEvents(page: number, size: number) {
-    this.pagerEmitter.emit(new PageEvent(page, size));
+  onLoadEvents(page: number, size: number, retrieveAll: boolean) {
+    this.pagerEmitter.emit(new PageEvent(page, size, retrieveAll));
   }
 }
 
 export class PageEvent {
   currentPage: number;
   pageSize: number;
-  constructor(page: number, size: number) {
+  retriveAll: boolean;
+  constructor(page: number, size: number, retriveAll: boolean) {
     this.currentPage = page;
     this.pageSize = size;
-  }
-}
-
-export class Participation {
-  eventId: number;
-  presence: boolean;
-  constructor(eventId: number, presence: boolean) {
-    this.eventId = eventId;
-    this.presence = presence;
+    this.retriveAll = retriveAll;
   }
 }

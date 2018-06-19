@@ -3,8 +3,9 @@
                  [pageSize]="pageSize"
                  [pageIndex]="page"
                  [pageSizeOptions]="[10, 25, 50]"
-                 (page)="onLoadEvents($event.pageIndex, $event.pageSize)">
+                 (page)="onLoadEvents($event.pageIndex, $event.pageSize, allEvents)">
   </mat-paginator>
+  <mat-checkbox [(ngModel)]="allEvents" (change)="onLoadEvents(page, pageSize, allEvents)">All</mat-checkbox>
   <div class="list-group">
     <div class="list-group-item flex-column align-items-start" *ngFor="let event of events"
          (click)="onShowDetails(event._id)">

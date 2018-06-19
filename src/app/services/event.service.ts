@@ -7,6 +7,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {AppMessage} from '../model/AppMessage';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {List} from 'immutable';
+import * as moment from 'moment';
 
 @Injectable()
 export class EventService {
@@ -25,10 +26,13 @@ export class EventService {
   constructor(private http: HttpClient) {
   }
 
-  getEvents(teamId: number, page: number, size: number) {
-    let params = new HttpParams();
-    params = params.append('page', page.toString());
-    params = params.append('size', size.toString());
+  getEvents(teamId: number, page: number, size: number, retrieveAll: boolean) {
+    let params = new HttpParams()
+      .append('page', page.toString())
+      .append('size', size.toString());
+    if (!retrieveAll) {
+      params = params.append('date', moment().toISOString());
+    }
     const subscription = this.http.get(`/teams/${teamId}/events`, { withCredentials: true, params: params})
       .filter(response => response.hasOwnProperty('page'))
       .flatMap(response => {
