@@ -61,6 +61,8 @@ import {EventListSmartComponent} from './containers/event-list.container';
 import {EventDetailsSmartComponent} from './containers/event-details.container';
 import {EventSettingsComponent} from './components/event-settings/event-settings.component';
 import {EventSettingsSmartComponent} from './containers/event-settings.container';
+import {RouteReuseStrategy} from '@angular/router';
+import {RouteReuse} from './RouteReuse';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -166,7 +168,8 @@ const stompConfig: StompConfig = {
     {provide: StompConfig, useValue: stompConfig},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
-    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
+    {provide: RouteReuseStrategy, useClass: RouteReuse}
   ],
   entryComponents: [
   ],
