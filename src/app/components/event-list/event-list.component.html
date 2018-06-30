@@ -1,4 +1,4 @@
-<div *ngIf="selectedTeam" class="container">
+<div *ngIf="selectedTeam" class="container" xmlns="http://www.w3.org/1999/html">
   <mat-paginator [length]="totalElements"
                  [pageSize]="pageSize"
                  [pageIndex]="page"
@@ -10,7 +10,13 @@
     <div class="list-group-item flex-column align-items-start" *ngFor="let event of events"
          (click)="onShowDetails(event._id)">
       <div class="d-flex justify-content-between">
-        <h5>{{event.name}}</h5>
+        <h5>{{event.name}}
+          <ng-container *ngIf="event.cancelled">
+            <span>(</span>
+            <span i18n="@@cancelled" style="color: red;" >cancelled</span>
+            <span>)</span>
+          </ng-container>
+        </h5>
         <span>{{event.presentMembers.length}} participants</span>
       </div>
       <p>{{ event.fromDateTime | date:'fullDate' }}</p>

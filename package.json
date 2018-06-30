@@ -27,6 +27,8 @@
     "@angular/router": "^5.2.11",
     "@angular/service-worker": "^5.2.11",
     "@auth0/angular-jwt": "^1.2.0",
+    "@material/card": "^0.36.1",
+    "@material/list": "^0.36.0",
     "@stomp/ng2-stompjs": "^4.0.0",
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.7",

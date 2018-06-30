@@ -20,17 +20,25 @@ export class EventDetailsComponent {
   messagesEmitter = new EventEmitter();
   @Output('settings')
   settingsEmitter = new EventEmitter();
+  @Output('cancel')
+  cancelEmitter = new EventEmitter();
 
-  presence = Presence;
+  currentUsername = localStorage.getItem(AppSettings.currentUsernameKey);
 
-  isUserPresent(event: Event): Presence {
-    const currentUsername = localStorage.getItem(AppSettings.currentUsernameKey);
-    if (event.presentMembers.map(member => member.username).indexOf(currentUsername) > -1) {
-      return Presence.Present;
-    } else if (event.absentMembers.map(member => member.username).indexOf(currentUsername) > -1) {
-      return Presence.Absent;
-    }
-    return Presence.Unknown;
+  isUserPresent(event: Event) {
+    return event.presentMembers.map(member => member.username).indexOf(this.currentUsername) > -1;
+  }
+
+  isUserAbsent(event: Event) {
+    return event.absentMembers.map(member => member.username).indexOf(this.currentUsername) > -1;
+  }
+
+  isPresentDisplayed() {
+    return !this.event.cancelled && !this.isUserPresent(this.event);
+  }
+
+  isAbsentDisplayed() {
+    return !this.event.cancelled && !this.isUserAbsent(this.event);
   }
 
   onParticipate(isParticipating: boolean) {
@@ -44,10 +52,8 @@ export class EventDetailsComponent {
   onShowSettings() {
     this.settingsEmitter.emit();
   }
-}
 
-enum Presence {
-  Present = 'Present',
-  Absent = 'Absent',
-  Unknown = 'Unknown'
+  onCancel() {
+    this.cancelEmitter.emit();
+  }
 }

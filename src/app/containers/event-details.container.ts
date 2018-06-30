@@ -16,7 +16,8 @@ import {Event} from '../model/event';
                    [isAdmin]="isUserAdmin$ | async"
                    (participation)="participate($event)"
                    (messages)="showMessages()"
-                   (settings)="showSettings()"></event-details>
+                   (settings)="showSettings()"
+                   (cancel)="cancelEvent()"></event-details>
   `,
 })
 export class EventDetailsSmartComponent extends BaseComponent implements OnInit, OnDestroy {
@@ -60,6 +61,10 @@ export class EventDetailsSmartComponent extends BaseComponent implements OnInit,
 
   showSettings() {
     this.router.navigate([`/events/${this.eventId}/settings`]);
+  }
+
+  cancelEvent() {
+    this.eventService.cancel(this.eventId);
   }
 
   ngOnDestroy() {

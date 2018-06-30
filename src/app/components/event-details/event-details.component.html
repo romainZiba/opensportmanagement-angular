@@ -1,68 +1,59 @@
-<div class="container" *ngIf = "event"
-     [ngSwitch]="isUserPresent(event)">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>{{ event.name }}</mat-card-title>
-      <mat-card-subtitle>{{ event.fromDateTime | date:'fullDate' }} {{ event.fromDateTime |
-        date:'shortTime' }}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="d-flex justify-content-center" *ngIf="event.done != null">
-        <p class="align-self-center">{{event.localTeamName}}</p>
-        <img class="img-fluid mr-3" src="{{event.localTeamImgUrl}}">
-        <p class="align-self-center" *ngIf="event.done">{{event.localTeamScore}}</p>
-        <p class="align-self-center" *ngIf="event.done">{{event.visitorTeamScore}}</p>
-        <p class="align-self-center" *ngIf="!event.done">VS</p>
-        <img class="img-fluid ml-3" src="{{event.visitorTeamImgUrl}}">
-        <p class="align-self-center">{{event.visitorTeamName}}</p>
+<div class="container" *ngIf = "event">
+
+  <div class="mdc-card">
+    <!-- ... content ... -->
+    <div class="card-primary">
+      <h2 class="mdc-typography--headline6">{{event.localTeamName}} <span i18n="@@vs">VS</span> {{event.visitorTeamName}}</h2>
+      <h3 class="mdc-typography--subtitle2">{{ event.fromDateTime | date:'fullDate' }} {{ event.fromDateTime | date:'shortTime' }}</h3>
+    </div>
+    <div class="mdc-card__actions">
+      <div class="mdc-card__action-buttons">
+        <button class="mdc-button mdc-card__action mdc-card__action--button" i18n="@@present" color="accent"
+                *ngIf="isPresentDisplayed()"
+                (click)="onParticipate(true)">Present</button>
+        <button class="mdc-button mdc-card__action mdc-card__action--button" i18n="@@absent" color="accent"
+                *ngIf="isAbsentDisplayed()"
+                (click)="onParticipate(false)">Absent</button>
+        <button *ngIf="isAdmin && !event.cancelled"
+                class="mdc-button mdc-card__action mdc-card__action--button" i18n="@@cancel"
+                (click)="onCancel()">Cancel</button>
       </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <div class="d-flex">
-        <button class="mr-auto suppl" i18n="@@play" color="accent" mat-button
-                *ngSwitchCase="presence.Absent"
-                (click)="onParticipate(true)">
-          PLAY
-        </button>
-        <button class="mr-auto suppl" i18n="@@withdraw" color="accent" mat-button
-                *ngSwitchCase="presence.Present"
-                (click)="onParticipate(false)">
-          WITHDRAW
-        </button>
-        <button class="mr-auto suppl" i18n="@@play" color="accent" mat-button
-                *ngSwitchDefault
-                (click)="onParticipate(true)">
-          PLAY
-        </button>
-        <button class="suppl" color="accent" mat-button (click)="onShowMessages()">
+      <div class="mdc-card__action-icons">
+        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Messages"
+                (click)="onShowMessages()">
           <mat-icon>chat</mat-icon>
         </button>
-        <button *ngIf="isAdmin" class="suppl" color="accent" mat-button (click)="onShowSettings()">
+        <button *ngIf="isAdmin && !event.cancelled"
+                class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Settings"
+                (click)="onShowSettings()">
           <mat-icon>settings</mat-icon>
         </button>
       </div>
-    </mat-card-actions>
-  </mat-card>
-  <mat-list>
-    <h3 i18n mat-subheader>Presents</h3>
-    <mat-list-item *ngFor="let presentMember of event.presentMembers">
-      <mat-icon mat-list-icon></mat-icon>
-      <h4 mat-line>{{presentMember.firstName}} {{presentMember.lastName}}</h4>
-      <p mat-line> {{presentMember.licenseNumber }} </p>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <h3 i18n mat-subheader>Waiting</h3>
-    <mat-list-item *ngFor="let waitingMember of event.waitingMembers">
-      <mat-icon mat-list-icon></mat-icon>
-      <h4 mat-line>{{waitingMember.firstName}} {{waitingMember.lastName}}</h4>
-      <p mat-line> {{waitingMember.licenseNumber}} </p>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <h3 i18n mat-subheader>Absents</h3>
-    <mat-list-item *ngFor="let absentMember of event.absentMembers">
-      <mat-icon mat-list-icon></mat-icon>
-      <h4 mat-line>{{absentMember.firstName}} {{absentMember.lastName}}</h4>
-    </mat-list-item>
-  </mat-list>
+    </div>
+  </div>
+  <div class="mdc-list-group">
+    <h3 i18n class="mdc-list-group__subheader">Presents</h3>
+    <ul class="mdc-list">
+      <li *ngFor="let presentMember of event.presentMembers" class="mdc-list-item">
+        <h4>{{presentMember.firstName}} {{presentMember.lastName}}</h4>
+        <p> {{presentMember.licenseNumber }}</p>
+      </li>
+    </ul>
+    <hr class="mdc-list-divider">
+    <h3 i18n class="mdc-list-group__subheader">Waiting</h3>
+    <ul class="mdc-list">
+      <li *ngFor="let waitingMember of event.waitingMembers" class="mdc-list-item">
+        <h4>{{waitingMember.firstName}} {{waitingMember.lastName}}</h4>
+        <p> {{waitingMember.licenseNumber}} </p>
+      </li>
+    </ul>
+    <hr class="mdc-list-divider">
+    <h3 i18n class="mdc-list-group__subheader">Absents</h3>
+    <ul class="mdc-list">
+      <li *ngFor="let absentMember of event.absentMembers" class="mdc-list-item">
+        <h4 mat-line>{{absentMember.firstName}} {{absentMember.lastName}}</h4>
+      </li>
+    </ul>
+  </div>
 </div>
 

@@ -2,3 +2,7 @@ img {
   max-width: 4em;
   max-height: 4em;
 }
+
+.card-primary {
+  padding: 1rem;
+}

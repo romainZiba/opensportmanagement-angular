@@ -89,4 +89,18 @@ export class EventService {
         }, () => resolve(false));
     });
   }
+
+  cancel(eventId: number) {
+    return new Promise(resolve => {
+      this.http.put<Event>(`/events/${eventId}/cancelled`, '', { withCredentials: true })
+        .subscribe(event => {
+          const events = this.eventsSource.value;
+          const index = events.findIndex(value => value._id === event._id);
+          events[index] = event;
+          this.eventsSource.next(events);
+          this.eventSource.next(event);
+          resolve(true);
+        }, () => resolve(false));
+    });
+  }
 }

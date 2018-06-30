@@ -46,7 +46,10 @@ export class EventListComponent implements OnInit {
   }
 
   onShowDetails(eventId: number) {
-    this.detailsEmitter.emit(eventId);
+    const chosenEvent = this.events.filter(event => event._id === eventId)[0];
+    if (!chosenEvent.cancelled || this.teamMember.roles.includes('ADMIN')) {
+      this.detailsEmitter.emit(eventId);
+    }
   }
 
   onShowEventCreationPanel(url: string) {

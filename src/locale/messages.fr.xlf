@@ -92,12 +92,24 @@
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="cancelled" datatype="html">
+        <source>cancelled</source>
+        <target>annulé</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/event-list/event-list.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="vs" datatype="html">
         <source>VS</source>
         <target>contre</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-list/event-list.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="98b2b6e1226c5baca62de3fe220cb2a9e9150373" datatype="html">
@@ -109,24 +121,28 @@
         </context-group>
         <note priority="1" from="description">team-members</note>
       </trans-unit>
-      <trans-unit id="play" datatype="html">
-        <source>PLAY</source>
-        <target>S'inscrire</target>
+      <trans-unit id="present" datatype="html">
+        <source>Present</source>
+        <target>Présent</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="withdraw" datatype="html">
-        <source>WITHDRAW</source>
-        <target>Se désinscrire</target>
+      <trans-unit id="absent" datatype="html">
+        <source>Absent</source>
+        <target>Absent</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cancel" datatype="html">
+        <source>Cancel</source>
+        <target>Annuler</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8b78ff836909439bf7d8295cbdacb2c8e07fe3eb" datatype="html">
@@ -134,12 +150,12 @@
         <target>Présents</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="cdf2322f61bfe400f77645df90a630be3ad54ae1" datatype="html">
         <source>Waiting</source>
-        <target>En attente de réponse</target>
+        <target>En attente</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
           <context context-type="linenumber">54</context>

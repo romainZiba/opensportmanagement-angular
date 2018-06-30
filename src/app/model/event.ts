@@ -17,6 +17,7 @@ export class Event {
   presentMembers: TeamMember[];
   absentMembers: TeamMember[];
   waitingMembers: TeamMember[];
+  cancelled: boolean;
 }
 
 export class EventCreateUpdate {
