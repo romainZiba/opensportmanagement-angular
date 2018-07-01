@@ -134,6 +134,14 @@
         <target>Absent</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="postpone" datatype="html">
+        <source>Postpone</source>
+        <target>Reporter</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>

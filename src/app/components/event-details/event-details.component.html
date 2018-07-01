@@ -1,10 +1,12 @@
 <div class="container" *ngIf = "event">
 
   <div class="mdc-card">
-    <!-- ... content ... -->
     <div class="card-primary">
-      <h2 class="mdc-typography--headline6">{{event.localTeamName}} <span i18n="@@vs">VS</span> {{event.visitorTeamName}}</h2>
-      <h3 class="mdc-typography--subtitle2">{{ event.fromDateTime | date:'fullDate' }} {{ event.fromDateTime | date:'shortTime' }}</h3>
+      <h2 class="mdc-typography--headline6">{{event.name}}</h2>
+      <h3 *ngIf="event.done != null" class="mdc-typography--subtitle2">
+        {{event.localTeamName}} <span i18n="@@vs">VS</span> {{event.visitorTeamName}}
+      </h3>
+      {{ event.fromDateTime | date:'fullDate' }} {{ event.fromDateTime | date:'shortTime' }}
     </div>
     <div class="mdc-card__actions">
       <div class="mdc-card__action-buttons">
@@ -14,20 +16,23 @@
         <button class="mdc-button mdc-card__action mdc-card__action--button" i18n="@@absent" color="accent"
                 *ngIf="isAbsentDisplayed()"
                 (click)="onParticipate(false)">Absent</button>
-        <button *ngIf="isAdmin && !event.cancelled"
-                class="mdc-button mdc-card__action mdc-card__action--button" i18n="@@cancel"
-                (click)="onCancel()">Cancel</button>
       </div>
       <div class="mdc-card__action-icons">
         <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Messages"
                 (click)="onShowMessages()">
           <mat-icon>chat</mat-icon>
         </button>
-        <button *ngIf="isAdmin && !event.cancelled"
-                class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Settings"
-                (click)="onShowSettings()">
-          <mat-icon>settings</mat-icon>
-        </button>
+        <div *ngIf="isAdmin && !event.cancelled" class="btn-group">
+          <button type="button" class="dropdown-toggle material-icons mdc-icon-button mdc-card__action mdc-card__action--icon"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="More options">
+            more_vert
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <button i18n="@@postpone" class="dropdown-item" (click)="onShowSettings()">Postpone</button>
+            <div class="dropdown-divider"></div>
+            <button i18n="@@cancel" class="dropdown-item" (click)="onCancel()">Cancel</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
