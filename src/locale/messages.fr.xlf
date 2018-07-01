@@ -150,7 +150,15 @@
         <target>Annuler</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="remind" datatype="html">
+        <source>Send a reminder</source>
+        <target>Envoyer un rappel</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8b78ff836909439bf7d8295cbdacb2c8e07fe3eb" datatype="html">
@@ -158,7 +166,7 @@
         <target>Présents</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="cdf2322f61bfe400f77645df90a630be3ad54ae1" datatype="html">
@@ -166,7 +174,7 @@
         <target>En attente</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="26e962f98145ea9258764f0fe8625b7d14db7eaa" datatype="html">
@@ -174,7 +182,7 @@
         <target>Absents</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="user-profile" datatype="html">
@@ -426,7 +434,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-settings/event-settings.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="end-date" datatype="html">
@@ -442,7 +450,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-settings/event-settings.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="end-time" datatype="html">
@@ -454,7 +462,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-settings/event-settings.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="place" datatype="html">
@@ -466,7 +474,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-settings/event-settings.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="opponent" datatype="html">
@@ -538,7 +546,7 @@
         <target>Mettre à jour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-settings/event-settings.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
     </body>

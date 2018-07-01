@@ -22,6 +22,8 @@ export class EventDetailsComponent {
   settingsEmitter = new EventEmitter();
   @Output('cancel')
   cancelEmitter = new EventEmitter();
+  @Output('remind')
+  reminderEmitter = new EventEmitter();
 
   currentUsername = localStorage.getItem(AppSettings.currentUsernameKey);
 
@@ -55,5 +57,9 @@ export class EventDetailsComponent {
 
   onCancel() {
     this.cancelEmitter.emit();
+  }
+
+  onRemind() {
+    this.reminderEmitter.emit();
   }
 }

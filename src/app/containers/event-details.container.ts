@@ -17,7 +17,8 @@ import {Event} from '../model/event';
                    (participation)="participate($event)"
                    (messages)="showMessages()"
                    (settings)="showSettings()"
-                   (cancel)="cancelEvent()"></event-details>
+                   (cancel)="cancelEvent()"
+                   (remind)="sendReminder()"></event-details>
   `,
 })
 export class EventDetailsSmartComponent extends BaseComponent implements OnInit, OnDestroy {
@@ -65,6 +66,12 @@ export class EventDetailsSmartComponent extends BaseComponent implements OnInit,
 
   cancelEvent() {
     this.eventService.cancel(this.eventId);
+  }
+
+  sendReminder() {
+    this.eventService.sendReminder(this.eventId).then(success => {
+      success ? this.openSnackBar('Notifications envoyés avec succès') : this.openSnackBar('Une erreur s\'est produite');
+    });
   }
 
   ngOnDestroy() {

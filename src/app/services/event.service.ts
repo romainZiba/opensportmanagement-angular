@@ -103,4 +103,13 @@ export class EventService {
         }, () => resolve(false));
     });
   }
+
+  sendReminder(eventId: number) {
+    return new Promise(resolve => {
+      this.http.post<Event>(`/events/${eventId}/notifications`, '', { observe: 'response', withCredentials: true })
+        .subscribe(response => {
+          response.status === 200 ? resolve(true) : resolve(false);
+        }, () => resolve(false));
+    });
+  }
 }
