@@ -1,8 +1,14 @@
 <div class="container" *ngIf = "event">
-
   <div class="mdc-card">
     <div class="card-primary">
-      <h2 class="mdc-typography--headline6">{{event.name}}</h2>
+      <h2 class="mdc-typography--headline6">
+        {{event.name}}
+        <ng-container *ngIf="event.cancelled">
+          <span>(</span>
+          <span i18n="@@cancelled" style="color: red;" >cancelled</span>
+          <span>)</span>
+        </ng-container>
+      </h2>
       <h3 *ngIf="event.done != null" class="mdc-typography--subtitle2">
         {{event.localTeamName}} <span i18n="@@vs">VS</span> {{event.visitorTeamName}}
       </h3>
