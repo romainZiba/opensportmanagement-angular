@@ -24,6 +24,8 @@ export class EventDetailsComponent {
   cancelEmitter = new EventEmitter();
   @Output('remind')
   reminderEmitter = new EventEmitter();
+  @Output('open')
+  openEmitter = new EventEmitter();
 
   currentUsername = localStorage.getItem(AppSettings.currentUsernameKey);
 
@@ -36,11 +38,11 @@ export class EventDetailsComponent {
   }
 
   isPresentDisplayed() {
-    return !this.event.cancelled && !this.isUserPresent(this.event);
+    return this.event.openForRegistration && !this.event.cancelled && !this.isUserPresent(this.event);
   }
 
   isAbsentDisplayed() {
-    return !this.event.cancelled && !this.isUserAbsent(this.event);
+    return this.event.openForRegistration && !this.event.cancelled && !this.isUserAbsent(this.event);
   }
 
   onParticipate(isParticipating: boolean) {
@@ -61,5 +63,9 @@ export class EventDetailsComponent {
 
   onRemind() {
     this.reminderEmitter.emit();
+  }
+
+  onOpenRegistration() {
+    this.openEmitter.emit();
   }
 }

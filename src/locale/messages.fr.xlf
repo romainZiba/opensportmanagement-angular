@@ -97,7 +97,11 @@
         <target>annulé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-list/event-list.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="vs" datatype="html">
@@ -105,11 +109,11 @@
         <target>contre</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-list/event-list.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="98b2b6e1226c5baca62de3fe220cb2a9e9150373" datatype="html">
@@ -126,7 +130,7 @@
         <target>Présent</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="absent" datatype="html">
@@ -134,7 +138,7 @@
         <target>Absent</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="postpone" datatype="html">
@@ -142,7 +146,7 @@
         <target>Reporter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="cancel" datatype="html">
@@ -158,7 +162,15 @@
         <target>Envoyer un rappel</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="openForRegistration" datatype="html">
+        <source>Open registration</source>
+        <target>Ouvrir à l'inscription</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8b78ff836909439bf7d8295cbdacb2c8e07fe3eb" datatype="html">

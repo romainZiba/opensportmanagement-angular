@@ -112,4 +112,13 @@ export class EventService {
         }, () => resolve(false));
     });
   }
+
+  openRegistration(eventId: number) {
+    return new Promise(resolve => {
+      this.http.put<Event>(`/events/${eventId}/registrations`, '', { observe: 'response', withCredentials: true })
+        .subscribe(response => {
+          response.status === 200 ? resolve(true) : resolve(false);
+        }, () => resolve(false));
+    });
+  }
 }

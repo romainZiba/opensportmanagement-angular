@@ -18,7 +18,9 @@ import {Event} from '../model/event';
                    (messages)="showMessages()"
                    (settings)="showSettings()"
                    (cancel)="cancelEvent()"
-                   (remind)="sendReminder()"></event-details>
+                   (remind)="sendReminder()"
+                   (open)="openRegistration()">
+    </event-details>
   `,
 })
 export class EventDetailsSmartComponent extends BaseComponent implements OnInit, OnDestroy {
@@ -72,6 +74,13 @@ export class EventDetailsSmartComponent extends BaseComponent implements OnInit,
     this.eventService.sendReminder(this.eventId).then(success => {
       success ? this.openSnackBar('Notifications envoyés avec succès') : this.openSnackBar('Une erreur s\'est produite');
     });
+  }
+
+  openRegistration() {
+    this.eventService.openRegistration(this.eventId)
+      .then(success => {
+        success ? this.openSnackBar('Notifications envoyés') : this.openSnackBar('Une erreur s\'est produite');
+      });
   }
 
   ngOnDestroy() {

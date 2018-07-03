@@ -18,6 +18,7 @@ export class Event {
   absentMembers: TeamMember[];
   waitingMembers: TeamMember[];
   cancelled: boolean;
+  openForRegistration: boolean;
 }
 
 export class EventCreateUpdate {
