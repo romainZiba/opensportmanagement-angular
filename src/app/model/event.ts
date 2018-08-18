@@ -7,6 +7,7 @@ export class Event {
   fromDateTime: string;
   toDateTime: string;
   placeId: number;
+  placeName: string;
   done: boolean;
   localTeamName: string;
   localTeamImgUrl: string;

@@ -15,8 +15,12 @@
         <span *ngIf="!event.cancelled">{{event.presentMembers.length}} participants</span>
         <span *ngIf="event.cancelled" i18n="@@cancelled" style="color: red;" >cancelled</span>
       </div>
-      <p>{{ event.fromDateTime | date:'fullDate' | uppercase }}</p>
-      <p>{{ event.fromDateTime | date:'shortTime' }}</p>
+      <div class="row">
+        <mat-icon class="icon">watch_later</mat-icon> {{ event.fromDateTime | date:'fullDate' | uppercase }} {{ event.fromDateTime | date:'shortTime' }}
+      </div>
+      <div class="row">
+        <mat-icon class="icon">place</mat-icon>{{ event.placeName }}
+      </div>
       <div class="row d-flex align-items-center" *ngIf="event.done != null">
         <div class="col-4 text-center"><img class="img-fluid" src="{{event.localTeamImgUrl}}"></div>
         <div class="col-4 text-center">
