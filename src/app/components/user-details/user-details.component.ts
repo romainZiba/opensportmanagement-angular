@@ -38,7 +38,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       userForm.value['phoneNumber'],
       userForm.value['email'],
       this.selectedTeam._id,
-      userForm.value['licenseNumber'])
+      userForm.value['licenceNumber'])
     // TODO: i18n
       .then(() => this.openSnackBar('Informations mises à jour'),
         () => this.openSnackBar('Une erreur s\'est produite'));

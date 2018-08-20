@@ -20,7 +20,11 @@ export class TeamMembersComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.add(
-      this.teamService.selectedTeam$.subscribe(team => this.teamService.getTeamMembers(team._id))
+      this.teamService.selectedTeam$.subscribe(team => {
+        if (team != null) {
+          this.teamService.getTeamMembers(team._id);
+        }
+      })
     );
     this.subscriptions.add(
       this.teamService.teamMembers$.subscribe(members => this.teamMembers = members)

@@ -19,6 +19,7 @@ export class MemberInvitationComponent implements OnInit {
   emailControl = new FormControl('', Validators.required);
   possibleRoles = [{ id: 'PLAYER', name: 'Joueur'}, { id: 'ADMIN', name: 'Admin'}];
   rolesControl = new FormControl('', Validators.required);
+  licenceNumberControl = new FormControl('');
 
   constructor(private teamService: TeamService,
               private snackBar: MatSnackBar,
@@ -28,7 +29,8 @@ export class MemberInvitationComponent implements OnInit {
       firstNameControl: this.firstNameControl,
       lastNameControl: this.lastNameControl,
       emailControl: this.emailControl,
-      rolesControl: this.rolesControl
+      rolesControl: this.rolesControl,
+      licenceNumberControl: this.licenceNumberControl
     });
   }
 
@@ -42,6 +44,7 @@ export class MemberInvitationComponent implements OnInit {
     member.lastName = this.lastNameControl.value;
     member.email = this.emailControl.value;
     member.roles = this.rolesControl.value;
+    member.licenceNumber = this.licenceNumberControl.value;
     this.teamService.createTeamMember(this.selectedTeam._id, member)
       .then(success => {
           // TODO: i18n

@@ -16,6 +16,10 @@
       <mat-option *ngFor="let role of possibleRoles" [value]="role.id">{{role.name}}</mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-form-field>
+    <input matInput type="number" i18n-placeholder="@@license-number"
+           placeholder="Licence number" formControlName="licenceNumberControl">
+  </mat-form-field>
   <button type="submit" i18n="@@notify" class="align-self-start" mat-raised-button color="primary" [disabled]="!form.valid">
     NOTIFY
   </button>

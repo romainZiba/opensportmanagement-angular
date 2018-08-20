@@ -45,7 +45,7 @@ export class TeamService {
 
   updateTeamMember(teamId: number, licenseNumber: string): Promise<boolean> {
     const member = new TeamMember();
-    member.licenseNumber = licenseNumber;
+    member.licenceNumber = licenseNumber;
     return new Promise(resolve => {
       const subscription = this.http.put<TeamMember>(`teams/${teamId}/members/me`, member, { observe: 'response', withCredentials: true })
         .subscribe(response => {

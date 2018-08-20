@@ -3,7 +3,7 @@ export class TeamMember {
   firstName: string;
   lastName: string;
   roles: string[];
-  licenseNumber: string;
+  licenceNumber: string;
   email: string;
   phoneNumber: string;
 }
