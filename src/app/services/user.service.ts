@@ -56,18 +56,19 @@ export class UserService {
              phoneNumber: string,
              email: string,
              teamId: number,
-             licenseNumber: string): Promise<boolean> {
+             licenceNumber: string): Promise<boolean> {
     const user = new User();
     user.firstName = firstName;
     user.lastName = lastName;
     user.phoneNumber = phoneNumber;
     user.email = email;
+    console.log(`Update user, licenceNumber is ${licenceNumber}`);
     return new Promise(resolve => {
       const subscription = this.http.put<User>(`accounts/me`, user, { withCredentials: true })
         .subscribe(updatedUser => {
           if (updatedUser !== null) {
             this.userSource.next(updatedUser);
-            this.teamService.updateTeamMember(teamId, licenseNumber).then(() => resolve(true), () => resolve(false));
+            this.teamService.updateTeamMember(teamId, licenceNumber).then(() => resolve(true), () => resolve(false));
           }
           resolve(false);
         });
