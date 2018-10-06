@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { UserService } from "../../services/user.service";
-import { TeamService } from "../../services/team.service";
-import { TeamMember } from "../../model/team-member";
-import { Team } from "../../model/team";
-import { MatSnackBar } from "@angular/material";
-import { Subscription } from "rxjs/Subscription";
-import { NgForm } from "@angular/forms";
-import { User } from "../../model/user";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {UserService} from '../../services/user.service';
+import {TeamService} from '../../services/team.service';
+import {TeamMember} from '../../model/team-member';
+import {Team} from '../../model/team';
+import {MatSnackBar} from '@angular/material';
+import {Subscription} from 'rxjs/Subscription';
+import {NgForm} from '@angular/forms';
+import {User} from '../../model/user';
 
 @Component({
   selector: "app-user-details",

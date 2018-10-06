@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { Event } from "../../model/event";
-import { AppSettings } from "../../app-settings";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Event} from '../../model/event';
+import {AppSettings} from '../../app-settings';
 
 @Component({
   selector: "event-details",

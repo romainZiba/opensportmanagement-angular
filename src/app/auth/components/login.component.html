@@ -5,6 +5,7 @@
   <mat-form-field>
     <input #username matInput type="text" i18n-placeholder="The username to log in@@username" placeholder="Username"
            name="username">
+    <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <input #password matInput [type]="hide ? 'password' : 'text'"

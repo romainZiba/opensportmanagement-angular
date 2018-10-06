@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { EventSettingsComponent } from "./event-settings.component";
+import {EventSettingsComponent} from './event-settings.component';
 
 describe("EventSettingsComponent", () => {
   let component: EventSettingsComponent;

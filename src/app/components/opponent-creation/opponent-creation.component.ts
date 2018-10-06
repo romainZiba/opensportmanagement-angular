@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { MatSnackBar } from "@angular/material";
-import { TeamService } from "../../services/team.service";
-import { Opponent } from "../../model/opponent";
-import { OpponentService } from "../../services/opponent.service";
-import { Location } from "@angular/common";
+import {Component, OnInit} from '@angular/core';
+import {MatSnackBar} from '@angular/material';
+import {TeamService} from '../../services/team.service';
+import {Opponent} from '../../model/opponent';
+import {OpponentService} from '../../services/opponent.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: "app-opponent-creation",

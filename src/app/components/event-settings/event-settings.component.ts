@@ -1,24 +1,12 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  Output
-} from "@angular/core";
-import { Subscription } from "rxjs/Subscription";
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from "@angular/forms";
-import { DateValidator } from "../../validators/DateValidator";
-import { Place } from "../../model/place";
-import { Event, EventCreateUpdate } from "../../model/event";
-import { List } from "immutable";
-import * as moment from "moment";
-import { FORMAT_DATE, FORMAT_TIME } from "../../app.module";
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output} from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {DateValidator} from '../../validators/DateValidator';
+import {Place} from '../../model/place';
+import {Event, EventCreateUpdate} from '../../model/event';
+import {List} from 'immutable';
+import * as moment from 'moment';
+import {FORMAT_DATE, FORMAT_TIME} from '../../app.module';
 
 @Component({
   selector: "event-settings",

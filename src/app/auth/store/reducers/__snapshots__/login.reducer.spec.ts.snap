@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginReducer login action should return logged user 1`] = `
+Object {
+  "error": null,
+  "pending": false,
+  "user": User {
+    "email": "email",
+    "firstName": "firstName",
+    "lastName": "lastName",
+    "phoneNumber": "phoneNumber",
+    "username": "username",
+  },
+}
+`;
+
+exports[`LoginReducer login action should return pending state 1`] = `
+Object {
+  "error": null,
+  "pending": true,
+  "user": null,
+}
+`;
+
+exports[`LoginReducer login failure action should return error 1`] = `
+Object {
+  "error": "error",
+  "pending": false,
+  "user": null,
+}
+`;
+
+exports[`LoginReducer login success action should return logged user 1`] = `
+Object {
+  "error": null,
+  "pending": false,
+  "user": User {
+    "email": "email",
+    "firstName": "firstName",
+    "lastName": "lastName",
+    "phoneNumber": "phoneNumber",
+    "username": "username",
+  },
+}
+`;
+
+exports[`LoginReducer logout action should return initial state 1`] = `
+Object {
+  "error": null,
+  "pending": false,
+  "user": null,
+}
+`;
+
+exports[`LoginReducer undefined action should return the default state 1`] = `
+Object {
+  "error": null,
+  "pending": false,
+  "user": null,
+}
+`;
+
+exports[`LoginReducer undefined actions should return the default state 1`] = `
+Object {
+  "error": null,
+  "pending": false,
+  "user": null,
+}
+`;

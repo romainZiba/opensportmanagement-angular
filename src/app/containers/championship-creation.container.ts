@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { MatSnackBar } from "@angular/material";
-import { TeamService } from "../services/team.service";
-import { BaseComponent } from "./base.container";
-import { Location } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
-import { ChampionshipForm } from "../components/championship-creation/championship-creation.component";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {MatSnackBar} from '@angular/material';
+import {TeamService} from '../services/team.service';
+import {BaseComponent} from './base.container';
+import {Location} from '@angular/common';
+import {ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
+import {ChampionshipForm} from '../components/championship-creation/championship-creation.component';
 
 @Component({
   selector: "app-championship-creation",

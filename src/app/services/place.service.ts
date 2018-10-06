@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { Place } from "../model/place";
-import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { List } from "immutable";
+import {Injectable} from '@angular/core';
+import {Place} from '../model/place';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {List} from 'immutable';
 
 @Injectable()
 export class PlaceService {

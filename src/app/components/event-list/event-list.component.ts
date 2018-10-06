@@ -1,15 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { Event } from "../../model/event";
-import { speedDialAnimation } from "../../speed-dial/index";
-import { List } from "immutable";
-import { TeamMember } from "../../model/team-member";
-import { Team } from "../../model/team";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Event} from '../../model/event';
+import {List} from 'immutable';
+import {TeamMember} from '../../model/team-member';
+import {Team} from '../../model/team';
 
 @Component({
   selector: "event-list",
   templateUrl: "./event-list.component.html",
   styleUrls: ["./event-list.component.css"],
-  animations: [speedDialAnimation]
 })
 export class EventListComponent implements OnInit {
   @Input()

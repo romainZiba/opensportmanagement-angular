@@ -37,18 +37,4 @@
       </div>
     </div>
   </div>
-  <div *ngIf="teamMember" class="fab-container">
-    <speed-dial #dial="speedDial">
-      <ng-container *ngFor="let option of options">
-        <button *ngIf="!option.admin || teamMember.roles.includes('ADMIN')" (click)="onShowEventCreationPanel(option.url)"  mat-mini-fab speed-dial-option
-                [speedDialOptionLabel]="option.label">
-          <mat-icon [ngClass]="option.icon"></mat-icon>
-        </button>
-      </ng-container>
-    </speed-dial>
-    <button mat-fab [speedDialTriggerFor]="dial" #trigger="speedDialTrigger">
-      <mat-icon *ngIf="!trigger.isOpen">add</mat-icon>
-      <mat-icon *ngIf="trigger.isOpen">close</mat-icon>
-    </button>
-  </div>
 </div>

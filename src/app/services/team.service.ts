@@ -1,15 +1,16 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
-import { Team } from "../model/team";
-import { EventCreateUpdate } from "../model/event";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { AppSettings } from "../app-settings";
-import { TeamMember } from "../model/team-member";
-import { List } from "immutable";
-import { Season } from "../model/season";
-import { Championship } from "../model/championship";
-import { ChampionshipForm } from "../components/championship-creation/championship-creation.component";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import {Team} from '../model/team';
+import {EventCreateUpdate} from '../model/event';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {AppSettings} from '../app-settings';
+import {TeamMember} from '../model/team-member';
+import {List} from 'immutable';
+import {Season} from '../model/season';
+import {Championship} from '../model/championship';
+import {ChampionshipForm} from '../components/championship-creation/championship-creation.component';
+import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class TeamService {
@@ -72,7 +73,7 @@ export class TeamService {
   }
 
   getSports(): Observable<List<string>> {
-    return Observable.of(List(["BASKETBALL", "FOOTBALL", "HANDBALL", "OTHER"]));
+    return of(List(["BASKETBALL", "FOOTBALL", "HANDBALL", "OTHER"]));
   }
 
   selectTeam(team: Team) {

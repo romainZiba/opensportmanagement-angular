@@ -1,14 +1,15 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
-import { MatSnackBar } from "@angular/material";
-import { TeamService } from "../services/team.service";
-import { PlaceService } from "../services/place.service";
-import { Event, EventCreateUpdate } from "../model/event";
-import { BaseComponent } from "./base.container";
-import { EventService } from "../services/event.service";
-import { Location } from "@angular/common";
-import { Observable } from "rxjs/Observable";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
+import {MatSnackBar} from '@angular/material';
+import {TeamService} from '../services/team.service';
+import {PlaceService} from '../services/place.service';
+import {Event, EventCreateUpdate} from '../model/event';
+import {BaseComponent} from './base.container';
+import {EventService} from '../services/event.service';
+import {Location} from '@angular/common';
+import {Observable} from 'rxjs/Observable';
+import {filter, tap} from 'rxjs/operators';
 
 @Component({
   selector: "app-event-settings",
@@ -45,8 +46,10 @@ export class EventSettingsSmartComponent extends BaseComponent
 
     this.event$ = this.eventService.event$.filter(event => event !== null);
     const placesSub = this.teamService.selectedTeam$
-      .filter(team => team !== null)
-      .do(team => this.placeService.getPlaces(team._id))
+      .pipe(
+        filter(team => team !== null),
+        tap(team => this.placeService.getPlaces(team._id))
+      )
       .subscribe();
     this.subscriptions.add(placesSub);
   }

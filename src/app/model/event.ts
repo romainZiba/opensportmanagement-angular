@@ -1,4 +1,4 @@
-import { TeamMember } from "./team-member";
+import {TeamMember} from './team-member';
 
 export class Event {
   _id: number;

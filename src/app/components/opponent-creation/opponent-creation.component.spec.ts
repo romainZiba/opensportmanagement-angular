@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { OpponentCreationComponent } from "./opponent-creation.component";
+import {OpponentCreationComponent} from './opponent-creation.component';
 
 describe("OpponentCreationComponent", () => {
   let component: OpponentCreationComponent;

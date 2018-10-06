@@ -1,28 +1,16 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output
-} from "@angular/core";
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from "@angular/forms";
-import { Opponent } from "../../model/opponent";
-import * as moment from "moment";
-import { Subscription } from "rxjs/Subscription";
-import { FORMAT_DATE } from "../../app.module";
-import { EventCreateUpdate, EventType } from "../../model/event";
-import { Season } from "../../model/season";
-import { Championship } from "../../model/championship";
-import { DateValidator } from "../../validators/DateValidator";
-import { Team } from "../../model/team";
-import { List } from "immutable";
-import { Place } from "../../model/place";
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Opponent} from '../../model/opponent';
+import * as moment from 'moment';
+import {Subscription} from 'rxjs/Subscription';
+import {FORMAT_DATE} from '../../app.module';
+import {EventCreateUpdate, EventType} from '../../model/event';
+import {Season} from '../../model/season';
+import {Championship} from '../../model/championship';
+import {DateValidator} from '../../validators/DateValidator';
+import {Team} from '../../model/team';
+import {List} from 'immutable';
+import {Place} from '../../model/place';
 
 @Component({
   selector: "event-creation",

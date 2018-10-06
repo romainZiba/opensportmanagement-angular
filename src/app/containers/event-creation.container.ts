@@ -1,17 +1,18 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
-import { MatSnackBar } from "@angular/material";
-import { TeamService } from "../services/team.service";
-import { OpponentService } from "../services/opponent.service";
-import { PlaceService } from "../services/place.service";
-import { EventCreateUpdate, EventType } from "../model/event";
-import { Observable } from "rxjs/Observable";
-import { List } from "immutable";
-import { Season } from "../model/season";
-import { Championship } from "../model/championship";
-import { BaseComponent } from "./base.container";
-import { Team } from "../model/team";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
+import {MatSnackBar} from '@angular/material';
+import {TeamService} from '../services/team.service';
+import {OpponentService} from '../services/opponent.service';
+import {PlaceService} from '../services/place.service';
+import {EventCreateUpdate, EventType} from '../model/event';
+import {Observable} from 'rxjs/Observable';
+import {of} from 'rxjs/observable/of';
+import {List} from 'immutable';
+import {Season} from '../model/season';
+import {Championship} from '../model/championship';
+import {BaseComponent} from './base.container';
+import {Team} from '../model/team';
 
 @Component({
   selector: "app-event-creation",
@@ -67,7 +68,7 @@ export class EventCreationSmartComponent extends BaseComponent
         this.placeService.getPlaces(teamId);
         this.opponentService.getOpponents(teamId);
         this.teamService.getSeasons(teamId);
-        return Observable.of(team);
+        return of(team);
       });
     this.seasons$ = this.eventType$
       .filter(type => type === EventType.MATCH)

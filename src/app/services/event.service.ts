@@ -1,13 +1,13 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from '@angular/core';
 
-import { Observable } from "rxjs/Observable";
+import {of} from 'rxjs/observable/of';
 
-import { Event, EventCreateUpdate } from "../model/event";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { AppMessage } from "../model/AppMessage";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { List } from "immutable";
-import * as moment from "moment";
+import {Event, EventCreateUpdate} from '../model/event';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {AppMessage} from '../model/AppMessage';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {List} from 'immutable';
+import * as moment from 'moment';
 
 @Injectable()
 export class EventService {
@@ -27,22 +27,22 @@ export class EventService {
 
   getEvents(teamId: number, page: number, size: number, retrieveAll: boolean) {
     let params = new HttpParams()
-      .append("page", page.toString())
-      .append("size", size.toString());
+      .append('page', page.toString())
+      .append('size', size.toString());
     if (!retrieveAll) {
-      params = params.append("date", moment().toISOString());
+      params = params.append('date', moment().toISOString());
     }
     const subscription = this.http
       .get(`/teams/${teamId}/events`, { withCredentials: true, params: params })
-      .filter(response => response.hasOwnProperty("page"))
+      .filter(response => response.hasOwnProperty('page'))
       .flatMap(response => {
-        this.currentPageSource.next(response["page"]["number"]);
-        this.pageSizeSource.next(response["page"]["size"]);
-        this.totalElementsSource.next(response["page"]["totalElements"]);
-        if (response["page"]["totalElements"] > 0) {
-          return Observable.of(response["_embedded"]["eventDtoes"]);
+        this.currentPageSource.next(response['page']['number']);
+        this.pageSizeSource.next(response['page']['size']);
+        this.totalElementsSource.next(response['page']['totalElements']);
+        if (response['page']['totalElements'] > 0) {
+          return of(response['_embedded']['eventDtoes']);
         } else {
-          return Observable.of(List());
+          return of(List());
         }
       })
       .subscribe(events => this.eventsSource.next(events));
@@ -93,7 +93,7 @@ export class EventService {
   participate(eventId: number, isParticipating: boolean): Promise<boolean> {
     return new Promise(resolve => {
       this.http
-        .put<Event>(`/events/${eventId}/${isParticipating}`, "", {
+        .put<Event>(`/events/${eventId}/${isParticipating}`, '', {
           withCredentials: true
         })
         .subscribe(
@@ -113,7 +113,7 @@ export class EventService {
   cancel(eventId: number) {
     return new Promise(resolve => {
       this.http
-        .put<Event>(`/events/${eventId}/cancelled`, "", {
+        .put<Event>(`/events/${eventId}/cancelled`, '', {
           withCredentials: true
         })
         .subscribe(
@@ -133,8 +133,8 @@ export class EventService {
   sendReminder(eventId: number) {
     return new Promise(resolve => {
       this.http
-        .post<Event>(`/events/${eventId}/notifications`, "", {
-          observe: "response",
+        .post<Event>(`/events/${eventId}/notifications`, '', {
+          observe: 'response',
           withCredentials: true
         })
         .subscribe(
@@ -149,8 +149,8 @@ export class EventService {
   openRegistration(eventId: number) {
     return new Promise(resolve => {
       this.http
-        .put<Event>(`/events/${eventId}/registrations`, "", {
-          observe: "response",
+        .put<Event>(`/events/${eventId}/registrations`, '', {
+          observe: 'response',
           withCredentials: true
         })
         .subscribe(

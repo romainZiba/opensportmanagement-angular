@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SeasonCreationComponent } from "./season-creation.component";
+import {SeasonCreationComponent} from './season-creation.component';
 
 describe("SeasonCreationComponent", () => {
   let component: SeasonCreationComponent;

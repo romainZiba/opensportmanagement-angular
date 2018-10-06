@@ -1,4 +1,4 @@
-import { MatSnackBar } from "@angular/material";
+import {MatSnackBar} from '@angular/material';
 
 export abstract class BaseComponent {
   constructor(private snackBar: MatSnackBar) {}

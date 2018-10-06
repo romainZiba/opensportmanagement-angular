@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Subscription } from "rxjs/Subscription";
-import { ActivatedRoute, Router } from "@angular/router";
-import { UserService } from "../services/user.service";
-import { MatSnackBar } from "@angular/material";
-import { BaseComponent } from "./base.container";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../services/user.service';
+import {MatSnackBar} from '@angular/material';
+import {BaseComponent} from './base.container';
 
 @Component({
   selector: "app-account-confirmation",

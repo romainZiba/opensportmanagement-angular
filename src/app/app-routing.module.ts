@@ -1,103 +1,102 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { AuthGuardService } from "./services/auth-guard.service";
-import { TeamMembersComponent } from "./components/team-members/team-members.component";
-import { UserDetailsComponent } from "./components/user-details/user-details.component";
-import { MemberInvitationComponent } from "./components/member-invitation/member-invitation.component";
-import { MessagesComponent } from "./components/messages/messages.component";
-import { TeamCreationComponent } from "./components/team-creation/team-creation.component";
-import { LoginSmartComponent } from "./containers/login.container";
-import { AccountConfirmationSmartComponent } from "./containers/account-confirmation.container";
-import { EventCreationSmartComponent } from "./containers/event-creation.container";
-import { OpponentCreationComponent } from "./components/opponent-creation/opponent-creation.component";
-import { PlaceCreationComponent } from "./components/place-creation/place-creation.component";
-import { SeasonCreationComponent } from "./components/season-creation/season-creation.component";
-import { ChampionshipCreationSmartComponent } from "./containers/championship-creation.container";
-import { EventListSmartComponent } from "./containers/event-list.container";
-import { EventDetailsSmartComponent } from "./containers/event-details.container";
-import { EventSettingsSmartComponent } from "./containers/event-settings.container";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {TeamMembersComponent} from './components/team-members/team-members.component';
+import {UserDetailsComponent} from './components/user-details/user-details.component';
+import {MemberInvitationComponent} from './components/member-invitation/member-invitation.component';
+import {MessagesComponent} from './components/messages/messages.component';
+import {TeamCreationComponent} from './components/team-creation/team-creation.component';
+import {AccountConfirmationSmartComponent} from './containers/account-confirmation.container';
+import {EventCreationSmartComponent} from './containers/event-creation.container';
+import {OpponentCreationComponent} from './components/opponent-creation/opponent-creation.component';
+import {PlaceCreationComponent} from './components/place-creation/place-creation.component';
+import {SeasonCreationComponent} from './components/season-creation/season-creation.component';
+import {ChampionshipCreationSmartComponent} from './containers/championship-creation.container';
+import {EventListSmartComponent} from './containers/event-list.container';
+import {EventDetailsSmartComponent} from './containers/event-details.container';
+import {EventSettingsSmartComponent} from './containers/event-settings.container';
+import {AuthGuardService} from './auth/services/auth-guard.service';
 
 const routes: Routes = [
-  { path: "", redirectTo: "/event-list", pathMatch: "full" },
-  { path: "login", component: LoginSmartComponent },
-  { path: "confirmation", component: AccountConfirmationSmartComponent },
+  { path: '', redirectTo: '/event-list', pathMatch: 'full' },
+  { path: 'confirmation', component: AccountConfirmationSmartComponent },
+  { path: 'login', loadChildren: './auth/auth.module#AuthModule' },
   {
-    path: "event-list",
+    path: 'event-list',
     component: EventListSmartComponent,
     canActivate: [AuthGuardService]
   },
   {
-    path: "new-training",
+    path: 'new-training',
     component: EventCreationSmartComponent,
-    data: { eventtype: "training" },
-    canActivate: [AuthGuardService]
+    data: { eventtype: 'training' },
+    canActivate: []
   },
   {
-    path: "new-event",
+    path: 'new-event',
     component: EventCreationSmartComponent,
-    data: { eventtype: "event" },
-    canActivate: [AuthGuardService]
+    data: { eventtype: 'event' },
+    canActivate: []
   },
   {
-    path: "new-match",
+    path: 'new-match',
     component: EventCreationSmartComponent,
-    data: { eventtype: "match" },
-    canActivate: [AuthGuardService]
+    data: { eventtype: 'match' },
+    canActivate: []
   },
   {
-    path: "team",
+    path: 'team',
     component: TeamMembersComponent,
-    canActivate: [AuthGuardService]
+    canActivate: []
   },
   {
-    path: "user-details",
+    path: 'user-details',
     component: UserDetailsComponent,
-    canActivate: [AuthGuardService]
+    canActivate: []
   },
   {
-    path: "events/:id",
+    path: 'events/:id',
     component: EventDetailsSmartComponent,
-    canActivate: [AuthGuardService]
+    canActivate: []
   },
   {
-    path: "invite-members",
+    path: 'invite-members',
     component: MemberInvitationComponent,
-    canActivate: [AuthGuardService]
+    canActivate: []
   },
   {
-    path: "events/:id/messages",
+    path: 'events/:id/messages',
     component: MessagesComponent,
-    canActivate: [AuthGuardService]
+    canActivate: []
   },
   {
-    path: "new-team",
+    path: 'new-team',
     component: TeamCreationComponent,
-    canActivate: [AuthGuardService]
+    canActivate: []
   },
   {
-    path: "new-opponent",
+    path: 'new-opponent',
     component: OpponentCreationComponent,
-    canActivate: [AuthGuardService]
+    canActivate: []
   },
   {
-    path: "new-place",
+    path: 'new-place',
     component: PlaceCreationComponent,
-    canActivate: [AuthGuardService]
+    canActivate: []
   },
   {
-    path: "new-season",
+    path: 'new-season',
     component: SeasonCreationComponent,
-    canActivate: [AuthGuardService]
+    canActivate: []
   },
   {
-    path: "seasons/:id/new-championship",
+    path: 'seasons/:id/new-championship',
     component: ChampionshipCreationSmartComponent,
-    canActivate: [AuthGuardService]
+    canActivate: []
   },
   {
-    path: "events/:id/settings",
+    path: 'events/:id/settings',
     component: EventSettingsSmartComponent,
-    canActivate: [AuthGuardService]
+    canActivate: []
   }
 ];
 

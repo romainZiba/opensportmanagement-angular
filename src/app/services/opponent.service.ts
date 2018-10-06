@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { Opponent } from "../model/opponent";
-import { List } from "immutable";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { HttpClient } from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {Opponent} from '../model/opponent';
+import {List} from 'immutable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class OpponentService {

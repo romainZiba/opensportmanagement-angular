@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { TeamService } from "../../services/team.service";
-import { Subscription } from "rxjs/Subscription";
-import { MatSnackBar } from "@angular/material";
-import { List } from "immutable";
-import { Observable } from "rxjs/Observable";
-import { Location } from "@angular/common";
-import { BaseComponent } from "../../containers/base.container";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {TeamService} from '../../services/team.service';
+import {Subscription} from 'rxjs/Subscription';
+import {MatSnackBar} from '@angular/material';
+import {List} from 'immutable';
+import {Observable} from 'rxjs/Observable';
+import {Location} from '@angular/common';
+import {BaseComponent} from '../../containers/base.container';
 
 @Component({
   selector: "app-team-creation",

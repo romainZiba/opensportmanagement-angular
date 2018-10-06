@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Subscription } from "rxjs/Subscription";
-import { EventService } from "../services/event.service";
-import { TeamService } from "../services/team.service";
-import { Observable } from "rxjs/Observable";
-import { Team } from "../model/team";
-import { PageEvent } from "../components/event-list/event-list.component";
-import { Router } from "@angular/router";
-import { BaseComponent } from "./base.container";
-import { MatSnackBar } from "@angular/material";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
+import {EventService} from '../services/event.service';
+import {TeamService} from '../services/team.service';
+import {Observable} from 'rxjs/Observable';
+import {Team} from '../model/team';
+import {PageEvent} from '../components/event-list/event-list.component';
+import {Router} from '@angular/router';
+import {BaseComponent} from './base.container';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: "app-event-list",

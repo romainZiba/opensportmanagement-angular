@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpResponse } from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 
-import { Observable } from "rxjs/Observable";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { of } from "rxjs/observable/of";
-import { AppSettings } from "../app-settings";
-import { Router } from "@angular/router";
-import { CookieService } from "ngx-cookie-service";
-import { User } from "../model/user";
-import { TeamService } from "./team.service";
+import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {of} from 'rxjs/observable/of';
+import {AppSettings} from '../app-settings';
+import {Router} from '@angular/router';
+import {CookieService} from 'ngx-cookie-service';
+import {User} from '../model/user';
+import {TeamService} from './team.service';
 
 @Injectable()
 export class UserService {
