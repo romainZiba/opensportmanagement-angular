@@ -1,30 +1,49 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Opponent} from '../../model/opponent';
-import * as moment from 'moment';
-import {Subscription} from 'rxjs/Subscription';
-import {FORMAT_DATE} from '../../app.module';
-import {EventCreateUpdate, EventType} from '../../model/event';
-import {Season} from '../../model/season';
-import {Championship} from '../../model/championship';
-import {DateValidator} from '../../validators/DateValidator';
-import {Team} from '../../model/team';
-import {List} from 'immutable';
-import {Place} from '../../model/place';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from "@angular/core";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from "@angular/forms";
+import { Opponent } from "../../model/opponent";
+import * as moment from "moment";
+import { Subscription } from "rxjs/Subscription";
+import { FORMAT_DATE } from "../../app.module";
+import { EventCreateUpdate, EventType } from "../../model/event";
+import { Season } from "../../model/season";
+import { Championship } from "../../model/championship";
+import { DateValidator } from "../../validators/DateValidator";
+import { Team } from "../../model/team";
+import { List } from "immutable";
+import { Place } from "../../model/place";
 
 @Component({
-  selector: 'event-creation',
-  templateUrl: './event-creation.component.html',
-  styleUrls: ['./event-creation.component.css']
+  selector: "event-creation",
+  templateUrl: "./event-creation.component.html",
+  styleUrls: ["./event-creation.component.css"]
 })
 export class EventCreationComponent implements OnInit, OnDestroy {
   objectKeys = Object.keys;
   form: FormGroup;
 
   // TODO i18n: https://github.com/angular/angular/issues/11405
-  kindOfMatch = ['Home', 'Away', 'None'];
-  daysOfWeek = [{id: 'Monday', name: 'Lundi'}, {id: 'Tuesday', name: 'Mardi'}, {id: 'Wednesday', name: 'Mercredi'},
-    {id: 'Thursday', name: 'Jeudi'}, {id: 'Friday', name: 'Vendredi'}, {id: 'Saturday', name: 'Samedi'}, {id: 'Sunday', name: 'Dimanche'}];
+  kindOfMatch = ["Home", "Away", "None"];
+  daysOfWeek = [
+    { id: "Monday", name: "Lundi" },
+    { id: "Tuesday", name: "Mardi" },
+    { id: "Wednesday", name: "Mercredi" },
+    { id: "Thursday", name: "Jeudi" },
+    { id: "Friday", name: "Vendredi" },
+    { id: "Saturday", name: "Samedi" },
+    { id: "Sunday", name: "Dimanche" }
+  ];
 
   placesByGroup = [];
 
@@ -38,40 +57,45 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   championships: List<Championship>;
   @Input()
   set places(places: List<Place>) {
-    this.placesByGroup = places.isEmpty() ? [] : places.groupBy(place => place.type).toJS();
+    this.placesByGroup = places.isEmpty()
+      ? []
+      : places.groupBy(place => place.type).toJS();
   }
   @Input()
   opponents: List<Opponent>;
 
-  @Output('selectedSeason')
+  @Output("selectedSeason")
   seasonEmitter = new EventEmitter<number>();
-  @Output('event')
+  @Output("event")
   eventEmitter = new EventEmitter<EventCreateUpdate>();
-  @Output('new-place')
+  @Output("new-place")
   newPlaceClickEmitter = new EventEmitter();
-  @Output('new-opponent')
+  @Output("new-opponent")
   newOpponentClickEmitter = new EventEmitter();
-  @Output('new-season')
+  @Output("new-season")
   newSeasonClickEmitter = new EventEmitter();
-  @Output('new-championship')
+  @Output("new-championship")
   newChampionshipClickEmitter = new EventEmitter<number>();
-
 
   private subscriptions = new Subscription();
 
   kindOfMatchControl = new FormControl(); // Home, away, or none
-  eventNameControl = new FormControl('');
+  eventNameControl = new FormControl("");
   recurrentControl = new FormControl(false);
-  fromDateControl = new FormControl(moment().format(FORMAT_DATE),
-    [Validators.required, DateValidator.dateMinimum(moment().startOf('day'))]);
-  toDateControl = new FormControl(moment().format(FORMAT_DATE),
-    [Validators.required, DateValidator.dateMinimum(moment().startOf('day'))]);
+  fromDateControl = new FormControl(moment().format(FORMAT_DATE), [
+    Validators.required,
+    DateValidator.dateMinimum(moment().startOf("day"))
+  ]);
+  toDateControl = new FormControl(moment().format(FORMAT_DATE), [
+    Validators.required,
+    DateValidator.dateMinimum(moment().startOf("day"))
+  ]);
   seasonControl = new FormControl(null);
-  championshipControl = new FormControl({value: null, disabled: true});
-  placeControl = new FormControl('', [Validators.required]);
+  championshipControl = new FormControl({ value: null, disabled: true });
+  placeControl = new FormControl("", [Validators.required]);
   opponentControl = new FormControl(null);
-  fromTimeControl = new FormControl('20:00', Validators.required);
-  toTimeControl = new FormControl('22:30', Validators.required);
+  fromTimeControl = new FormControl("20:00", Validators.required);
+  toTimeControl = new FormControl("22:30", Validators.required);
   daysControl = new FormControl();
 
   constructor(private fb: FormBuilder) {
@@ -105,18 +129,22 @@ export class EventCreationComponent implements OnInit, OnDestroy {
         this.eventNameControl.setValidators(Validators.required);
         break;
     }
-    const fromDateChangeSub = this.fromDateControl.valueChanges
-      .subscribe(() => this.onFromDateChanged());
-    const recurrentChangeSub = this.recurrentControl.valueChanges
-      .subscribe(() => this.onRecurrentChecked());
-    const seasonsChangesSub = this.seasonControl.valueChanges
-      .subscribe(seasonId => {
-        this.isSeasonSelected(seasonId) ? (
-          this.championshipControl.enable(),
-            this.seasonEmitter.emit(seasonId)
-        ) : this.championshipControl.disable();
-      });
-    this.subscriptions.add(fromDateChangeSub)
+    const fromDateChangeSub = this.fromDateControl.valueChanges.subscribe(() =>
+      this.onFromDateChanged()
+    );
+    const recurrentChangeSub = this.recurrentControl.valueChanges.subscribe(
+      () => this.onRecurrentChecked()
+    );
+    const seasonsChangesSub = this.seasonControl.valueChanges.subscribe(
+      seasonId => {
+        this.isSeasonSelected(seasonId)
+          ? (this.championshipControl.enable(),
+            this.seasonEmitter.emit(seasonId))
+          : this.championshipControl.disable();
+      }
+    );
+    this.subscriptions
+      .add(fromDateChangeSub)
       .add(recurrentChangeSub)
       .add(seasonsChangesSub);
   }
@@ -126,7 +154,9 @@ export class EventCreationComponent implements OnInit, OnDestroy {
   }
 
   private onRecurrentChecked() {
-    this.recurrentControl.value ? this.daysControl.setValidators(Validators.required) : this.daysControl.setValidators(null);
+    this.recurrentControl.value
+      ? this.daysControl.setValidators(Validators.required)
+      : this.daysControl.setValidators(null);
     this.daysControl.updateValueAndValidity();
   }
 
@@ -162,8 +192,20 @@ export class EventCreationComponent implements OnInit, OnDestroy {
     return this.eventType === EventType.OTHER;
   }
 
-  onSaveEvent(eventName: string, season: string, championshipId: number, recurrent: boolean, days: string[], fromDate: string,
-              fromTime: string, toDate: string, toTime: string, kindOfMatch: string, placeId: number, opponentId: number) {
+  onSaveEvent(
+    eventName: string,
+    season: string,
+    championshipId: number,
+    recurrent: boolean,
+    days: string[],
+    fromDate: string,
+    fromTime: string,
+    toDate: string,
+    toTime: string,
+    kindOfMatch: string,
+    placeId: number,
+    opponentId: number
+  ) {
     const eventCreation = new EventCreateUpdate();
     eventCreation.name = eventName;
     eventCreation.fromDate = fromDate;
@@ -177,7 +219,9 @@ export class EventCreationComponent implements OnInit, OnDestroy {
     eventCreation.championshipId = championshipId;
     eventCreation.type = this.eventType;
     if (days !== null) {
-      eventCreation.recurrenceDays = days.map((day: string) => day.toUpperCase());
+      eventCreation.recurrenceDays = days.map((day: string) =>
+        day.toUpperCase()
+      );
     }
     this.eventEmitter.emit(eventCreation);
   }

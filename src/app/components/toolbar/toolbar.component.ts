@@ -11,14 +11,15 @@ import {List} from 'immutable';
 import {AppSettings} from '../../app-settings';
 
 @Component({
-  selector: 'app-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.css']
+  selector: "app-toolbar",
+  templateUrl: "./toolbar.component.html",
+  styleUrls: ["./toolbar.component.css"]
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
-  title = 'OSM';
+  title = "OSM";
   isLoggedIn: boolean;
-  @Input() navDrawer: MatDrawer;
+  @Input()
+  navDrawer: MatDrawer;
   availableTeams$: Observable<List<Team>>;
   selectedTeam$: Observable<Team>;
   subscriptions = new Subscription();
@@ -26,10 +27,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   hamburgerState = ToolbarState.HAMBURGER;
   backState = ToolbarState.BACK;
 
-  constructor(private userService: UserService,
-              private teamService: TeamService,
-              private router: Router,
-              private location: Location) { }
+  constructor(
+    private userService: UserService,
+    private teamService: TeamService,
+    private router: Router,
+    private location: Location
+  ) {}
 
   ngOnInit() {
     this.selectedTeam$ = this.teamService.selectedTeam$;
@@ -45,12 +48,17 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.subscriptions.add(this.availableTeams$
-      .subscribe(teams => {
-        const selectedTeamId = localStorage.getItem(AppSettings.currentTeamIdKey);
+    this.subscriptions.add(
+      this.availableTeams$.subscribe(teams => {
+        const selectedTeamId = localStorage.getItem(
+          AppSettings.currentTeamIdKey
+        );
         if (!teams.isEmpty()) {
-          selectedTeamId === null ? this.chooseTeam(teams.first()) : this.chooseTeam(
-            teams.find(value => value._id.toString() === selectedTeamId));
+          selectedTeamId === null
+            ? this.chooseTeam(teams.first())
+            : this.chooseTeam(
+                teams.find(value => value._id.toString() === selectedTeamId)
+              );
         }
       })
     );
@@ -58,7 +66,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
-          event.url === '/event-list' ? this.toolbarButtonState = ToolbarState.HAMBURGER : this.toolbarButtonState = ToolbarState.BACK;
+          event.url === "/event-list"
+            ? (this.toolbarButtonState = ToolbarState.HAMBURGER)
+            : (this.toolbarButtonState = ToolbarState.BACK);
         }
       })
     );
@@ -77,11 +87,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   showUserDetails() {
-    this.router.navigate(['/user-details']);
+    this.router.navigate(["/user-details"]);
   }
 
   createTeam() {
-    this.router.navigate(['/new-team']);
+    this.router.navigate(["/new-team"]);
   }
 
   ngOnDestroy() {
@@ -91,5 +101,5 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
 export enum ToolbarState {
   HAMBURGER,
-  BACK,
+  BACK
 }

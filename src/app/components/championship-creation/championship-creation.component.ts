@@ -1,13 +1,12 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import { Component, EventEmitter, Output } from "@angular/core";
 
 @Component({
-  selector: 'championship-creation',
-  templateUrl: './championship-creation.component.html',
-  styleUrls: ['./championship-creation.component.css']
+  selector: "championship-creation",
+  templateUrl: "./championship-creation.component.html",
+  styleUrls: ["./championship-creation.component.css"]
 })
 export class ChampionshipCreationComponent {
-
-  @Output('championship')
+  @Output("championship")
   championshipEmitter = new EventEmitter<ChampionshipForm>();
 
   onCreate(championship: ChampionshipForm) {

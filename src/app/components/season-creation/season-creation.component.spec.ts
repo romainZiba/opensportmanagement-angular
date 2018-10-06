@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SeasonCreationComponent } from './season-creation.component';
+import { SeasonCreationComponent } from "./season-creation.component";
 
-describe('SeasonCreationComponent', () => {
+describe("SeasonCreationComponent", () => {
   let component: SeasonCreationComponent;
   let fixture: ComponentFixture<SeasonCreationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SeasonCreationComponent ]
-    })
-    .compileComponents();
+      declarations: [SeasonCreationComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('SeasonCreationComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

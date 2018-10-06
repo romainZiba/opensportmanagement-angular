@@ -1,4 +1,4 @@
-import {TeamMember} from './team-member';
+import { TeamMember } from "./team-member";
 
 export class Event {
   _id: number;
@@ -38,7 +38,7 @@ export class EventCreateUpdate {
 }
 
 export enum EventType {
-  TRAINING = 'TRAINING',
-  MATCH = 'MATCH',
-  OTHER = 'OTHER'
+  TRAINING = "TRAINING",
+  MATCH = "MATCH",
+  OTHER = "OTHER"
 }

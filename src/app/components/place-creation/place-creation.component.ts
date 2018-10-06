@@ -1,31 +1,37 @@
-import {Component, OnInit} from '@angular/core';
-import {Place, PlaceType} from '../../model/place';
-import {PlaceService} from '../../services/place.service';
-import {TeamService} from '../../services/team.service';
-import {MatSnackBar} from '@angular/material';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Location} from '@angular/common';
-import {BaseComponent} from '../../containers/base.container';
+import { Component, OnInit } from "@angular/core";
+import { Place, PlaceType } from "../../model/place";
+import { PlaceService } from "../../services/place.service";
+import { TeamService } from "../../services/team.service";
+import { MatSnackBar } from "@angular/material";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from "@angular/forms";
+import { Location } from "@angular/common";
+import { BaseComponent } from "../../containers/base.container";
 
 @Component({
-  selector: 'app-place-creation',
-  templateUrl: './place-creation.component.html',
-  styleUrls: ['./place-creation.component.css']
+  selector: "app-place-creation",
+  templateUrl: "./place-creation.component.html",
+  styleUrls: ["./place-creation.component.css"]
 })
 export class PlaceCreationComponent extends BaseComponent implements OnInit {
-
   form: FormGroup;
-  nameControl = new FormControl('', Validators.required);
-  addressControl = new FormControl('', Validators.required);
-  cityControl = new FormControl('', Validators.required);
-  types = Object.values(PlaceType).filter(value => typeof value === 'string');
+  nameControl = new FormControl("", Validators.required);
+  addressControl = new FormControl("", Validators.required);
+  cityControl = new FormControl("", Validators.required);
+  types = Object.values(PlaceType).filter(value => typeof value === "string");
   typeControl = new FormControl(this.types[0], Validators.required);
 
-  constructor(private teamService: TeamService,
-              private placeService: PlaceService,
-              private snackbar: MatSnackBar,
-              private fb: FormBuilder,
-              private location: Location) {
+  constructor(
+    private teamService: TeamService,
+    private placeService: PlaceService,
+    private snackbar: MatSnackBar,
+    private fb: FormBuilder,
+    private location: Location
+  ) {
     super(snackbar);
     this.form = fb.group({
       nameControl: this.nameControl,
@@ -48,13 +54,13 @@ export class PlaceCreationComponent extends BaseComponent implements OnInit {
         success => {
           if (success) {
             // TODO: i18n
-            this.openSnackBar('Lieu créé avec succès');
+            this.openSnackBar("Lieu créé avec succès");
             this.location.back();
           } else {
-            this.openSnackBar('Une erreur s\'est produite');
+            this.openSnackBar("Une erreur s'est produite");
           }
-
-        }, () => this.openSnackBar('Une erreur s\'est produite')
+        },
+        () => this.openSnackBar("Une erreur s'est produite")
       )
     );
   }

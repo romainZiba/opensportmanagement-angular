@@ -1,11 +1,11 @@
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from "@angular/material";
 
 export abstract class BaseComponent {
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar) {}
 
   protected openSnackBar(message: string) {
-    this.snackBar.open(message,  '',  {
-      duration: 2000,
+    this.snackBar.open(message, "", {
+      duration: 2000
     });
   }
 }

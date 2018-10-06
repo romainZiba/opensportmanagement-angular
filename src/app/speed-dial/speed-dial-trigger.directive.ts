@@ -1,8 +1,21 @@
-import { Directive, AfterContentInit, OnDestroy, Input, ViewContainerRef, ElementRef, HostListener } from '@angular/core';
-import { OverlayRef, Overlay, OverlayConfig, ConnectedPositionStrategy } from '@angular/cdk/overlay';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { Observable } from 'rxjs/Rx';
-import { SpeedDialComponent } from './speed-dial.component';
+import {
+  AfterContentInit,
+  Directive,
+  ElementRef,
+  HostListener,
+  Input,
+  OnDestroy,
+  ViewContainerRef
+} from "@angular/core";
+import {
+  ConnectedPositionStrategy,
+  Overlay,
+  OverlayConfig,
+  OverlayRef
+} from "@angular/cdk/overlay";
+import { TemplatePortal } from "@angular/cdk/portal";
+import { Observable } from "rxjs/Rx";
+import { SpeedDialComponent } from "./speed-dial.component";
 
 /**
  * FAB that triggers showing {@link SpeedDialComponent} in Overlay
@@ -14,13 +27,12 @@ import { SpeedDialComponent } from './speed-dial.component';
  */
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: 'button[speedDialTriggerFor]',
-  exportAs: 'speedDialTrigger'
+  selector: "button[speedDialTriggerFor]",
+  exportAs: "speedDialTrigger"
 })
 export class SpeedDialTriggerDirective implements AfterContentInit, OnDestroy {
-
- // tslint:disable-next-line:no-input-rename
-  @Input('speedDialTriggerFor')
+  // tslint:disable-next-line:no-input-rename
+  @Input("speedDialTriggerFor")
   public speedDial: SpeedDialComponent;
 
   public isOpen: boolean = false;
@@ -31,7 +43,7 @@ export class SpeedDialTriggerDirective implements AfterContentInit, OnDestroy {
     private viewContainerRef: ViewContainerRef,
     private elementRef: ElementRef,
     private overlay: Overlay
-  ) { }
+  ) {}
 
   public ngAfterContentInit(): void {
     this.speedDial.closed.subscribe(() => this.destroyPanel());
@@ -44,7 +56,7 @@ export class SpeedDialTriggerDirective implements AfterContentInit, OnDestroy {
     }
   }
 
-  @HostListener('click', ['$event'])
+  @HostListener("click", ["$event"])
   public onClick(event: MouseEvent): void {
     this.open();
     event.preventDefault();
@@ -54,11 +66,17 @@ export class SpeedDialTriggerDirective implements AfterContentInit, OnDestroy {
     if (!this.overlayRef) {
       const config: OverlayConfig = this.getOverlayConfig();
       this.overlayRef = this.overlay.create(config);
-      Observable.merge(this.overlayRef.backdropClick(), this.overlayRef.detachments()).subscribe(() => {
+      Observable.merge(
+        this.overlayRef.backdropClick(),
+        this.overlayRef.detachments()
+      ).subscribe(() => {
         this.close();
       });
     }
-    const templatePortal = new TemplatePortal(this.speedDial.templateRef, this.viewContainerRef);
+    const templatePortal = new TemplatePortal(
+      this.speedDial.templateRef,
+      this.viewContainerRef
+    );
     this.overlayRef.attach(templatePortal);
     this.isOpen = true;
     this.speedDial.animateOpen();
@@ -70,15 +88,20 @@ export class SpeedDialTriggerDirective implements AfterContentInit, OnDestroy {
   }
 
   private getPosition(): ConnectedPositionStrategy {
-    return this.overlay.position()
-      .connectedTo(this.elementRef, { originX: 'center', originY: 'top' }, { overlayX: 'center', overlayY: 'bottom' });
+    return this.overlay
+      .position()
+      .connectedTo(
+        this.elementRef,
+        { originX: "center", originY: "top" },
+        { overlayX: "center", overlayY: "bottom" }
+      );
   }
 
   private getOverlayConfig(): OverlayConfig {
     return new OverlayConfig({
       positionStrategy: this.getPosition(),
       hasBackdrop: true,
-      backdropClass: 'cdk-overlay-transparent-backdrop',
+      backdropClass: "cdk-overlay-transparent-backdrop",
       scrollStrategy: this.overlay.scrollStrategies.reposition()
     });
   }
@@ -87,5 +110,4 @@ export class SpeedDialTriggerDirective implements AfterContentInit, OnDestroy {
     this.overlayRef.detach();
     this.isOpen = false;
   }
-
 }

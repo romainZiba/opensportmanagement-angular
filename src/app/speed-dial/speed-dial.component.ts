@@ -1,6 +1,16 @@
-import { Component, ViewEncapsulation, OnDestroy, Output, EventEmitter, ViewChild, TemplateRef, ContentChildren, QueryList } from '@angular/core';
-import { speedDialAnimation } from './speed-dial-animation';
-import { SpeedDialOptionDirective } from './speed-dial-option.directive';
+import {
+  Component,
+  ContentChildren,
+  EventEmitter,
+  OnDestroy,
+  Output,
+  QueryList,
+  TemplateRef,
+  ViewChild,
+  ViewEncapsulation
+} from "@angular/core";
+import { speedDialAnimation } from "./speed-dial-animation";
+import { SpeedDialOptionDirective } from "./speed-dial-option.directive";
 
 /**
  * Container for Speed dial content to show in Overlay when triggered
@@ -23,15 +33,14 @@ import { SpeedDialOptionDirective } from './speed-dial-option.directive';
  * ```
  */
 @Component({
-  selector: 'speed-dial',
-  templateUrl: './speed-dial.component.html',
-  styleUrls: ['./speed-dial.component.scss'],
+  selector: "speed-dial",
+  templateUrl: "./speed-dial.component.html",
+  styleUrls: ["./speed-dial.component.scss"],
   encapsulation: ViewEncapsulation.None,
   animations: [speedDialAnimation],
-  exportAs: 'speedDial'
+  exportAs: "speedDial"
 })
 export class SpeedDialComponent implements OnDestroy {
-
   @Output()
   public closed = new EventEmitter<void>();
 
@@ -40,7 +49,6 @@ export class SpeedDialComponent implements OnDestroy {
 
   @ContentChildren(SpeedDialOptionDirective)
   public options: QueryList<SpeedDialOptionDirective>;
-
 
   public ngOnDestroy(): void {
     this.closed.complete();
@@ -60,5 +68,4 @@ export class SpeedDialComponent implements OnDestroy {
     // TODO animate top to bottom
     this.options.forEach(option => option.animateClose());
   }
-
 }

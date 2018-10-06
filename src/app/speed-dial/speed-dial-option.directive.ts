@@ -1,8 +1,28 @@
-import { Directive, OnInit, OnChanges, SimpleChanges, AfterViewInit, OnDestroy, Input, HostBinding, ElementRef, ViewContainerRef, Inject, Optional, HostListener } from '@angular/core';
-import { AnimationEvent } from '@angular/animations';
-import { OverlayRef, Overlay, ConnectedPositionStrategy, OverlayConfig } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { MatButton, TooltipComponent, TOOLTIP_PANEL_CLASS } from '@angular/material';
+import {
+  Directive,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Optional,
+  SimpleChanges,
+  ViewContainerRef
+} from "@angular/core";
+import { AnimationEvent } from "@angular/animations";
+import {
+  ConnectedPositionStrategy,
+  Overlay,
+  OverlayConfig,
+  OverlayRef
+} from "@angular/cdk/overlay";
+import { ComponentPortal } from "@angular/cdk/portal";
+import {
+  MatButton,
+  TOOLTIP_PANEL_CLASS,
+  TooltipComponent
+} from "@angular/material";
 
 /**
  * Option for inside {@link SpeedDialComponent}
@@ -20,16 +40,15 @@ import { MatButton, TooltipComponent, TOOLTIP_PANEL_CLASS } from '@angular/mater
  */
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: 'button[speed-dial-option]',
-  exportAs: 'speedDialOption'
+  selector: "button[speed-dial-option]",
+  exportAs: "speedDialOption"
 })
 export class SpeedDialOptionDirective implements OnChanges, OnDestroy {
-
-  @Input('speedDialOptionLabel')
+  @Input("speedDialOptionLabel")
   public label: string;
 
-  @HostBinding('@speedDialAnimation')
-  public speedDialAnimation: string = 'closed';
+  @HostBinding("@speedDialAnimation")
+  public speedDialAnimation: string = "closed";
 
   private openCallBack: () => void;
 
@@ -63,10 +82,10 @@ export class SpeedDialOptionDirective implements OnChanges, OnDestroy {
     this.destroyLabel();
   }
 
-  @HostListener('@speedDialAnimation.done', ['$event'])
+  @HostListener("@speedDialAnimation.done", ["$event"])
   public onAnimationDone(event: AnimationEvent): void {
     if (event) {
-      if (event.toState === 'opened' && this.openCallBack) {
+      if (event.toState === "opened" && this.openCallBack) {
         this.openCallBack();
         if (!this.labelInstance) {
           this.createLabel();
@@ -75,10 +94,10 @@ export class SpeedDialOptionDirective implements OnChanges, OnDestroy {
           this.labelInstance.message = this.label;
           this.labelInstance._markForCheck();
           this.overlayRef.updatePosition();
-          this.labelInstance.show('before', 0);
+          this.labelInstance.show("before", 0);
         }
       }
-      if (event.toState === 'closed' && this.closeCallBack) {
+      if (event.toState === "closed" && this.closeCallBack) {
         this.closeCallBack();
       }
     }
@@ -87,7 +106,7 @@ export class SpeedDialOptionDirective implements OnChanges, OnDestroy {
   public animateOpen(): Promise<void> {
     return new Promise(resolve => {
       this.openCallBack = () => resolve();
-      this.speedDialAnimation = 'opened';
+      this.speedDialAnimation = "opened";
     });
   }
 
@@ -98,13 +117,18 @@ export class SpeedDialOptionDirective implements OnChanges, OnDestroy {
     this.destroyLabel();
     return new Promise(resolve => {
       this.closeCallBack = () => resolve();
-      this.speedDialAnimation = 'closed';
+      this.speedDialAnimation = "closed";
     });
   }
 
   private getPosition(): ConnectedPositionStrategy {
-    return this.overlay.position()
-      .connectedTo(this.elementRef, { originX: 'start', originY: 'center' }, { overlayX: 'end', overlayY: 'center' });
+    return this.overlay
+      .position()
+      .connectedTo(
+        this.elementRef,
+        { originX: "start", originY: "center" },
+        { overlayX: "end", overlayY: "center" }
+      );
   }
 
   private createOverlay(): OverlayRef {
@@ -115,7 +139,7 @@ export class SpeedDialOptionDirective implements OnChanges, OnDestroy {
       }
     });
     const config = new OverlayConfig({
-      direction: 'ltr',
+      direction: "ltr",
       positionStrategy: this.getPosition(),
       panelClass: TOOLTIP_PANEL_CLASS,
       scrollStrategy: this.overlay.scrollStrategies.reposition()
@@ -142,5 +166,4 @@ export class SpeedDialOptionDirective implements OnChanges, OnDestroy {
       this.labelInstance = null;
     }
   }
-
 }

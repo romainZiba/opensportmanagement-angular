@@ -1,20 +1,20 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
-import {MatSnackBar} from '@angular/material';
-import {TeamService} from '../services/team.service';
-import {OpponentService} from '../services/opponent.service';
-import {PlaceService} from '../services/place.service';
-import {EventCreateUpdate, EventType} from '../model/event';
-import {Observable} from 'rxjs/Observable';
-import {List} from 'immutable';
-import {Season} from '../model/season';
-import {Championship} from '../model/championship';
-import {BaseComponent} from './base.container';
-import {Team} from '../model/team';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Subscription } from "rxjs/Subscription";
+import { MatSnackBar } from "@angular/material";
+import { TeamService } from "../services/team.service";
+import { OpponentService } from "../services/opponent.service";
+import { PlaceService } from "../services/place.service";
+import { EventCreateUpdate, EventType } from "../model/event";
+import { Observable } from "rxjs/Observable";
+import { List } from "immutable";
+import { Season } from "../model/season";
+import { Championship } from "../model/championship";
+import { BaseComponent } from "./base.container";
+import { Team } from "../model/team";
 
 @Component({
-  selector: 'app-event-creation',
+  selector: "app-event-creation",
   template: `
     <event-creation [eventType]="eventType$ | async"
                     [selectedTeam]="selectedTeam$ | async"
@@ -29,7 +29,8 @@ import {Team} from '../model/team';
                     (new-season)="showNewSeason()"
                     (new-championship)="showNewChampionship($event)"></event-creation>`
 })
-export class EventCreationSmartComponent extends BaseComponent implements OnInit, OnDestroy {
+export class EventCreationSmartComponent extends BaseComponent
+  implements OnInit, OnDestroy {
   eventType$: Observable<EventType>;
   seasons$: Observable<List<Season>>;
   championships$: Observable<List<Championship>>;
@@ -43,18 +44,22 @@ export class EventCreationSmartComponent extends BaseComponent implements OnInit
 
   private eventType: EventType;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private teamService: TeamService,
-              private placeService: PlaceService,
-              private opponentService: OpponentService,
-              private snack: MatSnackBar) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private teamService: TeamService,
+    private placeService: PlaceService,
+    private opponentService: OpponentService,
+    private snack: MatSnackBar
+  ) {
     super(snack);
   }
 
   ngOnInit() {
-    this.eventType$ = this.route.data.map(routeData => this.getEventType(routeData['eventtype']));
-    const typeSub = this.eventType$.subscribe(type => this.eventType = type);
+    this.eventType$ = this.route.data.map(routeData =>
+      this.getEventType(routeData["eventtype"])
+    );
+    const typeSub = this.eventType$.subscribe(type => (this.eventType = type));
     this.selectedTeam$ = this.teamService.selectedTeam$
       .filter(team => team !== null)
       .flatMap(team => {
@@ -76,9 +81,9 @@ export class EventCreationSmartComponent extends BaseComponent implements OnInit
 
   private getEventType(value): EventType {
     switch (value) {
-      case 'training':
+      case "training":
         return EventType.TRAINING;
-      case 'match':
+      case "match":
         return EventType.MATCH;
       default:
         return EventType.OTHER;
@@ -100,45 +105,49 @@ export class EventCreationSmartComponent extends BaseComponent implements OnInit
   }
 
   private createMatch(eventCreation: EventCreateUpdate) {
-    this.teamService.createMatch(eventCreation)
-      .then(success => {
+    this.teamService.createMatch(eventCreation).then(
+      success => {
         // TODO: i18n
         if (success) {
-          this.openSnackBar('Le match a été créé avec succès');
-          this.router.navigate(['/event-list']);
+          this.openSnackBar("Le match a été créé avec succès");
+          this.router.navigate(["/event-list"]);
         } else {
-          this.openSnackBar('Une erreur est survenue');
+          this.openSnackBar("Une erreur est survenue");
         }
-      }, () => this.openSnackBar('Une erreur est survenue'));
+      },
+      () => this.openSnackBar("Une erreur est survenue")
+    );
   }
 
   private createEvent(eventCreation: EventCreateUpdate) {
-    this.teamService.createEvent(eventCreation)
-      .then(success => {
+    this.teamService.createEvent(eventCreation).then(
+      success => {
         // TODO: i18n
         if (success) {
-          this.openSnackBar('L\'évènement a été créé avec succès');
-          this.router.navigate(['/event-list']);
+          this.openSnackBar("L'évènement a été créé avec succès");
+          this.router.navigate(["/event-list"]);
         } else {
-          this.openSnackBar('Une erreur est survenue');
+          this.openSnackBar("Une erreur est survenue");
         }
-      }, () => this.openSnackBar('Une erreur est survenue'));
+      },
+      () => this.openSnackBar("Une erreur est survenue")
+    );
   }
 
   showNewOpponent() {
-    this.router.navigate(['/new-opponent']);
+    this.router.navigate(["/new-opponent"]);
   }
 
   showNewPlace() {
-    this.router.navigate(['/new-place']);
+    this.router.navigate(["/new-place"]);
   }
 
   showNewSeason() {
-    this.router.navigate(['/new-season']);
+    this.router.navigate(["/new-season"]);
   }
 
   showNewChampionship(seasonId: number) {
-    this.router.navigate(['/seasons', seasonId, 'new-championship']);
+    this.router.navigate(["/seasons", seasonId, "new-championship"]);
   }
 
   ngOnDestroy() {

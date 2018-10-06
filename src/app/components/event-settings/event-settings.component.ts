@@ -1,17 +1,29 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output} from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {DateValidator} from '../../validators/DateValidator';
-import {Place} from '../../model/place';
-import {Event, EventCreateUpdate} from '../../model/event';
-import {List} from 'immutable';
-import * as moment from 'moment';
-import {FORMAT_DATE, FORMAT_TIME} from '../../app.module';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output
+} from "@angular/core";
+import { Subscription } from "rxjs/Subscription";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from "@angular/forms";
+import { DateValidator } from "../../validators/DateValidator";
+import { Place } from "../../model/place";
+import { Event, EventCreateUpdate } from "../../model/event";
+import { List } from "immutable";
+import * as moment from "moment";
+import { FORMAT_DATE, FORMAT_TIME } from "../../app.module";
 
 @Component({
-  selector: 'event-settings',
-  templateUrl: './event-settings.component.html',
-  styleUrls: ['./event-settings.component.css']
+  selector: "event-settings",
+  templateUrl: "./event-settings.component.html",
+  styleUrls: ["./event-settings.component.css"]
 })
 export class EventSettingsComponent implements OnChanges, OnDestroy {
   objectKeys = Object.keys;
@@ -22,22 +34,29 @@ export class EventSettingsComponent implements OnChanges, OnDestroy {
   event: Event;
   @Input()
   set places(places: List<Place>) {
-    this.placesByGroup = places.isEmpty() ? {} : places.groupBy(place => place.type).toJS();
+    this.placesByGroup = places.isEmpty()
+      ? {}
+      : places.groupBy(place => place.type).toJS();
   }
 
-  @Output('event')
+  @Output("event")
   eventEmitter = new EventEmitter<EventCreateUpdate>();
-  @Output('new-place')
+  @Output("new-place")
   newPlaceClickEmitter = new EventEmitter();
-
 
   private subscriptions = new Subscription();
 
-  fromDateControl =  new FormControl('', [Validators.required, DateValidator.dateMinimum(moment().startOf('day'))]);
-  toDateControl = new FormControl('', [Validators.required, DateValidator.dateMinimum(moment().startOf('day'))]);
-  placeControl = new FormControl('', [Validators.required]);
-  fromTimeControl = new FormControl('', Validators.required);
-  toTimeControl = new FormControl('', Validators.required);
+  fromDateControl = new FormControl("", [
+    Validators.required,
+    DateValidator.dateMinimum(moment().startOf("day"))
+  ]);
+  toDateControl = new FormControl("", [
+    Validators.required,
+    DateValidator.dateMinimum(moment().startOf("day"))
+  ]);
+  placeControl = new FormControl("", [Validators.required]);
+  fromTimeControl = new FormControl("", Validators.required);
+  toTimeControl = new FormControl("", Validators.required);
 
   constructor(private fb: FormBuilder) {
     this.form = fb.group({
@@ -45,7 +64,7 @@ export class EventSettingsComponent implements OnChanges, OnDestroy {
       fromTimeControl: this.fromTimeControl,
       toTimeControl: this.toTimeControl,
       fromDateControl: this.fromDateControl,
-      toDateControl: this.toDateControl,
+      toDateControl: this.toDateControl
     });
   }
 
@@ -58,8 +77,9 @@ export class EventSettingsComponent implements OnChanges, OnDestroy {
       this.toDateControl.setValue(toDateTime.format(FORMAT_DATE));
       this.toTimeControl.setValue(toDateTime.format(FORMAT_TIME));
       this.placeControl.setValue(this.event.placeId);
-      const fromDateChangeSub = this.fromDateControl.valueChanges
-        .subscribe(() => this.onFromDateChanged());
+      const fromDateChangeSub = this.fromDateControl.valueChanges.subscribe(
+        () => this.onFromDateChanged()
+      );
       this.subscriptions.add(fromDateChangeSub);
     }
   }
@@ -76,7 +96,13 @@ export class EventSettingsComponent implements OnChanges, OnDestroy {
     this.newPlaceClickEmitter.emit();
   }
 
-  onUpdateEvent(fromDate: string, fromTime: string, toDate: string, toTime: string, placeId: number) {
+  onUpdateEvent(
+    fromDate: string,
+    fromTime: string,
+    toDate: string,
+    toTime: string,
+    placeId: number
+  ) {
     const eventUpdate = new EventCreateUpdate();
     eventUpdate.fromDate = fromDate;
     eventUpdate.toDate = toDate;

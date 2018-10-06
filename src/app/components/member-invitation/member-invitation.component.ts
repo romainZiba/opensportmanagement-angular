@@ -1,30 +1,40 @@
-import {Component, OnInit} from '@angular/core';
-import {TeamService} from '../../services/team.service';
-import {Team} from '../../model/team';
-import {TeamMember} from '../../model/team-member';
-import {MatSnackBar} from '@angular/material';
-import {Location} from '@angular/common';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { TeamService } from "../../services/team.service";
+import { Team } from "../../model/team";
+import { TeamMember } from "../../model/team-member";
+import { MatSnackBar } from "@angular/material";
+import { Location } from "@angular/common";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from "@angular/forms";
 
 @Component({
-  selector: 'app-member-invitation',
-  templateUrl: './member-invitation.component.html',
-  styleUrls: ['./member-invitation.component.css']
+  selector: "app-member-invitation",
+  templateUrl: "./member-invitation.component.html",
+  styleUrls: ["./member-invitation.component.css"]
 })
 export class MemberInvitationComponent implements OnInit {
   selectedTeam: Team;
   form: FormGroup;
-  firstNameControl = new FormControl('', Validators.required);
-  lastNameControl = new FormControl('', Validators.required);
-  emailControl = new FormControl('', Validators.required);
-  possibleRoles = [{ id: 'PLAYER', name: 'Joueur'}, { id: 'ADMIN', name: 'Admin'}];
-  rolesControl = new FormControl('', Validators.required);
-  licenceNumberControl = new FormControl('');
+  firstNameControl = new FormControl("", Validators.required);
+  lastNameControl = new FormControl("", Validators.required);
+  emailControl = new FormControl("", Validators.required);
+  possibleRoles = [
+    { id: "PLAYER", name: "Joueur" },
+    { id: "ADMIN", name: "Admin" }
+  ];
+  rolesControl = new FormControl("", Validators.required);
+  licenceNumberControl = new FormControl("");
 
-  constructor(private teamService: TeamService,
-              private snackBar: MatSnackBar,
-              private location: Location,
-              fb: FormBuilder) {
+  constructor(
+    private teamService: TeamService,
+    private snackBar: MatSnackBar,
+    private location: Location,
+    fb: FormBuilder
+  ) {
     this.form = fb.group({
       firstNameControl: this.firstNameControl,
       lastNameControl: this.lastNameControl,
@@ -35,7 +45,9 @@ export class MemberInvitationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.teamService.selectedTeam$.subscribe(team => this.selectedTeam = team);
+    this.teamService.selectedTeam$.subscribe(
+      team => (this.selectedTeam = team)
+    );
   }
 
   createTeamMember() {
@@ -45,23 +57,23 @@ export class MemberInvitationComponent implements OnInit {
     member.email = this.emailControl.value;
     member.roles = this.rolesControl.value;
     member.licenceNumber = this.licenceNumberControl.value;
-    this.teamService.createTeamMember(this.selectedTeam._id, member)
-      .then(success => {
-          // TODO: i18n
-          if (success) {
-            this.openSnackBar('Utilisateur créé avec succès');
-            this.location.back();
-          } else {
-            this.openSnackBar('Une erreur s\'est produite');
-          }
-        },
-        () => this.openSnackBar('Une erreur s\'est produite')
-      );
+    this.teamService.createTeamMember(this.selectedTeam._id, member).then(
+      success => {
+        // TODO: i18n
+        if (success) {
+          this.openSnackBar("Utilisateur créé avec succès");
+          this.location.back();
+        } else {
+          this.openSnackBar("Une erreur s'est produite");
+        }
+      },
+      () => this.openSnackBar("Une erreur s'est produite")
+    );
   }
 
   openSnackBar(message: string) {
-    this.snackBar.open(message,  '',  {
-      duration: 2000,
+    this.snackBar.open(message, "", {
+      duration: 2000
     });
   }
 }

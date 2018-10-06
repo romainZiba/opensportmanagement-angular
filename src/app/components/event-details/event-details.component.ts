@@ -1,48 +1,63 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Event} from '../../model/event';
-import {AppSettings} from '../../app-settings';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Event } from "../../model/event";
+import { AppSettings } from "../../app-settings";
 
 @Component({
-  selector: 'event-details',
-  templateUrl: './event-details.component.html',
-  styleUrls: ['./event-details.component.css']
+  selector: "event-details",
+  templateUrl: "./event-details.component.html",
+  styleUrls: ["./event-details.component.css"]
 })
 export class EventDetailsComponent {
-
   @Input()
   event: Event;
   @Input()
   isAdmin = false;
 
-  @Output('participation')
+  @Output("participation")
   participationEmitter = new EventEmitter<boolean>();
-  @Output('messages')
+  @Output("messages")
   messagesEmitter = new EventEmitter();
-  @Output('settings')
+  @Output("settings")
   settingsEmitter = new EventEmitter();
-  @Output('cancel')
+  @Output("cancel")
   cancelEmitter = new EventEmitter();
-  @Output('remind')
+  @Output("remind")
   reminderEmitter = new EventEmitter();
-  @Output('open')
+  @Output("open")
   openEmitter = new EventEmitter();
 
   currentUsername = localStorage.getItem(AppSettings.currentUsernameKey);
 
   isUserPresent(event: Event) {
-    return event.presentMembers.map(member => member.username).indexOf(this.currentUsername) > -1;
+    return (
+      event.presentMembers
+        .map(member => member.username)
+        .indexOf(this.currentUsername) > -1
+    );
   }
 
   isUserAbsent(event: Event) {
-    return event.absentMembers.map(member => member.username).indexOf(this.currentUsername) > -1;
+    return (
+      event.absentMembers
+        .map(member => member.username)
+        .indexOf(this.currentUsername) > -1
+    );
   }
 
   isPresentDisplayed() {
-    return this.event.openForRegistration && !this.event.cancelled && !this.isUserPresent(this.event);
+    return (
+      this.event.openForRegistration &&
+      !this.event.cancelled &&
+      !this.isUserPresent(this.event)
+    );
   }
 
   isAbsentDisplayed() {
-    return this.event.openForRegistration && !this.event.cancelled && !this.isUserAbsent(this.event);
+    return (
+      this.event.openForRegistration &&
+      !this.event.cancelled &&
+      !this.isUserAbsent(this.event)
+    );
   }
 
   onParticipate(isParticipating: boolean) {
