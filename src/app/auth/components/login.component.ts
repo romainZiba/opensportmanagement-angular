@@ -10,9 +10,7 @@ export class LoginComponent {
   hide = true;
 
   @Input()
-  set pending(isPending: boolean) {
-    console.log('isPending? ' + isPending);
-  }
+  pending: boolean;
   @Input()
   errorMessage: string | null;
   @Output()

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LayoutReducer close sidenav should return closed sidenav 1`] = `
+Object {
+  "showSidenav": false,
+}
+`;
+
+exports[`LayoutReducer open sidenav action should return sidenav open 1`] = `
+Object {
+  "showSidenav": true,
+}
+`;
+
+exports[`LayoutReducer undefined action should return the default state 1`] = `
+Object {
+  "showSidenav": false,
+}
+`;

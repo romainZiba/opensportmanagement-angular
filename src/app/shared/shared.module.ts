@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 import {
   MatButtonModule,
   MatCardModule,
@@ -10,11 +10,15 @@ import {
   MatInputModule,
   MatListModule,
   MatPaginatorModule,
+  MatRadioModule,
   MatToolbarModule
-} from '@angular/material';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatSelectModule} from '@angular/material/select';
-import {MatIconModule} from '@angular/material/icon';
+} from "@angular/material";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatSelectModule } from "@angular/material/select";
+import { MatIconModule } from "@angular/material/icon";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { MatDatepickerModule } from "@angular/material/datepicker";
 
 const materialModule = [
   MatButtonModule,
@@ -28,7 +32,11 @@ const materialModule = [
   MatSidenavModule,
   MatListModule,
   MatChipsModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatSnackBarModule,
+  MatDatepickerModule,
+  MatMomentDateModule,
+  MatRadioModule
 ];
 
 @NgModule({

@@ -6,7 +6,7 @@ import {Place} from '../../model/place';
 import {Event, EventCreateUpdate} from '../../model/event';
 import {List} from 'immutable';
 import * as moment from 'moment';
-import {FORMAT_DATE, FORMAT_TIME} from '../../app.module';
+import {FORMAT_DATE, FORMAT_TIME} from '../index';
 
 @Component({
   selector: "event-settings",
