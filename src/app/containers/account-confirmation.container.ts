@@ -13,7 +13,7 @@ import {BaseComponent} from './base.container';
     </account-confirmation>
   `
 })
-export class AccountConfirmationSmartComponent extends BaseComponent
+export class AccountConfirmationContainer extends BaseComponent
   implements OnInit, OnDestroy {
   subscriptions = new Subscription();
   confirmationId: string;

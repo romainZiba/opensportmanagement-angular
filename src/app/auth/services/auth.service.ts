@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 
-import {CookieService} from 'ngx-cookie-service';
-import {Observable, of} from 'rxjs';
-import {User} from '../../model/user';
+import { CookieService } from "ngx-cookie-service";
+import { Observable, of } from "rxjs";
+import { User } from "../../model/user";
 
 @Injectable({
   providedIn: "root"
@@ -22,10 +22,19 @@ export class AuthService {
     );
   }
 
-  whoAmI(): Observable<User> {
-    return this.http.get<User>("/accounts/me", {
-      withCredentials: true
-    });
+  whoAmI(): Observable<User | null> {
+    return this.http
+      .get<User>("/accounts/me", {
+        observe: "response",
+        withCredentials: true
+      })
+      .map(response => {
+        if (response.status === 200) {
+          return response.body as User;
+        } else {
+          return null;
+        }
+      });
   }
 
   logOut(): Observable<boolean> {

@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {select, Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import { Component, OnInit } from "@angular/core";
+import { select, Store } from "@ngrx/store";
+import { Observable } from "rxjs/Observable";
 
-import * as fromAuth from '../auth/index';
-import * as fromStore from '../core/store/index';
-import {tap} from 'rxjs/operators';
+import * as fromAuth from "../auth/index";
+import * as fromStore from "../core/store/index";
+import { tap } from "rxjs/operators";
 
 @Component({
   selector: "app-root",
@@ -29,15 +29,9 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<fromStore.CoreState>) {}
 
   ngOnInit(): void {
-    this.sidenavOpen$ = this.store.pipe(
-      select(fromStore.getShowSidenav),
-      tap(sidenav => console.log("sidenav open ? " + sidenav))
-    );
+    this.sidenavOpen$ = this.store.pipe(select(fromStore.getShowSidenav));
 
-    this.toolbarVisible$ = this.store.pipe(
-      select(fromAuth.getLoggedIn),
-      tap(logged => console.log("Logged In ? " + logged))
-    );
+    this.toolbarVisible$ = this.store.pipe(select(fromAuth.getLoggedIn));
   }
 
   closeSidenav() {

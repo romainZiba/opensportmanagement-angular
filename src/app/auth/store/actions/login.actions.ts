@@ -6,7 +6,8 @@ export enum LoginActionsType {
   LOGIN_SUCCESS = '[Auth] Login Success',
   LOGIN_FAILURE = '[Auth] Login Failure',
   LOGIN_REDIRECT = '[Auth] Login Redirect',
-  LOGOUT = '[Auth] Logout'
+  LOGOUT = '[Auth] Logout',
+  CHECK_TOKEN_VALID = '[Auth] Check token valid'
 }
 
 export class Login implements Action {
@@ -32,9 +33,14 @@ export class Logout implements Action {
   readonly type = LoginActionsType.LOGOUT;
 }
 
+export class CheckTokenValid implements Action {
+  readonly type = LoginActionsType.CHECK_TOKEN_VALID
+}
+
 export type LoginActions =
   | Login
   | LoginSuccess
   | LoginFailure
   | LoginRedirect
-  | Logout;
+  | Logout
+  | CheckTokenValid;

@@ -59,10 +59,10 @@ import { OpponentCreationComponent } from "./components/opponent-creation/oppone
 import { AccountConfirmationComponent } from "./components/account-confirmation/account-confirmation.component";
 import { SeasonCreationComponent } from "./components/season-creation/season-creation.component";
 import { ChampionshipCreationComponent } from "./components/championship-creation/championship-creation.component";
-import { AccountConfirmationSmartComponent } from "./containers/account-confirmation.container";
+import { AccountConfirmationContainer } from "./containers/account-confirmation.container";
 import { ChampionshipCreationSmartComponent } from "./containers/championship-creation.container";
 import { EventCreationSmartComponent } from "./containers/event-creation.container";
-import { EventListSmartComponent } from "./containers/event-list.container";
+import { EventListContainer } from "./containers/event-list.container";
 import { EventDetailsSmartComponent } from "./containers/event-details.container";
 import { EventSettingsComponent } from "./components/event-settings/event-settings.component";
 import { EventSettingsSmartComponent } from "./containers/event-settings.container";
@@ -109,7 +109,7 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
 export const COMPONENTS = [
   AppComponent,
   EventListComponent,
-  EventListSmartComponent,
+  EventListContainer,
   TeamMembersComponent,
   EventDetailsComponent,
   EventDetailsSmartComponent,
@@ -122,7 +122,7 @@ export const COMPONENTS = [
   PlaceCreationComponent,
   OpponentCreationComponent,
   AccountConfirmationComponent,
-  AccountConfirmationSmartComponent,
+  AccountConfirmationContainer,
   SeasonCreationComponent,
   ChampionshipCreationComponent,
   ChampionshipCreationSmartComponent,

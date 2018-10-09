@@ -22,7 +22,7 @@ import {MatSnackBar} from '@angular/material';
                          (details)="showDetails($event)"
                          (eventCreation)="showEventCreationPanel($event)"></event-list>`
 })
-export class EventListSmartComponent extends BaseComponent
+export class EventListContainer extends BaseComponent
   implements OnInit, OnDestroy {
   subscriptions = new Subscription();
   selectedTeam$: Observable<Team>;

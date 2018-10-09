@@ -52,4 +52,13 @@ describe('Login Actions', () => {
       });
     });
   });
+
+  describe('CheckTokenValid', () => {
+    it('should create an action', () => {
+      const action = new fromLogin.CheckTokenValid();
+      expect({ ...action }).toEqual({
+        type: fromLogin.LoginActionsType.CHECK_TOKEN_VALID
+      });
+    });
+  });
 });

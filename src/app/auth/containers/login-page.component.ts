@@ -25,7 +25,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   login(creds: Credentials): void {
-    console.log("trying to log");
     this.store.dispatch(new authActions.Login(creds));
   }
 }

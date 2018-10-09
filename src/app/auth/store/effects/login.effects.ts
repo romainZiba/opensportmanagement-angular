@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Actions, Effect, ofType} from '@ngrx/effects';
-import {AuthService} from '../../services/auth.service';
-import {of} from 'rxjs/observable/of';
+import { Injectable } from "@angular/core";
+import { Actions, Effect, ofType } from "@ngrx/effects";
+import { AuthService } from "../../services/auth.service";
+import { of } from "rxjs/observable/of";
 
-import * as fromActions from '../actions';
-import {catchError, map, switchMap, tap} from 'rxjs/operators';
-import {Router} from '@angular/router';
+import * as fromActions from "../actions";
+import { catchError, map, switchMap, tap } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class LoginEffects {
@@ -55,6 +55,19 @@ export class LoginEffects {
     ),
     tap(() => {
       this.router.navigate(["/login"]);
+    })
+  );
+
+  @Effect()
+  checkToken$ = this.actions$.pipe(
+    ofType(fromActions.LoginActionsType.CHECK_TOKEN_VALID),
+    switchMap(() => {
+      return this.authService.whoAmI().pipe(
+        map(user => new fromActions.LoginSuccess(user)),
+        catchError(() =>
+          of(new fromActions.LoginFailure(this.authenticationError))
+        )
+      );
     })
   );
 }
