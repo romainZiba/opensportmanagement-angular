@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ToolbarComponent } from "./components/toolbar.component";
+import { ToolbarComponent } from "./components/toolbar/toolbar.component";
 import { SharedModule } from "../shared/shared.module";
 import { LayoutComponent } from "./components/layout.component";
 import { NavItemComponent } from "./components/nav-item.component";
@@ -8,6 +8,8 @@ import { SidenavComponent } from "./components/sidenav.component";
 import { RouterModule } from "@angular/router";
 import { StoreModule } from "@ngrx/store";
 import { reducers } from "./store/reducers";
+import { EffectsModule } from "@ngrx/effects";
+import { TeamEffects } from "./store/effects";
 
 export const COMPONENTS = [
   LayoutComponent,
@@ -21,7 +23,8 @@ export const COMPONENTS = [
     CommonModule,
     RouterModule,
     SharedModule,
-    StoreModule.forFeature("core", reducers)
+    StoreModule.forFeature("core", reducers),
+    EffectsModule.forFeature([TeamEffects])
   ],
   exports: COMPONENTS,
   declarations: COMPONENTS

@@ -1,17 +1,17 @@
 import * as fromActions from "../actions";
 
-export interface State {
+export interface LayoutState {
   showSidenav: boolean;
 }
 
-const initialState: State = {
+const initialState: LayoutState = {
   showSidenav: false
 };
 
 export function reducer(
-  state: State = initialState,
+  state: LayoutState = initialState,
   action: fromActions.SidenavActions
-): State {
+): LayoutState {
   switch (action.type) {
     case fromActions.SidenavActionsType.CLOSE_SIDENAV:
       return {
@@ -28,4 +28,4 @@ export function reducer(
   }
 }
 
-export const getShowSidenav = (state: State) => state.showSidenav;
+export const getShowSidenav = (state: LayoutState) => state.showSidenav;
