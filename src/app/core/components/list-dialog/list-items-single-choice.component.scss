@@ -1,0 +1,12 @@
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+[mat-button] {
+  padding: 0;
+}
+.radio-group {
+  display: inline-flex;
+  flex-direction: column;
+}

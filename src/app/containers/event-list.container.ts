@@ -1,13 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
-import {EventService} from '../services/event.service';
-import {TeamService} from '../services/team.service';
-import {Observable} from 'rxjs/Observable';
-import {Team} from '../model/team';
-import {PageEvent} from '../components/event-list/event-list.component';
-import {Router} from '@angular/router';
-import {BaseComponent} from './base.container';
-import {MatSnackBar} from '@angular/material';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Subscription } from "rxjs/Subscription";
+import { EventService } from "../services/event.service";
+import { TeamService } from "../services/team.service";
+import { Observable } from "rxjs/Observable";
+import { Team } from "../model/team";
+import { PageEvent } from "../components/event-list/event-list.component";
+import { Router } from "@angular/router";
+import { BaseComponent } from "./base.container";
+import { MatSnackBar } from "@angular/material";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: "app-event-list",
@@ -55,12 +56,14 @@ export class EventListContainer extends BaseComponent
     retrieveAll: boolean
   ) {
     const sub = this.selectedTeam$
-      .map(team =>
-        this.eventService.getEvents(
-          team._id,
-          currentPage,
-          pageSize,
-          retrieveAll
+      .pipe(
+        map(team =>
+          this.eventService.getEvents(
+            team._id,
+            currentPage,
+            pageSize,
+            retrieveAll
+          )
         )
       )
       .subscribe();

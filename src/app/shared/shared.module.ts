@@ -6,6 +6,7 @@ import {
   MatCardModule,
   MatCheckboxModule,
   MatChipsModule,
+  MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
   MatListModule,
@@ -36,12 +37,13 @@ const materialModule = [
   MatSnackBarModule,
   MatDatepickerModule,
   MatMomentDateModule,
-  MatRadioModule
+  MatRadioModule,
+  MatDialogModule
 ];
 
 @NgModule({
   imports: [CommonModule, FormsModule, materialModule],
   declarations: [],
-  exports: [...materialModule]
+  exports: [...materialModule, FormsModule]
 })
 export class SharedModule {}

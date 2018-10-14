@@ -1,13 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
-import {EventService} from '../services/event.service';
-import {TeamService} from '../services/team.service';
-import {Observable} from 'rxjs/Observable';
-import {Team} from '../model/team';
-import {ActivatedRoute, Router} from '@angular/router';
-import {BaseComponent} from './base.container';
-import {MatSnackBar} from '@angular/material';
-import {Event} from '../model/event';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Subscription } from "rxjs/Subscription";
+import { EventService } from "../services/event.service";
+import { TeamService } from "../services/team.service";
+import { Observable } from "rxjs/Observable";
+import { Team } from "../model/team";
+import { ActivatedRoute, Router } from "@angular/router";
+import { BaseComponent } from "./base.container";
+import { MatSnackBar } from "@angular/material";
+import { Event } from "../model/event";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: "app-event-details",
@@ -42,8 +43,8 @@ export class EventDetailsSmartComponent extends BaseComponent
   }
 
   ngOnInit() {
-    this.isUserAdmin$ = this.teamService.currentTeamMember$.map(
-      member => member !== null && member.roles.includes("ADMIN")
+    this.isUserAdmin$ = this.teamService.currentTeamMember$.pipe(
+      map(member => member !== null && member.roles.includes("ADMIN"))
     );
     this.eventId = parseInt(this.route.snapshot.paramMap.get("id"), 10);
     // // Fetch the event from network

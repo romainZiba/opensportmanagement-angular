@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material";
+
 import { select, Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 
@@ -6,6 +8,12 @@ import * as fromAuth from "../auth/index";
 import * as fromStore from "../core/store/index";
 import { Team } from "../model/team";
 import { Subscription } from "rxjs/Subscription";
+import {
+  DialogElement,
+  ListItemsSingleChoiceComponent,
+  ListItemsSingleChoiceData
+} from "../core/components/list-dialog/list-items-single-choice.component";
+import { List } from "immutable";
 
 @Component({
   selector: "app-root",
@@ -15,8 +23,8 @@ import { Subscription } from "rxjs/Subscription";
       <app-sidenav [open]="sidenavOpen$ | async" (closeMenu)="closeSidenav()">
         <img alt="Open Sport Management" src="../assets/img/logo.png" class="mt-4 ml-4 center">
       </app-sidenav>
-      <app-toolbar *ngIf="toolbarVisible$ | async" (openMenu)="openSidenav()">
-        {{ selectedTeam$ | async }}
+      <app-toolbar *ngIf="toolbarVisible$ | async" (openMenu)="openSidenav()" (showAvailableTeams)="showAvailableTeams()">
+        {{ (selectedTeam$ | async)?.name }}
       </app-toolbar>
       <div class="inner-sidenav-content">
         <router-outlet></router-outlet>
@@ -30,8 +38,13 @@ export class AppComponent implements OnInit, OnDestroy {
   selectedTeam$: Observable<Team>;
   isLoggedIn$: Observable<boolean>;
   loggedSub: Subscription;
+  teams: List<Team> = List();
+  teamSub: Subscription;
 
-  constructor(private store: Store<fromStore.CoreState>) {}
+  constructor(
+    private store: Store<fromStore.CoreState>,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.sidenavOpen$ = this.store.pipe(select(fromStore.getShowSidenav));
@@ -43,6 +56,9 @@ export class AppComponent implements OnInit, OnDestroy {
         this.store.dispatch(new fromStore.LoadTeams());
       }
     });
+    this.teamSub = this.store
+      .pipe(select(fromStore.getAllTeams))
+      .subscribe(teams => (this.teams = teams));
   }
 
   closeSidenav() {
@@ -53,7 +69,24 @@ export class AppComponent implements OnInit, OnDestroy {
     this.store.dispatch(new fromStore.OpenSidenav());
   }
 
+  showAvailableTeams() {
+    const data = {
+      title: "Select your team",
+      elements: this.teams.map(team => {
+        return { id: team._id, payload: team.name } as DialogElement;
+      })
+    } as ListItemsSingleChoiceData;
+    const dialogRef = this.dialog.open(ListItemsSingleChoiceComponent, {
+      width: "600px",
+      data
+    });
+    dialogRef.afterClosed().subscribe((result: DialogElement) => {
+      this.store.dispatch(new fromStore.SelectTeam(result.id));
+    });
+  }
+
   ngOnDestroy(): void {
     this.loggedSub.unsubscribe();
+    this.teamSub.unsubscribe();
   }
 }

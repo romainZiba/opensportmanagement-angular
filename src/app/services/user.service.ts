@@ -1,14 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 
-import {Observable} from 'rxjs/Observable';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {of} from 'rxjs/observable/of';
-import {AppSettings} from '../app-settings';
-import {Router} from '@angular/router';
-import {CookieService} from 'ngx-cookie-service';
-import {User} from '../model/user';
-import {TeamService} from './team.service';
+import { Observable } from "rxjs/Observable";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Router } from "@angular/router";
+import { CookieService } from "ngx-cookie-service";
+import { User } from "../model/user";
+import { TeamService } from "./team.service";
 
 @Injectable()
 export class UserService {
@@ -22,11 +20,6 @@ export class UserService {
     private router: Router,
     private teamService: TeamService
   ) {}
-
-  get isLoggedIn() {
-    return this.loggedIn.asObservable();
-  }
-
   authenticate(
     username: string,
     password: string
@@ -44,25 +37,6 @@ export class UserService {
     this.router.navigate(["/login"]);
     this.loggedIn.next(false);
   }
-
-  whoAmI(): Observable<HttpResponse<any>> {
-    return this.http
-      .get<User>("/accounts/me", { observe: "response", withCredentials: true })
-      .flatMap(response => {
-        this.loggedIn.next(true);
-        localStorage.setItem(
-          AppSettings.currentUsernameKey,
-          response.body["username"]
-        );
-        this.userSource.next(response.body);
-        return of(response);
-      })
-      .catch(error => {
-        this.loggedIn.next(false);
-        return of(error);
-      });
-  }
-
   updateUser(
     firstName: string,
     lastName: string,

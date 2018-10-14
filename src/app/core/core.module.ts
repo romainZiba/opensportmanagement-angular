@@ -10,12 +10,14 @@ import { StoreModule } from "@ngrx/store";
 import { reducers } from "./store/reducers";
 import { EffectsModule } from "@ngrx/effects";
 import { TeamEffects } from "./store/effects";
+import { ListItemsSingleChoiceComponent } from "./components/list-dialog/list-items-single-choice.component";
 
 export const COMPONENTS = [
   LayoutComponent,
   NavItemComponent,
   SidenavComponent,
-  ToolbarComponent
+  ToolbarComponent,
+  ListItemsSingleChoiceComponent
 ];
 
 @NgModule({
@@ -27,6 +29,7 @@ export const COMPONENTS = [
     EffectsModule.forFeature([TeamEffects])
   ],
   exports: COMPONENTS,
-  declarations: COMPONENTS
+  declarations: COMPONENTS,
+  entryComponents: [ListItemsSingleChoiceComponent]
 })
 export class CoreModule {}

@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import { Observable, of } from "rxjs";
 import { User } from "../../model/user";
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
@@ -28,13 +29,15 @@ export class AuthService {
         observe: "response",
         withCredentials: true
       })
-      .map(response => {
-        if (response.status === 200) {
-          return response.body as User;
-        } else {
-          return null;
-        }
-      });
+      .pipe(
+        map(response => {
+          if (response.status === 200) {
+            return response.body as User;
+          } else {
+            return null;
+          }
+        })
+      );
   }
 
   logOut(): Observable<boolean> {

@@ -1,12 +1,19 @@
-import {AfterViewChecked, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, ParamMap} from '@angular/router';
-import {switchMap} from 'rxjs/operators';
-import {EventService} from '../../services/event.service';
-import {AppMessage} from '../../model/AppMessage';
-import {UserService} from '../../services/user.service';
-import {Observable} from 'rxjs/Observable';
-import {StompService} from '@stomp/ng2-stompjs';
-import {Subscription} from 'rxjs/Subscription';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from "@angular/core";
+import { ActivatedRoute, ParamMap } from "@angular/router";
+import { map, switchMap } from "rxjs/operators";
+import { EventService } from "../../services/event.service";
+import { AppMessage } from "../../model/AppMessage";
+import { UserService } from "../../services/user.service";
+import { Observable } from "rxjs/Observable";
+import { StompService } from "@stomp/ng2-stompjs";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
   selector: "app-messages",
@@ -43,7 +50,7 @@ export class MessagesComponent implements OnInit, OnDestroy, AfterViewChecked {
     // TODO: refactor this, client should not be supposed to know the way conversation id is built
     const wsSubscription = this.stompService
       .subscribe(`/topic/conversation_${this.eventId}`)
-      .map(message => message.body)
+      .pipe(map(message => message.body))
       .subscribe((msg_body: string) => {
         const msg = JSON.parse(msg_body) as AppMessage;
         this.messages.push(msg);

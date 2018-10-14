@@ -8,7 +8,7 @@ import { Component, EventEmitter, Output } from "@angular/core";
         <mat-icon>menu</mat-icon>
       </button>
       <ng-content></ng-content>
-      <button mat-icon-button (click)="changeTeam.emit()">
+      <button mat-icon-button (click)="showAvailableTeams.emit()">
         <mat-icon>swap_horiz</mat-icon>
       </button>
     </mat-toolbar>
@@ -19,5 +19,5 @@ export class ToolbarComponent {
   @Output()
   openMenu = new EventEmitter();
   @Output()
-  changeTeam = new EventEmitter();
+  showAvailableTeams = new EventEmitter();
 }

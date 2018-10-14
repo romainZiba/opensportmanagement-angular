@@ -111,7 +111,20 @@ describe("Team Selectors", () => {
         .pipe(select(fromSelectors.getSelectedTeam))
         .subscribe(team => (selectedTeam = team));
 
-      expect(selectedTeam).toEqual(2);
+      expect(selectedTeam).toEqual(entities[2]);
+    });
+
+    it("should return selected team as an entity", () => {
+      let selectedTeam;
+
+      store.dispatch(new fromActions.LoadTeamsSuccess(teams));
+      store.dispatch(new fromActions.SelectTeam(team2._id));
+
+      store
+        .pipe(select(fromSelectors.getSelectedTeam2))
+        .subscribe(team => (selectedTeam = team));
+
+      expect(selectedTeam).toEqual(entities[2]);
     });
   });
 
