@@ -1,34 +1,14 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { InjectionToken, NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"; // <-- NgModel lives here
-import {
-  MatMomentDateModule,
-  MomentDateAdapter
-} from "@angular/material-moment-adapter";
+import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import {
   DateAdapter,
   ErrorStateMatcher,
   MAT_DATE_LOCALE,
   ShowOnDirtyErrorStateMatcher
 } from "@angular/material/core";
-import {
-  MatButtonModule,
-  MatCheckboxModule,
-  MatChipsModule,
-  MatInputModule,
-  MatListModule,
-  MatPaginatorModule,
-  MatRadioModule
-} from "@angular/material";
-import { MatFormFieldModule } from "@angular/material/form-field";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatToolbarModule } from "@angular/material/toolbar";
-import { MatIconModule } from "@angular/material/icon";
-import { MatCardModule } from "@angular/material/card";
-import { MatSelectModule } from "@angular/material/select";
-import { MatSidenavModule } from "@angular/material/sidenav";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { MatDatepickerModule } from "@angular/material/datepicker";
 
 import { MetaReducer, StoreModule } from "@ngrx/store";
 
@@ -40,7 +20,6 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { UserService } from "./services/user.service";
 import { ApiUrlInterceptor } from "./urlinterceptor";
 import { environment } from "../environments/environment";
-import { AuthGuardService } from "./services/auth-guard.service";
 import { TeamService } from "./services/team.service";
 import { TeamMembersComponent } from "./components/team-members/team-members.component";
 import { EventDetailsComponent } from "./components/event-details/event-details.component";
@@ -74,7 +53,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { CoreModule } from "./core/core.module";
 import { AppComponent } from "./containers/app.component";
-import {SharedModule} from './shared/shared.module';
+import { SharedModule } from "./shared/shared.module";
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -161,7 +140,6 @@ export const COMPONENTS = [
     CookieService,
     EventService,
     UserService,
-    AuthGuardService,
     TeamService,
     PlaceService,
     OpponentService,
