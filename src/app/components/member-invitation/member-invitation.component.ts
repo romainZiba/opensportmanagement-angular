@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TeamService} from '../../services/team.service';
-import {Team} from '../../model/team';
+import {Team} from '../../core/model/team';
 import {TeamMember} from '../../model/team-member';
 import {MatSnackBar} from '@angular/material';
 import {Location} from '@angular/common';

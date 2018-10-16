@@ -1,6 +1,5 @@
 import { Action } from "@ngrx/store";
-import { List } from "immutable";
-import { Team } from "../../../model/team";
+import { Team } from "../../model/team";
 
 export enum TeamsActionsType {
   LOAD_TEAMS = "[Core] Load teams",
@@ -15,7 +14,7 @@ export class LoadTeams implements Action {
 
 export class LoadTeamsSuccess implements Action {
   readonly type = TeamsActionsType.LOAD_TEAMS_SUCCESS;
-  constructor(public payload: List<Team>) {}
+  constructor(public payload: Team[]) {}
 }
 
 export class LoadTeamsFailed implements Action {

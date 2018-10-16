@@ -1,6 +1,5 @@
 import * as fromTeams from "./teams.actions";
-import { Team } from "../../../model/team";
-import { List } from "immutable";
+import { Team } from "../../model/team";
 
 describe("Get Teams Actions", () => {
   describe("Load Teams", () => {
@@ -14,10 +13,15 @@ describe("Get Teams Actions", () => {
 
   describe("Load Teams Success", () => {
     it("should create an action", () => {
-      const team = new Team();
+      const team: Team = {
+        name: "Team #1",
+        sport: "Sport",
+        genderKind: "MALE",
+        ageGroup: "ADULTS"
+      };
       team._id = 1;
-      team.name = 'team';
-      const teams = List([team]);
+      team.name = "team";
+      const teams = [team];
       const action = new fromTeams.LoadTeamsSuccess(teams);
       expect({ ...action }).toEqual({
         type: fromTeams.TeamsActionsType.LOAD_TEAMS_SUCCESS,
@@ -28,7 +32,7 @@ describe("Get Teams Actions", () => {
 
   describe("Load Teams Failed", () => {
     it("should create an action", () => {
-      const error = 'error';
+      const error = "error";
       const action = new fromTeams.LoadTeamsFailed(error);
       expect({ ...action }).toEqual({
         type: fromTeams.TeamsActionsType.LOAD_TEAMS_FAILED,

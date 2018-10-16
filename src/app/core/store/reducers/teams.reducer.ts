@@ -1,24 +1,28 @@
 import * as fromActions from "../actions";
-import { Team } from "../../../model/team";
+import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
+import { Team } from "../../model/team";
 
-export interface TeamState {
-  entities: { [id: number]: Team };
+export interface State extends EntityState<Team> {
+  selectedTeamId: number | null;
   loading: boolean;
   loaded: boolean;
-  selectedTeam: number | null;
 }
 
-export const initialState: TeamState = {
-  entities: {},
+export const adapter: EntityAdapter<Team> = createEntityAdapter<Team>({
+  selectId: (team: Team) => team._id,
+  sortComparer: false
+});
+
+export const initialState: State = adapter.getInitialState({
+  selectedTeamId: null,
   loading: false,
-  loaded: false,
-  selectedTeam: null,
-};
+  loaded: false
+});
 
 export function reducer(
-  state: TeamState = initialState,
+  state: State = initialState,
   action: fromActions.TeamsActions
-): TeamState {
+): State {
   switch (action.type) {
     case fromActions.TeamsActionsType.LOAD_TEAMS:
       return {
@@ -27,24 +31,9 @@ export function reducer(
       };
 
     case fromActions.TeamsActionsType.LOAD_TEAMS_SUCCESS: {
-      const entities = action.payload.reduce(
-        (e: { [id: number]: Team }, team: Team) => {
-          return {
-            ...e,
-            [team._id]: team
-          };
-        },
-        {
-          ...state.entities
-        }
-      );
-
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        entities
-      };
+      const teams = action.payload;
+      state = { ...state, loaded: true, loading: false };
+      return adapter.addAll(teams, state);
     }
 
     case fromActions.TeamsActionsType.LOAD_TEAMS_FAILED: {
@@ -56,10 +45,9 @@ export function reducer(
     }
 
     case fromActions.TeamsActionsType.SELECT_TEAM: {
-      const selectedTeam = action.payload;
       return {
         ...state,
-        selectedTeam
+        selectedTeamId: action.payload
       };
     }
 
@@ -68,7 +56,7 @@ export function reducer(
   }
 }
 
-export const getEntities = (state: TeamState) => state.entities;
-export const getLoading = (state: TeamState) => state.loading;
-export const getLoaded = (state: TeamState) => state.loaded;
-export const getSelectedTeam = (state: TeamState) => state.selectedTeam;
+export const getEntities = (state: State) => state.entities;
+export const getLoading = (state: State) => state.loading;
+export const getLoaded = (state: State) => state.loaded;
+export const getSelectedId = (state: State) => state.selectedTeamId;

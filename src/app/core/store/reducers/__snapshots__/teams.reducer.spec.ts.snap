@@ -80,9 +80,10 @@ Object {
       "sport": "football",
     },
   },
+  "ids": Array [],
   "loaded": true,
   "loading": false,
-  "selectedTeam": 1,
+  "selectedTeamId": 1,
 }
 `;
 

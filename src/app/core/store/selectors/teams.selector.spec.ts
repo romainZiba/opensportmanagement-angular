@@ -5,7 +5,7 @@ import * as fromReducers from "../reducers";
 import * as fromSelectors from "../selectors";
 import * as fromActions from "../actions";
 import { List } from "immutable";
-import { Team } from "../../../model/team";
+import { Team } from "../../model/team";
 
 describe("Team Selectors", () => {
   let store: Store<fromReducers.CoreState>;
@@ -45,6 +45,8 @@ describe("Team Selectors", () => {
     3: teams.get(2)
   };
 
+  const teamIds = [1, 2, 3];
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -68,18 +70,20 @@ describe("Team Selectors", () => {
 
       expect(result).toEqual({
         entities: {},
+        ids: [],
         loaded: false,
         loading: false,
-        selectedTeam: null
+        selectedTeamId: null
       });
 
       store.dispatch(new fromActions.LoadTeamsSuccess(teams));
 
       expect(result).toEqual({
         entities,
+        ids: teamIds,
         loaded: true,
         loading: false,
-        selectedTeam: null
+        selectedTeamId: null
       });
     });
   });
@@ -100,7 +104,7 @@ describe("Team Selectors", () => {
     });
   });
 
-  describe("getSelectedTeam", () => {
+  describe("getSelectedId", () => {
     it("should return selected team as an entity", () => {
       let selectedTeam;
 
@@ -109,19 +113,6 @@ describe("Team Selectors", () => {
 
       store
         .pipe(select(fromSelectors.getSelectedTeam))
-        .subscribe(team => (selectedTeam = team));
-
-      expect(selectedTeam).toEqual(entities[2]);
-    });
-
-    it("should return selected team as an entity", () => {
-      let selectedTeam;
-
-      store.dispatch(new fromActions.LoadTeamsSuccess(teams));
-      store.dispatch(new fromActions.SelectTeam(team2._id));
-
-      store
-        .pipe(select(fromSelectors.getSelectedTeam2))
         .subscribe(team => (selectedTeam = team));
 
       expect(selectedTeam).toEqual(entities[2]);
@@ -136,11 +127,11 @@ describe("Team Selectors", () => {
         .pipe(select(fromSelectors.getAllTeams))
         .subscribe(value => (result = value));
 
-      expect(result).toEqual(List());
+      expect(result).toEqual([]);
 
       store.dispatch(new fromActions.LoadTeamsSuccess(teams));
 
-      expect(result).toEqual(teams);
+      expect(result).toEqual(teams.toArray());
     });
   });
 

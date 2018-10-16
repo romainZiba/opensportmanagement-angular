@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Event} from '../../model/event';
 import {List} from 'immutable';
 import {TeamMember} from '../../model/team-member';
-import {Team} from '../../model/team';
+import {Team} from '../../core/model/team';
 
 @Component({
   selector: "event-list",

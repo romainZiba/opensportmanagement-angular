@@ -19,7 +19,7 @@ import { EventCreateUpdate, EventType } from "../../model/event";
 import { Season } from "../../model/season";
 import { Championship } from "../../model/championship";
 import { DateValidator } from "../../validators/DateValidator";
-import { Team } from "../../model/team";
+import { Team } from "../../core/model/team";
 import { List } from "immutable";
 import { Place } from "../../model/place";
 import {FORMAT_DATE} from '../index';

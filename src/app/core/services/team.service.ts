@@ -1,9 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-
-import { Team } from "../../model/team";
-import { List } from "immutable";
+import { Team } from "../model/team";
 
 @Injectable({
   providedIn: "root"
@@ -11,8 +9,8 @@ import { List } from "immutable";
 export class TeamService {
   constructor(private http: HttpClient) {}
 
-  getTeams(): Observable<List<Team>> {
-    return this.http.get<List<Team>>("/teams", { withCredentials: true });
+  getTeams(): Observable<Team[]> {
+    return this.http.get<Team[]>("/teams", { withCredentials: true });
   }
 
   selectTeam(team: Team) {}

@@ -1,7 +1,7 @@
 import { initialState, reducer } from "./teams.reducer";
 import * as teamsActions from "../actions";
 import { List } from "immutable";
-import { Team } from "../../../model/team";
+import { Team } from "../../model/team";
 
 describe("TeamsReducer", () => {
   const team1: Team = {

@@ -12,7 +12,7 @@ import { List } from "immutable";
 import { Season } from "../model/season";
 import { Championship } from "../model/championship";
 import { BaseComponent } from "./base.container";
-import { Team } from "../model/team";
+import { Team } from "../core/model/team";
 import { map } from "rxjs/operators";
 
 @Component({

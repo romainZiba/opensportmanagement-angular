@@ -15,7 +15,6 @@ export class TeamEffects {
   loadTeams$ = this.actions$.pipe(
     ofType(fromActions.TeamsActionsType.LOAD_TEAMS),
     switchMap(() => {
-      console.log("Pl");
       return this.teamService.getTeams().pipe(
         map(teams => new teamActions.LoadTeamsSuccess(teams)),
         catchError(error => of(new teamActions.LoadTeamsFailed(error)))

@@ -11,8 +11,7 @@ import { of } from "rxjs/observable/of";
 import * as fromEffects from "./teams.effects";
 import * as fromActions from "../actions/teams.actions";
 import { TeamService } from "../../services/team.service";
-import { List } from "immutable";
-import { Team } from "../../../model/team";
+import { Team } from "../../model/team";
 
 export class TestActions extends Actions {
   constructor() {
@@ -60,7 +59,7 @@ describe("TeamsEffects", () => {
     imgUrl: ""
   };
 
-  const teams: List<Team> = List([team1, team2, team3]);
+  const teams: Team[] = [team1, team2, team3];
 
   beforeEach(() => {
     TestBed.configureTestingModule({

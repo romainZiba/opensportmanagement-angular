@@ -6,7 +6,6 @@ import { Observable } from "rxjs/Observable";
 
 import * as fromAuth from "../auth/index";
 import * as fromStore from "../core/store/index";
-import { Team } from "../model/team";
 import { Subscription } from "rxjs/Subscription";
 import {
   DialogElement,
@@ -14,6 +13,7 @@ import {
   ListItemsSingleChoiceData
 } from "../core/components/list-dialog/list-items-single-choice.component";
 import { List } from "immutable";
+import { Team } from "../core/model/team";
 
 @Component({
   selector: "app-root",
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
     });
     this.teamSub = this.store
       .pipe(select(fromStore.getAllTeams))
-      .subscribe(teams => (this.teams = teams));
+      .subscribe(teams => (this.teams = List(teams)));
   }
 
   closeSidenav() {
@@ -81,7 +81,9 @@ export class AppComponent implements OnInit, OnDestroy {
       data
     });
     dialogRef.afterClosed().subscribe((result: DialogElement) => {
-      this.store.dispatch(new fromStore.SelectTeam(result.id));
+      if (result) {
+        this.store.dispatch(new fromStore.SelectTeam(result.id));
+      }
     });
   }
 
