@@ -10,50 +10,22 @@ import {
 } from "@angular/material/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import { MetaReducer, StoreModule } from "@ngrx/store";
-
 import { AppRoutingModule } from "./app-routing.module";
-import { EventListComponent } from "./components/event-list/event-list.component";
-import { EventService } from "./services/event.service";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { JwtModule } from "@auth0/angular-jwt";
-import { UserService } from "./services/user.service";
 import { ApiUrlInterceptor } from "./urlinterceptor";
 import { environment } from "../environments/environment";
-import { TeamService } from "./services/team.service";
-import { TeamMembersComponent } from "./components/team-members/team-members.component";
-import { EventDetailsComponent } from "./components/event-details/event-details.component";
 import { CookieService } from "ngx-cookie-service";
-import { UserDetailsComponent } from "./components/user-details/user-details.component";
 import { ServiceWorkerModule } from "@angular/service-worker";
-import { MemberInvitationComponent } from "./components/member-invitation/member-invitation.component";
-import { MessagesComponent } from "./components/messages/messages.component";
 import { StompConfig, StompService } from "@stomp/ng2-stompjs";
-import { EventCreationComponent } from "./components/event-creation/event-creation.component";
-import { PlaceService } from "./services/place.service";
-import { OpponentService } from "./services/opponent.service";
-import { TeamCreationComponent } from "./components/team-creation/team-creation.component";
-import { PlaceCreationComponent } from "./components/place-creation/place-creation.component";
-import { OpponentCreationComponent } from "./components/opponent-creation/opponent-creation.component";
-import { AccountConfirmationComponent } from "./components/account-confirmation/account-confirmation.component";
-import { SeasonCreationComponent } from "./components/season-creation/season-creation.component";
-import { ChampionshipCreationComponent } from "./components/championship-creation/championship-creation.component";
-import { AccountConfirmationContainer } from "./containers/account-confirmation.container";
-import { ChampionshipCreationSmartComponent } from "./containers/championship-creation.container";
-import { EventCreationSmartComponent } from "./containers/event-creation.container";
-import { EventListContainer } from "./containers/event-list.container";
-import { EventDetailsSmartComponent } from "./containers/event-details.container";
-import { EventSettingsComponent } from "./components/event-settings/event-settings.component";
-import { EventSettingsSmartComponent } from "./containers/event-settings.container";
 import { RouteReuseStrategy } from "@angular/router";
 import { RouteReuse } from "./RouteReuse";
 import { AuthModule } from "./auth/auth.module";
-import { storeFreeze } from "ngrx-store-freeze";
-import { EffectsModule } from "@ngrx/effects";
-import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { CoreModule } from "./core/core.module";
-import { AppComponent } from "./containers/app.component";
+import { AppComponent } from "./app.component";
 import { SharedModule } from "./shared/shared.module";
+import { NgxsModule } from "@ngxs/store";
+import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -81,33 +53,7 @@ const stompConfig: StompConfig = {
   debug: true
 };
 
-export const metaReducers: MetaReducer<any>[] = !environment.production
-  ? [storeFreeze]
-  : [];
-
-export const COMPONENTS = [
-  AppComponent,
-  EventListComponent,
-  EventListContainer,
-  TeamMembersComponent,
-  EventDetailsComponent,
-  EventDetailsSmartComponent,
-  UserDetailsComponent,
-  MemberInvitationComponent,
-  MessagesComponent,
-  EventCreationComponent,
-  EventCreationSmartComponent,
-  TeamCreationComponent,
-  PlaceCreationComponent,
-  OpponentCreationComponent,
-  AccountConfirmationComponent,
-  AccountConfirmationContainer,
-  SeasonCreationComponent,
-  ChampionshipCreationComponent,
-  ChampionshipCreationSmartComponent,
-  EventSettingsComponent,
-  EventSettingsSmartComponent
-];
+export const COMPONENTS = [AppComponent];
 
 @NgModule({
   declarations: COMPONENTS,
@@ -132,17 +78,11 @@ export const COMPONENTS = [
     CoreModule,
     SharedModule,
 
-    StoreModule.forRoot({}, { metaReducers }),
-    environment.production ? [] : StoreDevtoolsModule.instrument(),
-    EffectsModule.forRoot([])
+    NgxsModule.forRoot([]),
+    environment.production ? [] : NgxsReduxDevtoolsPluginModule.forRoot()
   ],
   providers: [
     CookieService,
-    EventService,
-    UserService,
-    TeamService,
-    PlaceService,
-    OpponentService,
     { provide: API_URL, useValue: environment.apiUrl },
     {
       provide: HTTP_INTERCEPTORS,

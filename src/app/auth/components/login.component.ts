@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Credentials} from '../../model/credentials';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Credentials } from "../models/user";
 
 @Component({
-  selector: 'login-form',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: "login-form",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"]
 })
 export class LoginComponent {
   hide = true;
@@ -17,6 +17,6 @@ export class LoginComponent {
   credentials = new EventEmitter<Credentials>();
 
   onLogin(username: string, password: string): void {
-    this.credentials.emit(new Credentials(username, password));
+    this.credentials.emit({ username, password } as Credentials);
   }
 }

@@ -3,8 +3,8 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 
 import { CookieService } from "ngx-cookie-service";
 import { Observable, of } from "rxjs";
-import { User } from "../../model/user";
 import { map } from "rxjs/operators";
+import { User } from "../models/user";
 
 @Injectable({
   providedIn: "root"
