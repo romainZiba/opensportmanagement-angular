@@ -20,14 +20,14 @@ export class LayoutState {
   }
 
   @Action(CloseSidenav)
-  loadTeams({ patchState }: StateContext<LayoutStateModel>) {
+  closeSidenav({ patchState }: StateContext<LayoutStateModel>) {
     patchState({
       showSidenav: false
     });
   }
 
   @Action(OpenSidenav)
-  loadTeamsSuccess({ patchState }: StateContext<LayoutStateModel>) {
+  openSidenav({ patchState }: StateContext<LayoutStateModel>) {
     patchState({
       showSidenav: true
     });

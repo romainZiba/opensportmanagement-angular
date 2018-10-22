@@ -79,7 +79,9 @@ export const COMPONENTS = [AppComponent];
     SharedModule,
 
     NgxsModule.forRoot([]),
-    environment.production ? [] : NgxsReduxDevtoolsPluginModule.forRoot()
+    NgxsReduxDevtoolsPluginModule.forRoot({
+      disabled: environment.production
+    })
   ],
   providers: [
     CookieService,
