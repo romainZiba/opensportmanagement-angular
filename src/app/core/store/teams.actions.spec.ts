@@ -2,7 +2,7 @@ import { Team } from "../models/team";
 import * as fromTeam from "./teams.actions";
 import * as fromLayout from './layout.actions';
 
-describe("Get Teams Actions", () => {
+describe("Teams Actions", () => {
   describe("Load Teams", () => {
     it("should create an action", () => {
       const action = new fromTeam.LoadTeams();

@@ -46,7 +46,7 @@ describe("Events", () => {
 
   it("should change loading to true", async(() => {
     store.dispatch(new LoadEvents());
-    store.selectOnce(state => state.loading).subscribe(loading => {
+    store.selectOnce(state => state.events.loading).subscribe(loading => {
       expect(loading).toBe(true);
     });
   }));

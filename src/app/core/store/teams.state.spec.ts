@@ -54,7 +54,7 @@ describe("Teams", () => {
     });
   }));
 
-  it("should get loaded teams", async(() => {
+  it("should get loaded events", async(() => {
     store.dispatch(new LoadTeamsSuccess(teams));
     store.selectOnce(state => state.teamsState).subscribe(teamState => {
       expect(teamState).toEqual({
@@ -68,7 +68,7 @@ describe("Teams", () => {
     });
   }));
 
-  it("should not get teams", async(() => {
+  it("should not get events", async(() => {
     const error = "error";
     store.dispatch(new LoadTeamsFailed(error));
     store.selectOnce(state => state.teamsState).subscribe(teamState => {
@@ -92,7 +92,7 @@ describe("Teams", () => {
       loaded: true,
       error: null
     } as TeamStateModel;
-    store.reset(initialState);
+    store.reset({teamsState: initialState});
     store.dispatch(new SelectTeam(1));
     store.selectOnce(state => state.teamsState).subscribe(teamState => {
       expect(teamState).toEqual({

@@ -10,7 +10,7 @@ export class TeamService {
   constructor(private http: HttpClient) {}
 
   getTeams(): Observable<Team[]> {
-    return this.http.get<Team[]>("/teams", { withCredentials: true });
+    return this.http.get<Team[]>("/events", { withCredentials: true });
   }
 
   selectTeam(team: Team) {}

@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
-import { TeamsRoutingModule } from "./teams-routing.module";
+import { EventsRoutingModule } from "./events-routing.module";
 import { SharedModule } from "../shared/shared.module";
 import { NgxsModule } from "@ngxs/store";
 import { EventsState } from "./store";
@@ -14,10 +14,10 @@ import { EventService } from "./services/event.service";
   imports: [
     CommonModule,
     SharedModule,
-    TeamsRoutingModule,
+    EventsRoutingModule,
     NgxsModule.forFeature([EventsState])
   ],
   providers: [EventService],
   declarations: [EventItemComponent, EventListComponent, EventsPageComponent]
 })
-export class TeamsModule {}
+export class EventsModule {}
