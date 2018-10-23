@@ -4,19 +4,25 @@ import { Event, EventCreateUpdate } from "../models/event";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import * as moment from "moment";
 import { Observable } from "rxjs/Observable";
+import { EventDtos } from "../models/events-dto";
 
 @Injectable()
 export class EventService {
   constructor(private http: HttpClient) {}
 
-  getEvents(teamId: number, page: number, size: number, retrieveAll: boolean) {
+  getEvents(
+    teamId: number,
+    page: number,
+    size: number,
+    retrieveAll: boolean
+  ): Observable<EventDtos> {
     let params = new HttpParams()
       .append("page", page.toString())
       .append("size", size.toString());
     if (!retrieveAll) {
       params = params.append("date", moment().toISOString());
     }
-    this.http.get(`/teams/${teamId}/events`, {
+    return this.http.get<EventDtos>(`/teams/${teamId}/events`, {
       withCredentials: true,
       params: params
     });

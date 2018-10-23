@@ -54,7 +54,7 @@ describe("Teams", () => {
     });
   }));
 
-  it("should get loaded events", async(() => {
+  it("should get loaded teams", async(() => {
     store.dispatch(new LoadTeamsSuccess(teams));
     store.selectOnce(state => state.teamsState).subscribe(teamState => {
       expect(teamState).toEqual({
@@ -68,7 +68,7 @@ describe("Teams", () => {
     });
   }));
 
-  it("should not get events", async(() => {
+  it("should not get teams", async(() => {
     const error = "error";
     store.dispatch(new LoadTeamsFailed(error));
     store.selectOnce(state => state.teamsState).subscribe(teamState => {

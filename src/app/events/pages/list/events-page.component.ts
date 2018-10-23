@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { List } from "immutable";
 import { Event } from "../../models/event";
+import { Select, Store } from "@ngxs/store";
+import { EventsState, LoadEvents } from "../../store";
+import { TeamsState } from "../../../core/store";
+import { EventsQuery } from "../../models/events-query";
+import { Observable } from "rxjs/Observable";
 
 @Component({
   selector: "app-events",
@@ -8,57 +12,22 @@ import { Event } from "../../models/event";
   styleUrls: ["./events-page.component.scss"]
 })
 export class EventsPageComponent implements OnInit {
-  private event1: Event = {
-    _id: 1,
-    name: "Event #1",
-    fromDateTime: "",
-    toDateTime: "",
-    placeId: 1,
-    placeName: "The place",
-    done: true,
-    localTeamName: "Team #1",
-    visitorTeamName: "Team #2",
-    presentMembers: [],
-    absentMembers: [],
-    waitingMembers: [],
-    cancelled: false,
-    openForRegistration: true
-  };
+  @Select(EventsState.getAllEvents)
+  events$: Observable<Event[]>;
 
-  private event2: Event = {
-    _id: 2,
-    name: "Event #2",
-    fromDateTime: "",
-    toDateTime: "",
-    placeId: 1,
-    placeName: "The place",
-    presentMembers: [],
-    absentMembers: [],
-    waitingMembers: [],
-    cancelled: false,
-    openForRegistration: true
-  };
+  constructor(private store: Store) {}
 
-  private event3: Event = {
-    _id: 3,
-    name: "Event #3",
-    fromDateTime: "",
-    toDateTime: "",
-    placeId: 1,
-    placeName: "The place",
-    done: false,
-    localTeamName: "Team #1",
-    visitorTeamName: "Team #2",
-    presentMembers: [],
-    absentMembers: [],
-    waitingMembers: [],
-    cancelled: false,
-    openForRegistration: true
-  };
-
-  events: List<Event> = List([this.event1, this.event2, this.event3]);
-
-  constructor() {}
-
-  ngOnInit() {}
+  ngOnInit() {
+    this.store.select(TeamsState.getSelected).subscribe(selected => {
+      if (selected) {
+        const eventsQuery = {
+          teamId: selected,
+          page: 0,
+          size: 20,
+          retrieveAll: true
+        } as EventsQuery;
+        this.store.dispatch(new LoadEvents(eventsQuery));
+      }
+    });
+  }
 }

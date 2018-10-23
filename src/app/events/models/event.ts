@@ -1,25 +1,23 @@
-import {TeamMember} from './team-member';
-
 export interface Event {
   _id: number;
   name: string;
-  description?: string;
   fromDateTime: string;
   toDateTime: string;
   placeId: number;
   placeName: string;
-  done?: boolean;
-  localTeamName?: string;
-  localTeamImgUrl?: string;
-  localTeamScore?: number;
-  visitorTeamName?: string;
-  visitorTeamImgUrl?: string;
-  visitorTeamScore?: number;
-  presentMembers: TeamMember[];
-  absentMembers: TeamMember[];
-  waitingMembers: TeamMember[];
-  cancelled: boolean;
+  presentMembers: any[];
+  absentMembers: any[];
+  waitingMembers: any[];
   openForRegistration: boolean;
+  cancelled: boolean;
+  teamId: number;
+  localTeamName?: any;
+  visitorTeamName?: any;
+  localTeamImgUrl?: any;
+  visitorTeamImgUrl?: any;
+  visitorTeamScore?: any;
+  localTeamScore?: any;
+  done?: any;
 }
 
 export class EventCreateUpdate {

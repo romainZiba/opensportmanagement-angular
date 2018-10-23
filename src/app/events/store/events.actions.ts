@@ -1,4 +1,5 @@
 import { Event } from "../models/event";
+import { EventsQuery } from "../models/events-query";
 
 export enum EventActionsType {
   LOAD_EVENTS = "[Event] Load Events",
@@ -9,6 +10,7 @@ export enum EventActionsType {
 
 export class LoadEvents {
   static readonly type = EventActionsType.LOAD_EVENTS;
+  constructor(public payload: EventsQuery) {}
 }
 
 export class LoadEventsSuccess {
@@ -25,9 +27,3 @@ export class SelectEvent {
   static readonly type = EventActionsType.SELECT_EVENT;
   constructor(public payload: number) {}
 }
-
-export type EventsActions =
-  | LoadEvents
-  | LoadEventsSuccess
-  | LoadEventsFailed
-  | SelectEvent;
