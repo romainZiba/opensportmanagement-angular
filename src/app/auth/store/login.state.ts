@@ -11,6 +11,7 @@ import {
 } from "./login.actions";
 import { catchError, map, switchMap } from "rxjs/operators";
 import { asapScheduler } from "rxjs/index";
+import { Navigate } from "@ngxs/router-plugin";
 
 export class AuthStateModel {
   user: User | null;
@@ -78,7 +79,7 @@ export class AuthState {
 
   @Action(LoginSuccess)
   loginSuccess(
-    { patchState }: StateContext<AuthStateModel>,
+    { patchState, dispatch }: StateContext<AuthStateModel>,
     { payload }: LoginSuccess
   ) {
     patchState({
@@ -86,7 +87,7 @@ export class AuthState {
       user: payload,
       error: null
     });
-    this.router.navigate(["/"]);
+    dispatch(new Navigate(["/"]));
   }
 
   @Action(LoginFailure)
@@ -102,7 +103,7 @@ export class AuthState {
   }
 
   @Action([LoginRedirect, Logout])
-  loginRedirect() {
-    this.router.navigate(["/login"]);
+  loginRedirect({ dispatch }: StateContext<AuthStateModel>) {
+    dispatch(new Navigate(["/login"]));
   }
 }

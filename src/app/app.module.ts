@@ -26,6 +26,7 @@ import { AppComponent } from "./app.component";
 import { SharedModule } from "./shared/shared.module";
 import { NgxsModule } from "@ngxs/store";
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
+import { NgxsRouterPluginModule } from "@ngxs/router-plugin";
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -79,6 +80,7 @@ export const COMPONENTS = [AppComponent];
     SharedModule,
 
     NgxsModule.forRoot([]),
+    NgxsRouterPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot({
       disabled: environment.production
     })
