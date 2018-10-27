@@ -1,32 +1,28 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { InjectionToken, NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms"; // <-- NgModel lives here
-import { MomentDateAdapter } from "@angular/material-moment-adapter";
-import {
-  DateAdapter,
-  ErrorStateMatcher,
-  MAT_DATE_LOCALE,
-  ShowOnDirtyErrorStateMatcher
-} from "@angular/material/core";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import {BrowserModule} from '@angular/platform-browser';
+import {InjectionToken, NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'; // <-- NgModel lives here
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, ErrorStateMatcher, MAT_DATE_LOCALE, ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { AppRoutingModule } from "./app-routing.module";
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
-import { JwtModule } from "@auth0/angular-jwt";
-import { ApiUrlInterceptor } from "./urlinterceptor";
-import { environment } from "../environments/environment";
-import { CookieService } from "ngx-cookie-service";
-import { ServiceWorkerModule } from "@angular/service-worker";
-import { StompConfig, StompService } from "@stomp/ng2-stompjs";
-import { RouteReuseStrategy } from "@angular/router";
-import { RouteReuse } from "./RouteReuse";
-import { AuthModule } from "./auth/auth.module";
-import { CoreModule } from "./core/core.module";
-import { AppComponent } from "./app.component";
-import { SharedModule } from "./shared/shared.module";
-import { NgxsModule } from "@ngxs/store";
-import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
-import { NgxsRouterPluginModule } from "@ngxs/router-plugin";
+import {AppRoutingModule} from './app-routing.module';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {JwtModule} from '@auth0/angular-jwt';
+import {ApiUrlInterceptor} from './urlinterceptor';
+import {environment} from '../environments/environment';
+import {CookieService} from 'ngx-cookie-service';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {StompConfig, StompService} from '@stomp/ng2-stompjs';
+import {RouteReuseStrategy} from '@angular/router';
+import {RouteReuse} from './RouteReuse';
+import {AuthModule} from './auth/auth.module';
+import {CoreModule} from './core/core.module';
+import {AppComponent} from './app.component';
+import {SharedModule} from './shared/shared.module';
+import {NgxsModule} from '@ngxs/store';
+import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
+import {NgxsRouterPluginModule} from '@ngxs/router-plugin';
+import {EventsModule} from './events/events.module';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -61,6 +57,7 @@ export const COMPONENTS = [AppComponent];
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    EventsModule,
     // Other modules
     AppRoutingModule,
     FormsModule,

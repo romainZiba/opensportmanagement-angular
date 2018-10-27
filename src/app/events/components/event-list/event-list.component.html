@@ -1,3 +1,4 @@
 <div class="list-group">
   <app-event-item *ngFor="let event of events" [event]="event"></app-event-item>
+  <button mat-fab (click)="showEventCreation()"><mat-icon>add</mat-icon></button>
 </div>

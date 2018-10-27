@@ -7,7 +7,8 @@ import {
   LoginFailure,
   LoginRedirect,
   LoginSuccess,
-  Logout
+  Logout,
+  UserLogged
 } from "./login.actions";
 import { catchError, map, switchMap } from "rxjs/operators";
 import { asapScheduler } from "rxjs/index";
@@ -29,8 +30,6 @@ export class AuthStateModel {
 })
 export class AuthState {
   constructor(private service: AuthService, private router: Router) {}
-
-  authenticationError = "Failed to authenticate";
 
   @Selector()
   static getUser(state: AuthStateModel) {
@@ -88,6 +87,18 @@ export class AuthState {
       error: null
     });
     dispatch(new Navigate(["/"]));
+  }
+
+  @Action(UserLogged)
+  userLogged(
+    { patchState, dispatch }: StateContext<AuthStateModel>,
+    { payload }: UserLogged
+  ) {
+    patchState({
+      pending: false,
+      user: payload,
+      error: null
+    });
   }
 
   @Action(LoginFailure)

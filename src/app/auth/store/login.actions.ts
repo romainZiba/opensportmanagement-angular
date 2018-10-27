@@ -5,7 +5,8 @@ export enum LoginActionsType {
   LOGIN_SUCCESS = "[Auth] Login Success",
   LOGIN_FAILURE = "[Auth] Login Failure",
   LOGIN_REDIRECT = "[Auth] Login Redirect",
-  LOGOUT = "[Auth] Logout"
+  LOGOUT = "[Auth] Logout",
+  USER_LOGGED = "[Auth] User logged"
 }
 
 export class Login {
@@ -29,4 +30,9 @@ export class LoginRedirect {
 
 export class Logout {
   static readonly type = LoginActionsType.LOGOUT;
+}
+
+export class UserLogged {
+  static readonly type = LoginActionsType.USER_LOGGED;
+  constructor(public payload: User) {}
 }

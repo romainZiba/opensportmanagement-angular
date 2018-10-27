@@ -31,9 +31,7 @@ export class AuthGuardService implements CanActivate {
           this.store.dispatch(new fromStore.LoginRedirect());
           return of(false);
         } else {
-          setTimeout(() =>
-            this.store.dispatch(new fromStore.LoginSuccess(user))
-          );
+          setTimeout(() => this.store.dispatch(new fromStore.UserLogged(user)));
           return of(true);
         }
       }),

@@ -9,6 +9,8 @@ import { EventListComponent } from "./components/event-list/event-list.component
 import { EventsPageComponent } from "./pages/list/events-page.component";
 import { EventItemComponent } from "./components/event-item/event-item.component";
 import { EventService } from "./services/event.service";
+import { NewEventComponent } from "./components/new-event/new-event.component";
+import { NewEventPageComponent } from "./pages/new-event/new-event-page.component";
 
 @NgModule({
   imports: [
@@ -18,6 +20,12 @@ import { EventService } from "./services/event.service";
     NgxsModule.forFeature([EventsState])
   ],
   providers: [EventService],
-  declarations: [EventItemComponent, EventListComponent, EventsPageComponent]
+  declarations: [
+    EventItemComponent,
+    EventListComponent,
+    EventsPageComponent,
+    NewEventComponent,
+    NewEventPageComponent
+  ]
 })
 export class EventsModule {}

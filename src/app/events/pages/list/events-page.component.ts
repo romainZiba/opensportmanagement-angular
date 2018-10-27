@@ -5,11 +5,13 @@ import { EventsState, LoadEvents } from "../../store";
 import { TeamsState } from "../../../core/store";
 import { EventsQuery } from "../../models/events-query";
 import { Observable } from "rxjs/Observable";
+import { Navigate } from "@ngxs/router-plugin";
 
 @Component({
   selector: "app-events",
-  templateUrl: "./events-page.component.html",
-  styleUrls: ["./events-page.component.scss"]
+  template: `
+    <app-event-list [events]="events$ | async" (eventCreation)="newEvent()"></app-event-list>
+  `
 })
 export class EventsPageComponent implements OnInit {
   @Select(EventsState.getAllEvents)
@@ -29,5 +31,9 @@ export class EventsPageComponent implements OnInit {
         this.store.dispatch(new LoadEvents(eventsQuery));
       }
     });
+  }
+
+  newEvent() {
+    this.store.dispatch(new Navigate(["/new-event"]));
   }
 }
