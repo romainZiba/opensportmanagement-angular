@@ -7,10 +7,10 @@ import { AuthState, Login } from "../store";
 @Component({
   selector: "app-login",
   template: `
-    <login-form
+    <app-login-form
       [pending]="loggingIn$ | async"
       [errorMessage]="error$ | async"
-      (credentials)="login($event)"></login-form>`
+      (credentials)="login($event)"></app-login-form>`
 })
 export class LoginPageComponent implements OnInit {
   loggingIn$: Observable<boolean>;

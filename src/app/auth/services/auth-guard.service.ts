@@ -1,9 +1,5 @@
 import { Injectable } from "@angular/core";
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  RouterStateSnapshot
-} from "@angular/router";
+import { CanActivate } from "@angular/router";
 
 import { Observable } from "rxjs/Observable";
 import { of } from "rxjs/observable/of";
@@ -21,10 +17,7 @@ import { Store } from "@ngxs/store";
 export class AuthGuardService implements CanActivate {
   constructor(private store: Store, private authService: AuthService) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
+  canActivate(): Observable<boolean> {
     return this.getLoggedUser().pipe(
       exhaustMap(user => {
         if (user === null) {

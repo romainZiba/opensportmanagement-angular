@@ -1,8 +1,13 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { LoginComponent } from "./login.component";
-import { MatFormFieldModule, MatIconModule } from "@angular/material";
+import {
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule
+} from "@angular/material";
 import { FormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 describe("LoginComponent", () => {
   let component: LoginComponent;
@@ -10,7 +15,13 @@ describe("LoginComponent", () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatFormFieldModule, MatIconModule, FormsModule],
+      imports: [
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        FormsModule,
+        BrowserAnimationsModule
+      ],
       declarations: [LoginComponent]
     }).compileComponents();
   }));

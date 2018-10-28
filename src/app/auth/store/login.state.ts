@@ -1,6 +1,5 @@
 import { User } from "../models/user";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { Router } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 import {
   Login,
@@ -29,7 +28,7 @@ export class AuthStateModel {
   }
 })
 export class AuthState {
-  constructor(private service: AuthService, private router: Router) {}
+  constructor(private service: AuthService) {}
 
   @Selector()
   static getUser(state: AuthStateModel) {
@@ -91,7 +90,7 @@ export class AuthState {
 
   @Action(UserLogged)
   userLogged(
-    { patchState, dispatch }: StateContext<AuthStateModel>,
+    { patchState }: StateContext<AuthStateModel>,
     { payload }: UserLogged
   ) {
     patchState({

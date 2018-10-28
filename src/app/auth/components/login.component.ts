@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { Credentials } from "../models/user";
 
 @Component({
-  selector: "login-form",
+  selector: "app-login-form",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.css"]
 })

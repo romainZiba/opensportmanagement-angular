@@ -1,7 +1,9 @@
-import { Router } from "@angular/router";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 
-import { NgxsEntityAdapter, NgxsEntityStateModel } from "../../shared/entity/index";
+import {
+  NgxsEntityAdapter,
+  NgxsEntityStateModel
+} from '../../shared/entity';
 import { Team } from "../models/team";
 import { TeamService } from "../services/team.service";
 import * as teamActions from "./teams.actions";
@@ -24,7 +26,7 @@ export class TeamStateModel extends NgxsEntityStateModel<Team> {
   }
 })
 export class TeamsState {
-  constructor(private service: TeamService, private router: Router) {}
+  constructor(private service: TeamService) {}
 
   @Selector()
   static getTeamEntities(state: TeamStateModel) {

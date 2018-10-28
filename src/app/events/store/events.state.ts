@@ -1,4 +1,3 @@
-import { Router } from "@angular/router";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 
 import { NgxsEntityAdapter, NgxsEntityStateModel } from "../../shared/entity";
@@ -24,7 +23,7 @@ export class EventStateModel extends NgxsEntityStateModel<Event> {
   }
 })
 export class EventsState {
-  constructor(private eventService: EventService, private router: Router) {}
+  constructor(private eventService: EventService) {}
 
   @Selector()
   static getEventEntities(state: EventStateModel) {
