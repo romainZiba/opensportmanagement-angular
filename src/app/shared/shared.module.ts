@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   MatButtonModule,
   MatCardModule,
@@ -12,6 +12,7 @@ import {
   MatListModule,
   MatPaginatorModule,
   MatRadioModule,
+  MatTabsModule,
   MatToolbarModule
 } from "@angular/material";
 import { MatSidenavModule } from "@angular/material/sidenav";
@@ -20,6 +21,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { BetweenDatesComponent } from "./components/inputs/between-dates/between-dates.component";
 
 const materialModule = [
   MatButtonModule,
@@ -38,12 +40,13 @@ const materialModule = [
   MatDatepickerModule,
   MatMomentDateModule,
   MatRadioModule,
-  MatDialogModule
+  MatDialogModule,
+  MatTabsModule
 ];
 
 @NgModule({
-  imports: [CommonModule, FormsModule, materialModule],
-  declarations: [],
-  exports: [...materialModule, FormsModule]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, materialModule],
+  declarations: [BetweenDatesComponent],
+  exports: [...materialModule, FormsModule, ReactiveFormsModule, BetweenDatesComponent]
 })
 export class SharedModule {}

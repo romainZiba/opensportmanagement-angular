@@ -9,22 +9,22 @@ import { EventListComponent } from "./components/event-list/event-list.component
 import { EventsPageComponent } from "./pages/list/events-page.component";
 import { EventItemComponent } from "./components/event-item/event-item.component";
 import { EventService } from "./services/event.service";
-import { NewEventComponent } from "./components/new-event/new-event.component";
 import { NewEventPageComponent } from "./pages/new-event/new-event-page.component";
+import { NgxsFormPluginModule } from "@ngxs/form-plugin";
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     EventsRoutingModule,
-    NgxsModule.forFeature([EventsState])
+    NgxsModule.forFeature([EventsState]),
+    NgxsFormPluginModule
   ],
   providers: [EventService],
   declarations: [
     EventItemComponent,
     EventListComponent,
     EventsPageComponent,
-    NewEventComponent,
     NewEventPageComponent
   ]
 })

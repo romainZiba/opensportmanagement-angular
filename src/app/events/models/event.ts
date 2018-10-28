@@ -29,9 +29,9 @@ export class EventCreateUpdate {
   toTime: string;
   placeId: number;
   isRecurrent: boolean;
-  recurrenceDays: string[];
-  opponentId: number;
-  championshipId: number;
+  recurrenceDays?: string[];
+  opponentId?: number;
+  championshipId?: number;
   type: EventType;
 }
 

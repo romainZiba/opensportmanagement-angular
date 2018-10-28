@@ -8,7 +8,7 @@ const port = "8090";
 
 export const environment = {
   production: false,
-  host: host,
-  port: port,
+  host,
+  port,
   apiUrl: `https://${host}:${port}`
 };

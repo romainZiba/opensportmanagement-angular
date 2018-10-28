@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Events Actions Load events success should change state to reflect events loaded 1`] = `
+Object {
+  "entities": Object {
+    "1": Object {
+      "_id": 1,
+      "absentMembers": Array [],
+      "cancelled": false,
+      "fromDateTime": "",
+      "name": "Event #1",
+      "openForRegistration": false,
+      "placeId": 1,
+      "placeName": "place",
+      "presentMembers": Array [],
+      "teamId": 1,
+      "toDateTime": "",
+      "waitingMembers": Array [],
+    },
+    "2": Object {
+      "_id": 2,
+      "absentMembers": Array [],
+      "cancelled": false,
+      "fromDateTime": "",
+      "name": "Event #2",
+      "openForRegistration": false,
+      "placeId": 1,
+      "placeName": "place",
+      "presentMembers": Array [],
+      "teamId": 1,
+      "toDateTime": "",
+      "waitingMembers": Array [],
+    },
+  },
+  "eventForm": Object {
+    "dirty": false,
+    "errors": Object {},
+    "model": Object {
+      "fromDate": "2018-11-03",
+      "fromTime": "20:00",
+      "isRecurrent": false,
+      "name": "",
+      "placeId": null,
+      "toDate": "2018-11-03",
+      "toTime": "22:30",
+      "type": "MATCH",
+    },
+    "status": "",
+  },
+  "ids": Array [
+    1,
+    2,
+  ],
+  "loaded": true,
+  "loading": false,
+  "selected": null,
+}
+`;

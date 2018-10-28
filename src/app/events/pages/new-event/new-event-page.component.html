@@ -1,0 +1,20 @@
+<mat-tab-group mat-align-tabs="center">
+  <!-- Match tab -->
+  <mat-tab label="Match">
+    <form [formGroup]="matchForm" novalidate ngxsForm="events.eventForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input matInput type="text" i18n-placeholder="@@event-name" placeholder="Name of the event"
+               formControlName="name" required>
+        <mat-error i18n="@@name-required" *ngIf="nameCtrl.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <shared-between-dates [form]="datesForm" [minDate]="minDate"></shared-between-dates>
+    </form>
+  </mat-tab>
+  <!-- Training tab -->
+  <mat-tab label="Training" i18n-label="@@training">Content 2</mat-tab>
+  <!-- Event tab -->
+  <mat-tab label="Event" i18n-label="@@event">Content 3</mat-tab>
+</mat-tab-group>
+<button type="submit" i18n="@@save" [disabled]="!matchForm.valid" mat-raised-button color="primary">SAVE</button>

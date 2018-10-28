@@ -124,16 +124,10 @@ describe("Events", () => {
     });
 
     describe("Load events success", function() {
-      it("should change state to reflec events laoded", async(() => {
+      it("should change state to reflect events loaded", async(() => {
         store.dispatch(new LoadEventsSuccess(events));
         store.selectOnce(state => state.events).subscribe(state => {
-          expect(state).toEqual({
-            entities: eventEntities,
-            ids: events.map(e => e._id),
-            selected: null,
-            loading: false,
-            loaded: true
-          });
+          expect(state).toMatchSnapshot();
         });
       }));
     });

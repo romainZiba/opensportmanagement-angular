@@ -2,24 +2,10 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="events" datatype="html">
-        <source>Events</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/app.component.ts</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="team-members" datatype="html">
-        <source>Team members</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/app.component.ts</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="username" datatype="html">
         <source>Username</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/components/login/login.component.ts</context>
+          <context context-type="sourcefile">app/auth/components/login.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
         <note priority="1" from="description">The username to log in</note>
@@ -27,269 +13,87 @@
       <trans-unit id="password" datatype="html">
         <source>Enter your password</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/components/login/login.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="sourcefile">app/auth/components/login.component.html</context>
+          <context context-type="linenumber">12</context>
         </context-group>
         <note priority="1" from="description">The password to log in</note>
       </trans-unit>
       <trans-unit id="login" datatype="html">
         <source>Login</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/components/login/login.component.ts</context>
+          <context context-type="sourcefile">app/auth/components/login.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="start-date" datatype="html">
+        <source>Start date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/inputs/between-dates/between-dates.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="shared-startDateRequired" datatype="html">
+        <source>
+      Start date is <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>required<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/inputs/between-dates/between-dates.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="shared-dateLowerThanCurrentDate" datatype="html">
+        <source>
+      Start date must be greater than current date
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/inputs/between-dates/between-dates.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="end-date" datatype="html">
+        <source>End date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/inputs/between-dates/between-dates.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="shared-endDateRequired" datatype="html">
+        <source>
+      End date is <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>required<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/inputs/between-dates/between-dates.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="name" datatype="html">
-        <source>Name</source>
+      <trans-unit id="shared-dateLowerThanStartDate" datatype="html">
+        <source>
+      End date must be greater than start date
+    </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/components/championship-creation/championship-creation.component.ts</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/team-creation/team-creation.component.ts</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/place-creation/place-creation.component.ts</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/opponent-creation/opponent-creation.component.ts</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/season-creation/season-creation.component.ts</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="create" datatype="html">
-        <source>CREATE</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/championship-creation/championship-creation.component.ts</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/team-creation/team-creation.component.ts</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/place-creation/place-creation.component.ts</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/opponent-creation/opponent-creation.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/season-creation/season-creation.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="sourcefile">app/shared/components/inputs/between-dates/between-dates.component.html</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="cancelled" datatype="html">
         <source>cancelled</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-list/event-list.component.ts</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="sourcefile">app/events/components/event-item/event-item.component.html</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="vs" datatype="html">
         <source>VS</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-list/event-list.component.ts</context>
-          <context context-type="linenumber">25</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="98b2b6e1226c5baca62de3fe220cb2a9e9150373" datatype="html">
-        <source>Team members</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/team-members/team-members.component.ts</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-        <note priority="1" from="description">team-members</note>
-      </trans-unit>
-      <trans-unit id="present" datatype="html">
-        <source>Present</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="absent" datatype="html">
-        <source>Absent</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="postpone" datatype="html">
-        <source>Postpone</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">37</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="cancel" datatype="html">
-        <source>Cancel</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">39</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="remind" datatype="html">
-        <source>Send a reminder</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">41</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="openForRegistration" datatype="html">
-        <source>Open registration</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">43</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="8b78ff836909439bf7d8295cbdacb2c8e07fe3eb" datatype="html">
-        <source>Presents</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">50</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="cdf2322f61bfe400f77645df90a630be3ad54ae1" datatype="html">
-        <source>Waiting</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">58</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="26e962f98145ea9258764f0fe8625b7d14db7eaa" datatype="html">
-        <source>Absents</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-details/event-details.component.ts</context>
-          <context context-type="linenumber">66</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="user-profile" datatype="html">
-        <source>
-        <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon&gt;"/><x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon&gt;"/>My profile
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/toolbar/toolbar.component.ts</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="select-team" datatype="html">
-        <source>Select your team</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/toolbar/toolbar.component.ts</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="new-team" datatype="html">
-        <source>Create a new team</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/toolbar/toolbar.component.ts</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="logout" datatype="html">
-        <source>
-        <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon&gt;"/><x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon&gt;"/>Logout
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/toolbar/toolbar.component.ts</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="first-name" datatype="html">
-        <source>First name</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/user-details/user-details.component.ts</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/member-invitation/member-invitation.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="last-name" datatype="html">
-        <source>Last name</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/user-details/user-details.component.ts</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/member-invitation/member-invitation.component.ts</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="email" datatype="html">
-        <source>Email</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/user-details/user-details.component.ts</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/member-invitation/member-invitation.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/opponent-creation/opponent-creation.component.ts</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="phone-number" datatype="html">
-        <source>Phone number</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/user-details/user-details.component.ts</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/opponent-creation/opponent-creation.component.ts</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="license-number" datatype="html">
-        <source>License number</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/user-details/user-details.component.ts</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="save" datatype="html">
-        <source>SAVE</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/user-details/user-details.component.ts</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">146</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="notify" datatype="html">
-        <source>
-    NOTIFY
-  </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/member-invitation/member-invitation.component.ts</context>
+          <context context-type="sourcefile">app/events/components/event-item/event-item.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="event-name" datatype="html">
         <source>Name of the event</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="sourcefile">app/events/pages/new-event/new-event-page.component.html</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="name-required" datatype="html">
@@ -297,205 +101,29 @@
           Name is <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>required<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
         </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="season" datatype="html">
-        <source>Season</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="championship" datatype="html">
-        <source>Championship</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">35</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="recurrent" datatype="html">
-        <source>Recurrent</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">50</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="days-week" datatype="html">
-        <source>Days of week</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">58</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="daysOfWeekRequired" datatype="html">
-        <source>
-          At least one day must be selected
-        </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">61</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="start-date" datatype="html">
-        <source>Start date</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">70</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/season-creation/season-creation.component.ts</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-settings/event-settings.component.ts</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="startDateRequired" datatype="html">
-        <source>
-          Start date is <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>required<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
-        </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">72</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/season-creation/season-creation.component.ts</context>
+          <context context-type="sourcefile">app/events/pages/new-event/new-event-page.component.html</context>
           <context context-type="linenumber">8</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-settings/event-settings.component.ts</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
       </trans-unit>
-      <trans-unit id="startDateLowerThanMinDate" datatype="html">
-        <source>
-          Start date must be greater than current date
-        </source>
+      <trans-unit id="training" datatype="html">
+        <source>Training</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">75</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/season-creation/season-creation.component.ts</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-settings/event-settings.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="start-time" datatype="html">
-        <source>Start time</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">84</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-settings/event-settings.component.ts</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="end-date" datatype="html">
-        <source>End date</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">91</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/season-creation/season-creation.component.ts</context>
+          <context context-type="sourcefile">app/events/pages/new-event/new-event-page.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="event" datatype="html">
+        <source>Event</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-settings/event-settings.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="sourcefile">app/events/pages/new-event/new-event-page.component.html</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="end-time" datatype="html">
-        <source>End time</source>
+      <trans-unit id="save" datatype="html">
+        <source>SAVE</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">99</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-settings/event-settings.component.ts</context>
-          <context context-type="linenumber">34</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="place" datatype="html">
-        <source>Place</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">116</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-settings/event-settings.component.ts</context>
-          <context context-type="linenumber">42</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="opponent" datatype="html">
-        <source>Opponent</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-creation/event-creation.component.ts</context>
-          <context context-type="linenumber">133</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="sport" datatype="html">
-        <source>Sport</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/team-creation/team-creation.component.ts</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="address" datatype="html">
-        <source>Address</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/place-creation/place-creation.component.ts</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="city" datatype="html">
-        <source>City</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/place-creation/place-creation.component.ts</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="type" datatype="html">
-        <source>Type</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/place-creation/place-creation.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="new-password" datatype="html">
-        <source>Enter new password</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/account-confirmation/account-confirmation.component.ts</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="confirm-new-password" datatype="html">
-        <source>Confirm new password</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/account-confirmation/account-confirmation.component.ts</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="validate" datatype="html">
-        <source>Validate</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/account-confirmation/account-confirmation.component.ts</context>
-          <context context-type="linenumber">27</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="update" datatype="html">
-        <source>UPDATE</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/event-settings/event-settings.component.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="sourcefile">app/events/pages/new-event/new-event-page.component.html</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
     </body>

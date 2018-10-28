@@ -27,6 +27,7 @@ import { NgxsModule } from "@ngxs/store";
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 import { NgxsRouterPluginModule } from "@ngxs/router-plugin";
 import { EventsModule } from "./events/events.module";
+import { NgxsFormPluginModule } from "@ngxs/form-plugin";
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -76,6 +77,7 @@ export const COMPONENTS = [AppComponent];
 
     NgxsModule.forRoot([]),
     NgxsRouterPluginModule.forRoot(),
+    NgxsFormPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot({
       disabled: environment.production
     })
