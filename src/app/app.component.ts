@@ -10,7 +10,7 @@ import {
   DialogElement,
   ListItemsSingleChoiceComponent,
   ListItemsSingleChoiceData
-} from "./core/components/list-dialog/list-items-single-choice.component";
+} from "./shared/components/dialogs/list-dialog/list-items-single-choice.component";
 import { List } from "immutable";
 import { Team } from "./core/models/team";
 import { Store } from "@ngxs/store";
@@ -41,7 +41,8 @@ export class AppComponent implements OnInit, OnDestroy {
   teams: List<Team> = List();
   teamSub: Subscription;
 
-  constructor(private store: Store, private dialog: MatDialog) {}
+  constructor(private store: Store, private dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.sidenavOpen$ = this.store.select(fromStore.LayoutState.getShowSidenav);

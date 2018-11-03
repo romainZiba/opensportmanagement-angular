@@ -22,6 +22,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { BetweenDatesComponent } from "./components/inputs/between-dates/between-dates.component";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { ListItemsSingleChoiceComponent } from "./components/dialogs/list-dialog/list-items-single-choice.component";
 
 const materialModule = [
   MatButtonModule,
@@ -44,9 +46,16 @@ const materialModule = [
   MatTabsModule
 ];
 
+const components = [
+  ListItemsSingleChoiceComponent,
+  BetweenDatesComponent
+];
+
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, materialModule],
-  declarations: [BetweenDatesComponent],
-  exports: [...materialModule, FormsModule, ReactiveFormsModule, BetweenDatesComponent]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, FlexLayoutModule, materialModule],
+  declarations: [...components],
+  exports: [...materialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule, ...components],
+  entryComponents: [ListItemsSingleChoiceComponent]
 })
-export class SharedModule {}
+export class SharedModule {
+}

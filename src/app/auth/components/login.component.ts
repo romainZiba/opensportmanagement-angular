@@ -4,7 +4,7 @@ import { Credentials } from "../models/user";
 @Component({
   selector: "app-login-form",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+  styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent {
   hide = true;

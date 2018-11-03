@@ -1,17 +1,16 @@
-<div class="list-group-item flex-column align-items-start"
-     [class.cancelled-event]="event.cancelled">
-  <div class="d-flex justify-content-between">
-    <h5>{{event.name}}</h5>
-    <span *ngIf="!event.cancelled">{{event.presentMembers.length}} participants</span>
-    <span *ngIf="event.cancelled" i18n="@@cancelled" style="color: red;" >cancelled</span>
+<div [class.cancelled-event]="event.cancelled">
+  <h5>{{event.name}}</h5>
+  <p *ngIf="!event.cancelled">{{event.presentMembers.length}} participants</p>
+  <p *ngIf="event.cancelled" i18n="@@cancelled" style="color: red;">cancelled</p>
+  <div fxLayout="row">
+    <mat-icon class="icon">watch_later</mat-icon>
+    {{ event.fromDateTime | date:'fullDate' | uppercase }} {{ event.fromDateTime | date:'shortTime' }}
   </div>
-  <div class="row">
-    <mat-icon class="icon">watch_later</mat-icon> {{ event.fromDateTime | date:'fullDate' | uppercase }} {{ event.fromDateTime | date:'shortTime' }}
+  <div fxLayout="row">
+    <mat-icon class="icon">place</mat-icon>
+    {{ event.placeName }}
   </div>
-  <div class="row">
-    <mat-icon class="icon">place</mat-icon>{{ event.placeName }}
-  </div>
-  <div class="row d-flex align-items-center" *ngIf="event.done != null">
+  <div fxLayout="row" *ngIf="event.done !== null">
     <div class="col-4 text-center"><img class="img-fluid" src="{{event.localTeamImgUrl}}"></div>
     <div class="col-4 text-center">
       <p *ngIf="event.done">{{event.localTeamScore}}</p>
@@ -20,9 +19,9 @@
     </div>
     <div class="col-4 text-center"><img class="img-fluid" src="{{event.visitorTeamImgUrl}}"></div>
   </div>
-  <div class="row" *ngIf="event.done != null">
-    <div class="col-4 text-center"><p>{{event.localTeamName}}</p></div>
-    <div class="col-4 text-center"></div>
-    <div class="col-4 text-center"><p>{{event.visitorTeamName}}</p></div>
+  <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="event.done !== null">
+    <p>{{event.localTeamName}}</p><
+    <p>VS</p>
+    <p>{{event.visitorTeamName}}</p>
   </div>
 </div>

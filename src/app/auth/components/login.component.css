@@ -1,8 +1,0 @@
-/* class repeated for increased specificity */
-.mat-form-field.mat-form-field {
-  width: 100%;
-}
-
-.mat-raised-button.mat-raised-button {
-  float: right;
-}

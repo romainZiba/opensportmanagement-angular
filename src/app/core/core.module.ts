@@ -6,7 +6,6 @@ import { LayoutComponent } from "./components/layout.component";
 import { NavItemComponent } from "./components/nav-item.component";
 import { SidenavComponent } from "./components/sidenav.component";
 import { RouterModule } from "@angular/router";
-import { ListItemsSingleChoiceComponent } from "./components/list-dialog/list-items-single-choice.component";
 import { NgxsModule } from "@ngxs/store";
 import { TeamService } from "./services/team.service";
 import { CoreState } from "./store";
@@ -15,8 +14,7 @@ export const COMPONENTS = [
   LayoutComponent,
   NavItemComponent,
   SidenavComponent,
-  ToolbarComponent,
-  ListItemsSingleChoiceComponent
+  ToolbarComponent
 ];
 
 @NgModule({
@@ -28,7 +26,7 @@ export const COMPONENTS = [
   ],
   exports: COMPONENTS,
   declarations: COMPONENTS,
-  providers: [TeamService],
-  entryComponents: [ListItemsSingleChoiceComponent]
+  providers: [TeamService]
 })
-export class CoreModule {}
+export class CoreModule {
+}

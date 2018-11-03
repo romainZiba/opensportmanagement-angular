@@ -1,17 +1,23 @@
-<form class="container d-flex flex-column" #form="ngForm" (ngSubmit)="onLogin(username.value, password.value)">
-  <div style="text-align:center">
-    <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<form #form="ngForm"
+      (ngSubmit)="onLogin(username.value, password.value)">
+  <div fxLayout="column" fxLayoutAlign="center">
+    <div style="text-align:center">
+      <img width="300" alt="Angular Logo"
+           src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+    </div>
+    <mat-form-field>
+      <input #username matInput type="text" i18n-placeholder="The username to log in@@username" placeholder="Username"
+             name="username">
+      <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input #password matInput [type]="hide ? 'password' : 'text'"
+             i18n-placeholder="The password to log in@@password" placeholder="Enter your password"
+             name="password">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field>
+    <button fxFlexAlign="end" type="submit" i18n="@@login" class="align-self-end" mat-raised-button color="primary">
+      Login
+    </button>
   </div>
-  <mat-form-field>
-    <input #username matInput type="text" i18n-placeholder="The username to log in@@username" placeholder="Username"
-           name="username">
-    <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <input #password matInput [type]="hide ? 'password' : 'text'"
-           i18n-placeholder="The password to log in@@password" placeholder="Enter your password"
-           name="password">
-    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-  </mat-form-field>
-  <button type="submit" i18n="@@login" class="align-self-end" mat-raised-button color="primary">Login</button>
 </form>

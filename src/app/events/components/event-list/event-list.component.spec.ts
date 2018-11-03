@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { EventListComponent } from "./event-list.component";
 import { EventItemComponent } from "../event-item/event-item.component";
-import { MatIconModule } from "@angular/material";
+import { MatIconModule, MatListModule } from "@angular/material";
 
 describe("EventListComponent", () => {
   let component: EventListComponent;
@@ -10,7 +10,7 @@ describe("EventListComponent", () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatIconModule],
+      imports: [MatIconModule, MatListModule],
       declarations: [EventListComponent, EventItemComponent]
     }).compileComponents();
   }));
