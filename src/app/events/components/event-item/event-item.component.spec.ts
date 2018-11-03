@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EventItemComponent } from "./event-item.component";
-import { MatIconModule } from "@angular/material";
+import { EventItemComponent } from './event-item.component';
+import { MatIconModule } from '@angular/material';
 
-describe("EventItemComponent", () => {
+describe('EventItemComponent', () => {
   let component: EventItemComponent;
   let fixture: ComponentFixture<EventItemComponent>;
 
@@ -19,11 +19,11 @@ describe("EventItemComponent", () => {
     component = fixture.componentInstance;
     component.event = {
       _id: 1,
-      name: "Team #1",
-      fromDateTime: "",
-      toDateTime: "",
+      name: 'Team #1',
+      fromDateTime: '',
+      toDateTime: '',
       placeId: 1,
-      placeName: "place",
+      placeName: 'place',
       presentMembers: [],
       absentMembers: [],
       waitingMembers: [],
@@ -33,7 +33,7 @@ describe("EventItemComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

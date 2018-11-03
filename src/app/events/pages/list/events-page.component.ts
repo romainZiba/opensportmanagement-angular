@@ -1,14 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { Event } from "../../models/event";
-import { Select, Store } from "@ngxs/store";
-import { EventsState, LoadEvents } from "../../store";
-import { TeamsState } from "../../../core/store";
-import { EventsQuery } from "../../models/events-query";
-import { Observable } from "rxjs/Observable";
-import { Navigate } from "@ngxs/router-plugin";
+import { Component, OnInit } from '@angular/core';
+import { Event } from '../../models/event';
+import { Select, Store } from '@ngxs/store';
+import { EventsState, LoadEvents } from '../../store';
+import { TeamsState } from '../../../core/store';
+import { EventsQuery } from '../../models/events-query';
+import { Observable } from 'rxjs/Observable';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
-  selector: "app-events",
+  selector: 'app-events',
   template: `
     <app-event-list [events]="events$ | async" (eventCreation)="newEvent()"></app-event-list>
   `
@@ -34,6 +34,6 @@ export class EventsPageComponent implements OnInit {
   }
 
   newEvent() {
-    this.store.dispatch(new Navigate(["/new-event"]));
+    this.store.dispatch(new Navigate(['/new-event']));
   }
 }

@@ -36,7 +36,7 @@ export class EventCreateUpdate {
 }
 
 export enum EventType {
-  TRAINING = "TRAINING",
-  MATCH = "MATCH",
-  OTHER = "OTHER"
+  TRAINING = 'TRAINING',
+  MATCH = 'MATCH',
+  OTHER = 'OTHER'
 }

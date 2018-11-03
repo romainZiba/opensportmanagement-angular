@@ -1,10 +1,10 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EventListComponent } from "./event-list.component";
-import { EventItemComponent } from "../event-item/event-item.component";
-import { MatIconModule, MatListModule } from "@angular/material";
+import { EventListComponent } from './event-list.component';
+import { EventItemComponent } from '../event-item/event-item.component';
+import { MatIconModule, MatListModule } from '@angular/material';
 
-describe("EventListComponent", () => {
+describe('EventListComponent', () => {
   let component: EventListComponent;
   let fixture: ComponentFixture<EventListComponent>;
 
@@ -21,7 +21,7 @@ describe("EventListComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

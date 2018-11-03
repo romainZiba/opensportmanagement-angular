@@ -1,10 +1,10 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListItemsSingleChoiceComponent } from "./list-items-single-choice.component";
-import {MAT_DIALOG_DATA, MatDialogModule, MatRadioModule} from '@angular/material';
-import { FormsModule } from "@angular/forms";
+import { ListItemsSingleChoiceComponent } from './list-items-single-choice.component';
+import { MAT_DIALOG_DATA, MatDialogModule, MatRadioModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
-describe("ListItemsSingleChoiceComponent", () => {
+describe('ListItemsSingleChoiceComponent', () => {
   let component: ListItemsSingleChoiceComponent;
   let fixture: ComponentFixture<ListItemsSingleChoiceComponent>;
 
@@ -27,7 +27,7 @@ describe("ListItemsSingleChoiceComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

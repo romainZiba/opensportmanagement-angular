@@ -1,11 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { Credentials } from "../models/user";
-import { Observable } from "rxjs/Observable";
-import { Store } from "@ngxs/store";
-import { AuthState, Login } from "../store";
+import { Component, OnInit } from '@angular/core';
+import { Credentials } from '../models/user';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngxs/store';
+import { AuthState, Login } from '../store';
 
 @Component({
-  selector: "app-login",
+  selector: 'app-login',
   template: `
     <app-login-form
       [pending]="loggingIn$ | async"

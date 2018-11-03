@@ -1,11 +1,11 @@
-import { Component, Inject, OnInit } from "@angular/core";
-import { List } from "immutable";
-import { MAT_DIALOG_DATA } from "@angular/material";
+import { Component, Inject, OnInit } from '@angular/core';
+import { List } from 'immutable';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
-  selector: "app-list-dialog",
-  templateUrl: "./list-items-single-choice.component.html",
-  styleUrls: ["./list-items-single-choice.component.scss"]
+  selector: 'app-list-dialog',
+  templateUrl: './list-items-single-choice.component.html',
+  styleUrls: ['./list-items-single-choice.component.scss']
 })
 export class ListItemsSingleChoiceComponent implements OnInit {
   title: string;
@@ -17,8 +17,7 @@ export class ListItemsSingleChoiceComponent implements OnInit {
     this.elements = data.elements;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }
 
 export interface ListItemsSingleChoiceData {

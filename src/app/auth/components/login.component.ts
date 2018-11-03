@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { Credentials } from "../models/user";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Credentials } from '../models/user';
 
 @Component({
-  selector: "app-login-form",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"]
+  selector: 'app-login-form',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   hide = true;

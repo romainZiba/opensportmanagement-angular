@@ -1,11 +1,11 @@
-import { Event } from "../models/event";
-import { EventsQuery } from "../models/events-query";
+import { Event } from '../models/event';
+import { EventsQuery } from '../models/events-query';
 
 export enum EventActionsType {
-  LOAD_EVENTS = "[Event] Load Events",
-  LOAD_EVENTS_SUCCESS = "[Event] Load events succeeded",
-  LOAD_EVENTS_FAILED = "[Event] Load events failed",
-  SELECT_EVENT = "[Event] Select event"
+  LOAD_EVENTS = '[Event] Load Events',
+  LOAD_EVENTS_SUCCESS = '[Event] Load events succeeded',
+  LOAD_EVENTS_FAILED = '[Event] Load events failed',
+  SELECT_EVENT = '[Event] Select event'
 }
 
 export class LoadEvents {

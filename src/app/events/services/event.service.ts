@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
-import { Event, EventCreateUpdate } from "../models/event";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import * as moment from "moment";
-import { Observable } from "rxjs/Observable";
-import { EventDtos } from "../models/events-dto";
+import { Event, EventCreateUpdate } from '../models/event';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import * as moment from 'moment';
+import { Observable } from 'rxjs/Observable';
+import { EventDtos } from '../models/events-dto';
 
 @Injectable()
 export class EventService {
@@ -16,11 +16,9 @@ export class EventService {
     size: number,
     retrieveAll: boolean
   ): Observable<EventDtos> {
-    let params = new HttpParams()
-      .append("page", page.toString())
-      .append("size", size.toString());
+    let params = new HttpParams().append('page', page.toString()).append('size', size.toString());
     if (!retrieveAll) {
-      params = params.append("date", moment().toISOString());
+      params = params.append('date', moment().toISOString());
     }
     return this.http.get<EventDtos>(`/teams/${teamId}/events`, {
       withCredentials: true,
@@ -39,25 +37,25 @@ export class EventService {
   }
 
   participate(eventId: number, isParticipating: boolean): Observable<Event> {
-    return this.http.put<Event>(`/events/${eventId}/${isParticipating}`, "", {
+    return this.http.put<Event>(`/events/${eventId}/${isParticipating}`, '', {
       withCredentials: true
     });
   }
 
   cancel(eventId: number): Observable<Event> {
-    return this.http.put<Event>(`/events/${eventId}/cancelled`, "", {
+    return this.http.put<Event>(`/events/${eventId}/cancelled`, '', {
       withCredentials: true
     });
   }
 
   sendReminder(eventId: number): Observable<Event> {
-    return this.http.post<Event>(`/events/${eventId}/notifications`, "", {
+    return this.http.post<Event>(`/events/${eventId}/notifications`, '', {
       withCredentials: true
     });
   }
 
   openRegistration(eventId: number): Observable<Event> {
-    return this.http.put<Event>(`/events/${eventId}/registrations`, "", {
+    return this.http.put<Event>(`/events/${eventId}/registrations`, '', {
       withCredentials: true
     });
   }

@@ -1,12 +1,12 @@
-import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { CloseSidenav, OpenSidenav } from "./layout.actions";
+import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { CloseSidenav, OpenSidenav } from './layout.actions';
 
 export class LayoutStateModel {
   showSidenav: boolean;
 }
 
 @State<LayoutStateModel>({
-  name: "layoutState",
+  name: 'layoutState',
   defaults: {
     showSidenav: false
   }

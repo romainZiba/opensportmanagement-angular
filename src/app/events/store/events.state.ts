@@ -1,15 +1,15 @@
-import { Action, Selector, State, StateContext } from "@ngxs/store";
+import { Action, Selector, State, StateContext } from '@ngxs/store';
 
-import { NgxsEntityAdapter, NgxsEntityStateModel } from "../../shared/entity";
-import { EventService } from "../services/event.service";
-import * as eventActions from "./events.actions";
-import { LoadEvents, LoadEventsSuccess } from "./events.actions";
-import { asapScheduler, of } from "rxjs/index";
-import { catchError, map } from "rxjs/operators";
+import { NgxsEntityAdapter, NgxsEntityStateModel } from '../../shared/entity';
+import { EventService } from '../services/event.service';
+import * as eventActions from './events.actions';
+import { LoadEvents, LoadEventsSuccess } from './events.actions';
+import { asapScheduler, of } from 'rxjs/index';
+import { catchError, map } from 'rxjs/operators';
 
-import { Event, EventType } from "../models/event";
-import * as moment from "moment";
-import { FORMAT_DATE } from "../../shared/validators/date-validator";
+import { Event, EventType } from '../models/event';
+import * as moment from 'moment';
+import { FORMAT_DATE } from '../../shared/validators/date-validator';
 
 export class EventStateModel extends NgxsEntityStateModel<Event> {
   loading: boolean;
@@ -35,24 +35,24 @@ export class EventStateModel extends NgxsEntityStateModel<Event> {
 }
 
 @State<EventStateModel>({
-  name: "events",
+  name: 'events',
   defaults: {
     ...EventStateModel.initialState(),
     loaded: false,
     loading: false,
     eventForm: {
       model: {
-        name: "",
+        name: '',
         fromDate: moment().format(FORMAT_DATE),
         toDate: moment().format(FORMAT_DATE),
-        fromTime: "20:00",
-        toTime: "22:30",
+        fromTime: '20:00',
+        toTime: '22:30',
         placeId: null,
         isRecurrent: false,
         type: EventType.MATCH
       },
       dirty: false,
-      status: "",
+      status: '',
       errors: {}
     }
   }
@@ -91,34 +91,21 @@ export class EventsState {
   }
 
   @Action(LoadEvents)
-  loadEvents(
-    { patchState, dispatch }: StateContext<EventStateModel>,
-    { payload }: LoadEvents
-  ) {
+  loadEvents({ patchState, dispatch }: StateContext<EventStateModel>, { payload }: LoadEvents) {
     patchState({
       loading: true
     });
     return this.eventService
-      .getEvents(
-        payload.teamId,
-        payload.page,
-        payload.size,
-        payload.retrieveAll
-      )
+      .getEvents(payload.teamId, payload.page, payload.size, payload.retrieveAll)
       .pipe(
         map(
           dtos =>
             asapScheduler.schedule(() => {
-              const events =
-                dtos.page.totalPages > 0 ? dtos._embedded.eventDtoes : [];
+              const events = dtos.page.totalPages > 0 ? dtos._embedded.eventDtoes : [];
               dispatch(new eventActions.LoadEventsSuccess(events));
             }),
           catchError(error =>
-            of(
-              asapScheduler.schedule(() =>
-                dispatch(new eventActions.LoadEventsFailed(error))
-              )
-            )
+            of(asapScheduler.schedule(() => dispatch(new eventActions.LoadEventsFailed(error))))
           )
         )
       );
@@ -129,7 +116,7 @@ export class EventsState {
     ctx: StateContext<EventStateModel>,
     { payload }: eventActions.LoadEventsSuccess
   ) {
-    NgxsEntityAdapter.addAll(payload, ctx, "_id");
+    NgxsEntityAdapter.addAll(payload, ctx, '_id');
     ctx.patchState({
       loaded: true,
       loading: false

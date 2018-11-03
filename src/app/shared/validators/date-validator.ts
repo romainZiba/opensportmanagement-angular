@@ -1,8 +1,8 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
-import * as moment from "moment";
-import { Moment } from "moment";
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import * as moment from 'moment';
+import { Moment } from 'moment';
 
-export const FORMAT_DATE = "YYYY-MM-DD";
+export const FORMAT_DATE = 'YYYY-MM-DD';
 
 export class DateValidator {
   static dateMinimum(date: Moment): ValidatorFn {

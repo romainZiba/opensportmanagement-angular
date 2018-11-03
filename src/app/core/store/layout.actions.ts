@@ -1,6 +1,6 @@
 export enum SidenavActionsType {
-  OPEN_SIDENAV = "[Layout] Open Sidenav",
-  CLOSE_SIDENAV = "[Layout] Close Sidenav"
+  OPEN_SIDENAV = '[Layout] Open Sidenav',
+  CLOSE_SIDENAV = '[Layout] Close Sidenav'
 }
 
 export class OpenSidenav {

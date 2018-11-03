@@ -1,6 +1,6 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatCardModule,
@@ -14,16 +14,16 @@ import {
   MatRadioModule,
   MatTabsModule,
   MatToolbarModule
-} from "@angular/material";
-import { MatSidenavModule } from "@angular/material/sidenav";
-import { MatSelectModule } from "@angular/material/select";
-import { MatIconModule } from "@angular/material/icon";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { MatMomentDateModule } from "@angular/material-moment-adapter";
-import { MatDatepickerModule } from "@angular/material/datepicker";
-import { BetweenDatesComponent } from "./components/inputs/between-dates/between-dates.component";
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { ListItemsSingleChoiceComponent } from "./components/dialogs/list-dialog/list-items-single-choice.component";
+} from '@angular/material';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { BetweenDatesComponent } from './components/inputs/between-dates/between-dates.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ListItemsSingleChoiceComponent } from './components/dialogs/list-dialog/list-items-single-choice.component';
 
 const materialModule = [
   MatButtonModule,
@@ -46,10 +46,7 @@ const materialModule = [
   MatTabsModule
 ];
 
-const components = [
-  ListItemsSingleChoiceComponent,
-  BetweenDatesComponent
-];
+const components = [ListItemsSingleChoiceComponent, BetweenDatesComponent];
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, FlexLayoutModule, materialModule],
@@ -57,5 +54,4 @@ const components = [
   exports: [...materialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule, ...components],
   entryComponents: [ListItemsSingleChoiceComponent]
 })
-export class SharedModule {
-}
+export class SharedModule {}

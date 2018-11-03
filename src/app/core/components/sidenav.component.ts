@@ -8,9 +8,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
         <ng-content></ng-content>
       </mat-nav-list>
     </mat-sidenav>
-  `,
+  `
 })
 export class SidenavComponent {
-  @Input() open = false;
-  @Output() closeMenu = new EventEmitter();
+  @Input()
+  open = false;
+  @Output()
+  closeMenu = new EventEmitter();
 }

@@ -1,4 +1,4 @@
-import { async } from "@angular/core/testing";
+import { async } from '@angular/core/testing';
 // import { NgxsModule, Store } from "@ngxs/store";
 // import { of } from "rxjs/observable/of";
 // import { HttpClientTestingModule } from "@angular/common/http/testing";
@@ -24,7 +24,7 @@ import { async } from "@angular/core/testing";
 // });
 
 // TODO: https://github.com/7leads/ngx-cookie-service/issues/39
-describe("Login", () => {
+describe('Login', () => {
   // let store: Store;
   // let authService: AuthService;
 
@@ -45,7 +45,7 @@ describe("Login", () => {
     // spyOn(authService, "whoAmI").and.returnValue(of(user));
   });
 
-  it("should change pending to true", async(() => {
+  it('should change pending to true', async(() => {
     expect(true).toEqual(true);
     // store.dispatch(new Login({ username: user.username, password: "pass" }));
     // store.selectOnce(state => state.authState.pending).subscribe(pending => {

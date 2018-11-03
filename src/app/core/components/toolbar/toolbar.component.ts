@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: "app-toolbar",
+  selector: 'app-toolbar',
   template: `
     <mat-toolbar color="primary">
       <button mat-icon-button (click)="openMenu.emit()">
@@ -13,7 +13,7 @@ import { Component, EventEmitter, Output } from "@angular/core";
       </button>
     </mat-toolbar>
   `,
-  styleUrls: ["./toolbar.component.scss"]
+  styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent {
   @Output()

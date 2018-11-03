@@ -1,5 +1,5 @@
 export class NgxsEntityAdapter {
-  static addAll(collection: any[], context, keyField = "id") {
+  static addAll(collection: any[], context, keyField = 'id') {
     const entities = collection.reduce((object, item) => {
       object[item[keyField]] = item;
       return object;
@@ -13,7 +13,7 @@ export class NgxsEntityAdapter {
     });
   }
 
-  static addOne(entity: any, context, keyField = "id") {
+  static addOne(entity: any, context, keyField = 'id') {
     context.patchState({
       ...context.getState(),
       entities: {
@@ -23,7 +23,7 @@ export class NgxsEntityAdapter {
     });
   }
 
-  static updateOne(entity: any, context, keyField = "id") {
+  static updateOne(entity: any, context, keyField = 'id') {
     context.patchState({
       entities: {
         ...context.getState().entities,
@@ -34,7 +34,7 @@ export class NgxsEntityAdapter {
     });
   }
 
-  static removeOne(entity: any, context, keyField = "id") {
+  static removeOne(entity: any, context, keyField = 'id') {
     const entityCloned = Object.assign({}, context.getState().entities);
     delete entityCloned[entity[keyField]];
 

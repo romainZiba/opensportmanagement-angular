@@ -1,6 +1,6 @@
-import { User } from "../models/user";
-import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { AuthService } from "../services/auth.service";
+import { User } from '../models/user';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { AuthService } from '../services/auth.service';
 import {
   Login,
   LoginFailure,
@@ -8,10 +8,10 @@ import {
   LoginSuccess,
   Logout,
   UserLogged
-} from "./login.actions";
-import { catchError, map, switchMap } from "rxjs/operators";
-import { asapScheduler } from "rxjs/index";
-import { Navigate } from "@ngxs/router-plugin";
+} from './login.actions';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { asapScheduler } from 'rxjs/index';
+import { Navigate } from '@ngxs/router-plugin';
 
 export class AuthStateModel {
   user: User | null;
@@ -20,7 +20,7 @@ export class AuthStateModel {
 }
 
 @State<AuthStateModel>({
-  name: "authState",
+  name: 'authState',
   defaults: {
     user: null,
     pending: false,
@@ -51,10 +51,7 @@ export class AuthState {
   }
 
   @Action(Login)
-  login(
-    { patchState, dispatch }: StateContext<AuthStateModel>,
-    { payload }: Login
-  ) {
+  login({ patchState, dispatch }: StateContext<AuthStateModel>, { payload }: Login) {
     patchState({
       pending: true,
       error: null
@@ -65,8 +62,7 @@ export class AuthState {
           .whoAmI()
           .pipe(
             map(
-              user =>
-                asapScheduler.schedule(() => dispatch(new LoginSuccess(user))),
+              user => asapScheduler.schedule(() => dispatch(new LoginSuccess(user))),
               catchError(error => dispatch(new LoginFailure(error)))
             )
           );
@@ -76,23 +72,17 @@ export class AuthState {
   }
 
   @Action(LoginSuccess)
-  loginSuccess(
-    { patchState, dispatch }: StateContext<AuthStateModel>,
-    { payload }: LoginSuccess
-  ) {
+  loginSuccess({ patchState, dispatch }: StateContext<AuthStateModel>, { payload }: LoginSuccess) {
     patchState({
       pending: false,
       user: payload,
       error: null
     });
-    dispatch(new Navigate(["/"]));
+    dispatch(new Navigate(['/']));
   }
 
   @Action(UserLogged)
-  userLogged(
-    { patchState }: StateContext<AuthStateModel>,
-    { payload }: UserLogged
-  ) {
+  userLogged({ patchState }: StateContext<AuthStateModel>, { payload }: UserLogged) {
     patchState({
       pending: false,
       user: payload,
@@ -101,10 +91,7 @@ export class AuthState {
   }
 
   @Action(LoginFailure)
-  loginFailed(
-    { patchState }: StateContext<AuthStateModel>,
-    { payload }: LoginFailure
-  ) {
+  loginFailed({ patchState }: StateContext<AuthStateModel>, { payload }: LoginFailure) {
     patchState({
       pending: false,
       user: null,
@@ -114,6 +101,6 @@ export class AuthState {
 
   @Action([LoginRedirect, Logout])
   loginRedirect({ dispatch }: StateContext<AuthStateModel>) {
-    dispatch(new Navigate(["/login"]));
+    dispatch(new Navigate(['/login']));
   }
 }

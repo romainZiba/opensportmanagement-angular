@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: "app-nav-item",
+  selector: 'app-nav-item',
   template: `
     <a mat-list-item [routerLink]="routerLink" (click)="navigate.emit()">
       <mat-icon mat-list-icon>{{ icon }}</mat-icon>
@@ -12,11 +12,11 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 })
 export class NavItemComponent {
   @Input()
-  icon = "";
+  icon = '';
   @Input()
-  hint = "";
+  hint = '';
   @Input()
-  routerLink: string | any[] = "/";
+  routerLink: string | any[] = '/';
   @Output()
   navigate = new EventEmitter();
 }

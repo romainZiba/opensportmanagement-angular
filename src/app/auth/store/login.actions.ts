@@ -1,12 +1,12 @@
-import { Credentials, User } from "../models/user";
+import { Credentials, User } from '../models/user';
 
 export enum LoginActionsType {
-  LOGIN = "[Auth] Login",
-  LOGIN_SUCCESS = "[Auth] Login Success",
-  LOGIN_FAILURE = "[Auth] Login Failure",
-  LOGIN_REDIRECT = "[Auth] Login Redirect",
-  LOGOUT = "[Auth] Logout",
-  USER_LOGGED = "[Auth] User logged"
+  LOGIN = '[Auth] Login',
+  LOGIN_SUCCESS = '[Auth] Login Success',
+  LOGIN_FAILURE = '[Auth] Login Failure',
+  LOGIN_REDIRECT = '[Auth] Login Redirect',
+  LOGOUT = '[Auth] Logout',
+  USER_LOGGED = '[Auth] User logged'
 }
 
 export class Login {

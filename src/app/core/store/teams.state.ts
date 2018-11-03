@@ -1,14 +1,11 @@
-import { Action, Selector, State, StateContext } from "@ngxs/store";
+import { Action, Selector, State, StateContext } from '@ngxs/store';
 
-import {
-  NgxsEntityAdapter,
-  NgxsEntityStateModel
-} from '../../shared/entity';
-import { Team } from "../models/team";
-import { TeamService } from "../services/team.service";
-import * as teamActions from "./teams.actions";
-import { asapScheduler, of } from "rxjs/index";
-import { catchError, map } from "rxjs/operators";
+import { NgxsEntityAdapter, NgxsEntityStateModel } from '../../shared/entity';
+import { Team } from '../models/team';
+import { TeamService } from '../services/team.service';
+import * as teamActions from './teams.actions';
+import { asapScheduler, of } from 'rxjs/index';
+import { catchError, map } from 'rxjs/operators';
 
 export class TeamStateModel extends NgxsEntityStateModel<Team> {
   loading: boolean;
@@ -17,7 +14,7 @@ export class TeamStateModel extends NgxsEntityStateModel<Team> {
 }
 
 @State<TeamStateModel>({
-  name: "teamsState",
+  name: 'teamsState',
   defaults: {
     ...TeamStateModel.initialState(),
     loaded: false,
@@ -79,26 +76,17 @@ export class TeamsState {
       .pipe(
         map(
           teams =>
-            asapScheduler.schedule(() =>
-              ctx.dispatch(new teamActions.LoadTeamsSuccess(teams))
-            ),
+            asapScheduler.schedule(() => ctx.dispatch(new teamActions.LoadTeamsSuccess(teams))),
           catchError(error =>
-            of(
-              asapScheduler.schedule(() =>
-                ctx.dispatch(new teamActions.LoadTeamsFailed(error))
-              )
-            )
+            of(asapScheduler.schedule(() => ctx.dispatch(new teamActions.LoadTeamsFailed(error))))
           )
         )
       );
   }
 
   @Action(teamActions.LoadTeamsSuccess)
-  loadTeamsSuccess(
-    ctx: StateContext<TeamStateModel>,
-    { payload }: teamActions.LoadTeamsSuccess
-  ) {
-    NgxsEntityAdapter.addAll(payload, ctx, "_id");
+  loadTeamsSuccess(ctx: StateContext<TeamStateModel>, { payload }: teamActions.LoadTeamsSuccess) {
+    NgxsEntityAdapter.addAll(payload, ctx, '_id');
     ctx.patchState({
       loaded: true,
       loading: false
@@ -114,10 +102,7 @@ export class TeamsState {
   }
 
   @Action(teamActions.SelectTeam)
-  selectTeam(
-    { patchState }: StateContext<TeamStateModel>,
-    { payload }: teamActions.SelectTeam
-  ) {
+  selectTeam({ patchState }: StateContext<TeamStateModel>, { payload }: teamActions.SelectTeam) {
     patchState({ selected: payload });
   }
 }
