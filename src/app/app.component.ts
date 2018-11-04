@@ -70,7 +70,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   showAvailableTeams() {
     const data = {
-      title: 'Select your team',
+      title: 'Sélectionne ton équipe',
       elements: this.teams.map(team => {
         return { id: team._id, payload: team.name } as DialogElement;
       })
