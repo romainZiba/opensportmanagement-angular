@@ -6,7 +6,7 @@
         <source>Username</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/auth/components/login.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">9</context>
         </context-group>
         <note priority="1" from="description">The username to log in</note>
       </trans-unit>
@@ -14,15 +14,31 @@
         <source>Enter your password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/auth/components/login.component.html</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">15</context>
         </context-group>
         <note priority="1" from="description">The password to log in</note>
       </trans-unit>
       <trans-unit id="login" datatype="html">
-        <source>Login</source>
+        <source>
+      Login
+    </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/auth/components/login.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cancel" datatype="html">
+        <source>CANCEL</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/dialogs/list-dialog/list-items-single-choice.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirm" datatype="html">
+        <source>OK</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/dialogs/list-dialog/list-items-single-choice.component.html</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="start-date" datatype="html">
@@ -79,14 +95,14 @@
         <source>cancelled</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/events/components/event-item/event-item.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="vs" datatype="html">
         <source>VS</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/events/components/event-item/event-item.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="event-name" datatype="html">

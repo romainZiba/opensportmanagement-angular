@@ -7,7 +7,7 @@
         <target>Nom d'utilisateur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/auth/components/login.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">9</context>
         </context-group>
         <note priority="1" from="description">The username to log in</note>
       </trans-unit>
@@ -16,7 +16,7 @@
         <target>Mot de passe</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/auth/components/login.component.html</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">15</context>
         </context-group>
         <note priority="1" from="description">The password to log in</note>
       </trans-unit>
@@ -25,7 +25,23 @@
         <target>Se connecter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/auth/components/login.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cancel" datatype="html">
+        <source>CANCEL</source>
+        <target>ANNULER</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/dialogs/list-dialog/list-items-single-choice.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirm" datatype="html">
+        <source>OK</source>
+        <target>OK</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/dialogs/list-dialog/list-items-single-choice.component.html</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="start-date" datatype="html">
@@ -46,10 +62,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/inputs/between-dates/between-dates.component.html</context>
           <context context-type="linenumber">5</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/components/inputs/date/date.component.html</context>
-          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="shared-dateLowerThanCurrentDate" datatype="html">
@@ -101,7 +113,7 @@
         <target>Annulé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/events/components/event-item/event-item.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="vs" datatype="html">
@@ -109,7 +121,7 @@
         <target>Contre</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/events/components/event-item/event-item.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="event-name" datatype="html">
