@@ -9,6 +9,9 @@ import { EventsState, EventStateModel } from './events.state';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EventDtos } from '../models/events-dto';
 
+// Return a fixed timestamp when moment().format() is called
+jest.mock('moment', () => () => ({ format: () => '2018–11–03' }));
+
 describe('Events', () => {
   let store: Store;
   let service: EventService;
