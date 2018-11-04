@@ -1,27 +1,32 @@
-<div [class.cancelled-event]="event.cancelled">
-  <h5>{{event.name}}</h5>
-  <p *ngIf="!event.cancelled">{{event.presentMembers.length}} participants</p>
-  <p *ngIf="event.cancelled" i18n="@@cancelled" style="color: red;">cancelled</p>
-  <div fxLayout="row">
-    <mat-icon class="icon">watch_later</mat-icon>
-    {{ event.fromDateTime | date:'fullDate' | uppercase }} {{ event.fromDateTime | date:'shortTime' }}
-  </div>
-  <div fxLayout="row">
-    <mat-icon class="icon">place</mat-icon>
-    {{ event.placeName }}
-  </div>
-  <div fxLayout="row" *ngIf="event.done !== null">
-    <div class="col-4 text-center"><img class="img-fluid" src="{{event.localTeamImgUrl}}"></div>
-    <div class="col-4 text-center">
-      <p *ngIf="event.done">{{event.localTeamScore}}</p>
-      <p *ngIf="event.done">{{event.visitorTeamScore}}</p>
-      <p i18n="@@vs" *ngIf="!event.done">VS</p>
+<mat-list-item>
+  <div style="width: 100%;" [class.cancelled-event]="event.cancelled">
+    <div matLine fxLayout="row" fxLayoutAlign="space-between">
+      <h5>{{event.name}}</h5>
+      <p *ngIf="!event.cancelled">{{event.presentMembers.length}} participants</p>
+      <p *ngIf="event.cancelled" i18n="@@cancelled" style="color: red;">cancelled</p>
     </div>
-    <div class="col-4 text-center"><img class="img-fluid" src="{{event.visitorTeamImgUrl}}"></div>
+    <div matLine fxLayout="row">
+      <mat-icon class="icon">watch_later</mat-icon>
+      {{ event.fromDateTime | date:'fullDate' | uppercase }} {{ event.fromDateTime | date:'shortTime' }}
+    </div>
+    <div matLine fxLayout="row">
+      <mat-icon class="icon">place</mat-icon>
+      {{ event.placeName }}
+    </div>
+    <div matLine fxLayout="row" *ngIf="event.done !== null">
+      <div class="col-4 text-center"><img class="img-fluid" src="{{event.localTeamImgUrl}}"></div>
+      <div class="col-4 text-center">
+        <p *ngIf="event.done">{{event.localTeamScore}}</p>
+        <p *ngIf="event.done">{{event.visitorTeamScore}}</p>
+        <p i18n="@@vs" *ngIf="!event.done">VS</p>
+      </div>
+      <div class="col-4 text-center"><img class="img-fluid" src="{{event.visitorTeamImgUrl}}"></div>
+    </div>
+    <div matLine fxLayout="row" fxLayoutAlign="space-between" *ngIf="event.done !== null">
+      <p>{{event.localTeamName}}</p><
+      <p>VS</p>
+      <p>{{event.visitorTeamName}}</p>
+    </div>
   </div>
-  <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="event.done !== null">
-    <p>{{event.localTeamName}}</p><
-    <p>VS</p>
-    <p>{{event.visitorTeamName}}</p>
-  </div>
-</div>
+</mat-list-item>
+<mat-divider *ngIf="!lastEvent"></mat-divider>

@@ -9,6 +9,8 @@ import { Event } from '../../models/event';
 export class EventItemComponent implements OnInit {
   @Input()
   event: Event;
+  @Input()
+  lastEvent: boolean;
 
   constructor() {}
 

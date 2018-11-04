@@ -10,8 +10,15 @@ import { Navigate } from '@ngxs/router-plugin';
 @Component({
   selector: 'app-events',
   template: `
-    <app-event-list [events]="events$ | async" (eventCreation)="newEvent()"></app-event-list>
-  `
+    <mat-list>
+      <app-event-item *ngFor="let event of events$ | async as events; let i = index" [event]="event"
+                      [lastEvent]="i == events.length - 1"></app-event-item>
+    </mat-list>
+    <button mat-fab (click)="goToNewEvent()">
+      <mat-icon>add</mat-icon>
+    </button>
+  `,
+  styleUrls: ['events-page.component.scss']
 })
 export class EventsPageComponent implements OnInit {
   @Select(EventsState.getAllEvents)
@@ -33,7 +40,7 @@ export class EventsPageComponent implements OnInit {
     });
   }
 
-  newEvent() {
+  goToNewEvent() {
     this.store.dispatch(new Navigate(['/new-event']));
   }
 }

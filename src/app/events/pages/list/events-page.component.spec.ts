@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EventsPageComponent } from './events-page.component';
-import { EventListComponent } from '../../components/event-list/event-list.component';
 import { EventItemComponent } from '../../components/event-item/event-item.component';
 import { MatIconModule, MatListModule } from '@angular/material';
 import { NgxsModule } from '@ngxs/store';
@@ -21,7 +20,7 @@ describe('EventsPageComponent', () => {
         MatListModule,
         NgxsModule.forRoot([EventsState])
       ],
-      declarations: [EventsPageComponent, EventListComponent, EventItemComponent],
+      declarations: [EventsPageComponent, EventItemComponent],
       providers: [EventService]
     }).compileComponents();
   }));
