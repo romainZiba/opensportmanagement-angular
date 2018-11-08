@@ -14,6 +14,7 @@ import {
 import { List } from 'immutable';
 import { Team } from './core/models/team';
 import { Store } from '@ngxs/store';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -21,9 +22,14 @@ import { Store } from '@ngxs/store';
   template: `
     <app-layout>
       <app-sidenav [open]="sidenavOpen$ | async" (closeMenu)="closeSidenav()">
-        <img alt="Open Sport Management" src="../assets/img/logo.png" class="mt-4 ml-4 center">
+        <div>OSM</div>
+        <mat-divider></mat-divider>
+        <app-nav-item icon="event" hint="Evènements"></app-nav-item>
+        <mat-divider></mat-divider>
+        <app-nav-item icon="group" hint="Effectif"></app-nav-item>
       </app-sidenav>
-      <app-toolbar *ngIf="toolbarVisible$ | async" (openMenu)="openSidenav()" (showAvailableTeams)="showAvailableTeams()">
+      <app-toolbar *ngIf="toolbarVisible$ | async" (toggleMenu)="toggleSidenav()"
+                   (showAvailableTeams)="showAvailableTeams()">
         {{ (selectedTeam$ | async)?.name }}
       </app-toolbar>
       <div class="inner-sidenav-content">
@@ -58,6 +64,12 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe(teams => {
         this.teams = List(teams);
       });
+  }
+
+  toggleSidenav() {
+    this.sidenavOpen$
+      .pipe(take(1))
+      .subscribe(open => (open ? this.closeSidenav() : this.openSidenav()));
   }
 
   closeSidenav() {

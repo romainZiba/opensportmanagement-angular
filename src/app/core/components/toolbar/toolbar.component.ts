@@ -4,7 +4,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   selector: 'app-toolbar',
   template: `
     <mat-toolbar color="primary">
-      <button mat-icon-button (click)="openMenu.emit()">
+      <button mat-icon-button (click)="toggleMenu.emit()">
         <mat-icon>menu</mat-icon>
       </button>
       <ng-content></ng-content>
@@ -17,7 +17,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class ToolbarComponent {
   @Output()
-  openMenu = new EventEmitter();
+  toggleMenu = new EventEmitter();
   @Output()
   showAvailableTeams = new EventEmitter();
 }
