@@ -25,14 +25,9 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { EventsModule } from './events/events.module';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
-
-export function tokenGetter() {
-  return localStorage.getItem('access_token');
-}
 
 export const API_URL = new InjectionToken<string>('apiUrl');
 
@@ -77,7 +72,6 @@ export const COMPONENTS = [AppComponent];
     SharedModule,
 
     NgxsModule.forRoot([]),
-    NgxsRouterPluginModule.forRoot(),
     NgxsFormPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot({

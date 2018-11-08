@@ -7,6 +7,7 @@ import { NgxsModule } from '@ngxs/store';
 import { EventsState } from '../../store';
 import { EventService } from '../../services/event.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('EventsPageComponent', () => {
   let component: EventsPageComponent;
@@ -16,6 +17,7 @@ describe('EventsPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
+        RouterTestingModule,
         MatIconModule,
         MatListModule,
         NgxsModule.forRoot([EventsState])

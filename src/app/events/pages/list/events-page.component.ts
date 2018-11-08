@@ -5,7 +5,7 @@ import { EventsState, LoadEvents } from '../../store';
 import { TeamsState } from '../../../core/store';
 import { EventsQuery } from '../../models/events-query';
 import { Observable } from 'rxjs/Observable';
-import { Navigate } from '@ngxs/router-plugin';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-events',
@@ -24,7 +24,7 @@ export class EventsPageComponent implements OnInit {
   @Select(EventsState.getAllEvents)
   events$: Observable<Event[]>;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit() {
     this.store.select(TeamsState.getSelected).subscribe(selected => {
@@ -41,6 +41,6 @@ export class EventsPageComponent implements OnInit {
   }
 
   goToNewEvent() {
-    this.store.dispatch(new Navigate(['/new-event']));
+    this.router.navigate(['/new-event']);
   }
 }
