@@ -24,9 +24,9 @@ import { take } from 'rxjs/operators';
       <app-sidenav [open]="sidenavOpen$ | async" (closeMenu)="closeSidenav()">
         <div>OSM</div>
         <mat-divider></mat-divider>
-        <app-nav-item icon="event" hint="Evènements"></app-nav-item>
+        <app-nav-item icon="event" hint="Evènements" routerLink="/events" (navigate)="onNavigate()"></app-nav-item>
         <mat-divider></mat-divider>
-        <app-nav-item icon="group" hint="Effectif"></app-nav-item>
+        <app-nav-item icon="group" hint="Effectif" routerLink="/members" (navigate)="onNavigate()"></app-nav-item>
       </app-sidenav>
       <app-toolbar *ngIf="toolbarVisible$ | async" (toggleMenu)="toggleSidenav()"
                    (showAvailableTeams)="showAvailableTeams()">
@@ -70,6 +70,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.sidenavOpen$
       .pipe(take(1))
       .subscribe(open => (open ? this.closeSidenav() : this.openSidenav()));
+  }
+
+  onNavigate() {
+    this.closeSidenav();
   }
 
   closeSidenav() {

@@ -10,5 +10,3 @@ export class OpenSidenav {
 export class CloseSidenav {
   static readonly type = SidenavActionsType.CLOSE_SIDENAV;
 }
-
-export type SidenavActions = OpenSidenav | CloseSidenav;
