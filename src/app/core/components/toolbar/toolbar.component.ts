@@ -2,17 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-toolbar',
-  template: `
-    <mat-toolbar color="primary">
-      <button mat-icon-button (click)="toggleMenu.emit()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <ng-content></ng-content>
-      <button mat-icon-button (click)="showAvailableTeams.emit()">
-        <mat-icon>swap_horiz</mat-icon>
-      </button>
-    </mat-toolbar>
-  `,
+  templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent {
@@ -20,4 +10,6 @@ export class ToolbarComponent {
   toggleMenu = new EventEmitter();
   @Output()
   showAvailableTeams = new EventEmitter();
+  @Output()
+  logout = new EventEmitter();
 }

@@ -1,0 +1,18 @@
+<mat-toolbar fxLayout="row" fxLayoutAlign="end center" color="primary">
+  <button id="nav-menu" mat-icon-button (click)="toggleMenu.emit()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <ng-content></ng-content>
+  <button mat-icon-button (click)="showAvailableTeams.emit()">
+    <mat-icon>swap_horiz</mat-icon>
+  </button>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="logout.emit()">
+      <mat-icon>power_settings_new</mat-icon>
+      <span i18n="@@logout">Log out</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

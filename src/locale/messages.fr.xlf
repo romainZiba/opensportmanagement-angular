@@ -28,6 +28,14 @@
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="logout" datatype="html">
+        <source>Log out</source>
+        <target>Se déconnecter</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/components/toolbar/toolbar.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="cancel" datatype="html">
         <source>CANCEL</source>
         <target>ANNULER</target>
@@ -113,7 +121,7 @@
         <target>Annulé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/events/components/event-item/event-item.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="vs" datatype="html">
@@ -121,7 +129,7 @@
         <target>Contre</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/events/components/event-item/event-item.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="event-name" datatype="html">

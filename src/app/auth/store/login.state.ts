@@ -12,6 +12,7 @@ import {
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { asapScheduler } from 'rxjs/index';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 export class AuthStateModel {
   user: User | null;
@@ -28,7 +29,11 @@ export class AuthStateModel {
   }
 })
 export class AuthState {
-  constructor(private service: AuthService, private router: Router) {}
+  constructor(
+    private service: AuthService,
+    private router: Router,
+    private cookieService: CookieService
+  ) {}
 
   @Selector()
   static getUser(state: AuthStateModel) {
@@ -97,6 +102,14 @@ export class AuthState {
       user: null,
       error: payload
     });
+  }
+
+  @Action([Logout])
+  logOut({ patchState }: StateContext<AuthStateModel>) {
+    patchState({
+      user: null
+    });
+    this.cookieService.deleteAll();
   }
 
   @Action([LoginRedirect, Logout])

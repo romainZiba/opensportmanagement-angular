@@ -4,7 +4,8 @@ import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 import { AuthState } from './auth/index';
-import * as fromStore from './core/store/index';
+import * as fromCore from './core/store';
+import * as fromAuth from './auth/store';
 import { Subscription } from 'rxjs/Subscription';
 import {
   DialogElement,
@@ -29,7 +30,7 @@ import { take } from 'rxjs/operators';
         <app-nav-item icon="group" hint="Effectif" routerLink="/members" (navigate)="onNavigate()"></app-nav-item>
       </app-sidenav>
       <app-toolbar *ngIf="toolbarVisible$ | async" (toggleMenu)="toggleSidenav()"
-                   (showAvailableTeams)="showAvailableTeams()">
+                   (showAvailableTeams)="showAvailableTeams()" (logout)="logout()">
         {{ (selectedTeam$ | async)?.name }}
       </app-toolbar>
       <div class="inner-sidenav-content">
@@ -50,17 +51,17 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private store: Store, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.sidenavOpen$ = this.store.select(fromStore.LayoutState.getShowSidenav);
+    this.sidenavOpen$ = this.store.select(fromCore.LayoutState.getShowSidenav);
     this.isLoggedIn$ = this.store.select(AuthState.isLogged);
     this.toolbarVisible$ = this.isLoggedIn$;
-    this.selectedTeam$ = this.store.select(fromStore.TeamsState.getSelectedTeam);
+    this.selectedTeam$ = this.store.select(fromCore.TeamsState.getSelectedTeam);
     this.loggedSub = this.isLoggedIn$.subscribe(logged => {
       if (logged) {
-        this.store.dispatch(new fromStore.LoadTeams());
+        this.store.dispatch(new fromCore.LoadTeams());
       }
     });
     this.teamSub = this.store
-      .select(state => fromStore.TeamsState.getAllTeams(state.teamsState))
+      .select(state => fromCore.TeamsState.getAllTeams(state.teamsState))
       .subscribe(teams => {
         this.teams = List(teams);
       });
@@ -77,11 +78,15 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   closeSidenav() {
-    this.store.dispatch(new fromStore.CloseSidenav());
+    this.store.dispatch(new fromCore.CloseSidenav());
   }
 
   openSidenav() {
-    this.store.dispatch(new fromStore.OpenSidenav());
+    this.store.dispatch(new fromCore.OpenSidenav());
+  }
+
+  logout() {
+    this.store.dispatch(new fromAuth.Logout());
   }
 
   showAvailableTeams() {
@@ -97,7 +102,7 @@ export class AppComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe((result: DialogElement) => {
       if (result) {
-        this.store.dispatch(new fromStore.SelectTeam(result.id));
+        this.store.dispatch(new fromCore.SelectTeam(result.id));
       }
     });
   }
