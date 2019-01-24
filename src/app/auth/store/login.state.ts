@@ -1,6 +1,4 @@
-import { User } from '../models/user';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { AuthService } from '../services/auth.service';
 import {
   Login,
   LoginFailure,
@@ -9,15 +7,16 @@ import {
   Logout,
   UserLogged
 } from './login.actions';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { asapScheduler } from 'rxjs/index';
+import { catchError, mergeMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { User } from '../models/user';
+import { AuthService } from '../services/auth.service';
 
 export class AuthStateModel {
-  user: User | null;
+  user: User;
   pending: boolean;
-  error: string | null;
+  error: string;
 }
 
 @State<AuthStateModel>({
@@ -62,15 +61,11 @@ export class AuthState {
       error: null
     });
     return this.service.authenticate(payload.username, payload.password).pipe(
-      switchMap(() => {
-        return this.service
-          .whoAmI()
-          .pipe(
-            map(
-              user => asapScheduler.schedule(() => dispatch(new LoginSuccess(user))),
-              catchError(error => dispatch(new LoginFailure(error)))
-            )
-          );
+      mergeMap(() => {
+        return this.service.whoAmI().pipe(
+          mergeMap(user => dispatch(new LoginSuccess(user))),
+          catchError(error => dispatch(new LoginFailure(error)))
+        );
       }),
       catchError(error => dispatch(new LoginFailure(error)))
     );

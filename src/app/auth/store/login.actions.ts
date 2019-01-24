@@ -1,4 +1,5 @@
-import { Credentials, User } from '../models/user';
+import { Credentials } from '../models/credentials';
+import { User } from '../models/user';
 
 export enum LoginActionsType {
   LOGIN = '[Auth] Login',

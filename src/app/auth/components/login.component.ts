@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Credentials } from '../models/user';
+import { Credentials } from '../models/credentials';
 
 @Component({
   selector: 'app-login-form',

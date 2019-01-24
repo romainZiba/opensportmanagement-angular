@@ -1,19 +1,19 @@
+import { AuthGuard } from './../auth/guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EventsPageComponent } from './pages/list/events-page.component';
-import { AuthGuardService } from '../auth/services/auth-guard.service';
 import { NewEventPageComponent } from './pages/new-event/new-event-page.component';
 
 const routes: Routes = [
   {
     path: 'events',
     component: EventsPageComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuard]
   },
   {
     path: 'new-event',
     component: NewEventPageComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuard]
   }
 ];
 

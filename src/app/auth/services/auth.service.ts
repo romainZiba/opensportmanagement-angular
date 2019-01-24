@@ -1,45 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-
-import { CookieService } from 'ngx-cookie-service';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { User } from '../models/user';
+import { HttpResponse } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
-
-  authenticate(username: string, password: string): Observable<HttpResponse<any>> {
-    return this.http.post(
-      '/login',
-      { username, password },
-      { observe: 'response', withCredentials: true }
-    );
-  }
-
-  whoAmI(): Observable<User | null> {
-    return this.http
-      .get<User>('/accounts/me', {
-        observe: 'response',
-        withCredentials: true
-      })
-      .pipe(
-        map(response => {
-          if (response.status === 200) {
-            return response.body as User;
-          } else {
-            return null;
-          }
-        })
-      );
-  }
-
-  logOut(): Observable<boolean> {
-    localStorage.clear();
-    this.cookieService.delete('open_session');
-    return of(true);
-  }
+export abstract class AuthService {
+  abstract authenticate(username: string, password: string): Observable<HttpResponse<any>>;
+  abstract whoAmI(): Observable<User>;
+  abstract logOut(): Observable<boolean>;
 }
