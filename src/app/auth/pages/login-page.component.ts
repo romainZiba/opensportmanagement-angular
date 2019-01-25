@@ -1,8 +1,9 @@
+import { AuthState } from './../store/login.state';
 import { Credentials } from './../models/credentials';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngxs/store';
-import { AuthState, Login } from '../store';
+import { Store, Select } from '@ngxs/store';
+import { Login } from '../store';
 
 @Component({
   selector: 'app-login',
@@ -14,16 +15,11 @@ import { AuthState, Login } from '../store';
     ></app-login-form>
   `
 })
-export class LoginPageComponent implements OnInit {
-  loggingIn$: Observable<boolean>;
-  error$: Observable<string>;
+export class LoginPageComponent {
+  @Select(AuthState.isLoggingIn) loggingIn$: Observable<boolean>;
+  @Select(AuthState.getError) error$: Observable<string>;
 
   constructor(private store: Store) {}
-
-  ngOnInit() {
-    this.loggingIn$ = this.store.select(AuthState.isLoggingIn);
-    this.error$ = this.store.select(AuthState.getError);
-  }
 
   login(creds: Credentials): void {
     this.store.dispatch(new Login(creds));

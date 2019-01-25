@@ -11,7 +11,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'new-event',
+    path: 'new',
     component: NewEventPageComponent,
     canActivate: [AuthGuard]
   }

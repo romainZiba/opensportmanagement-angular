@@ -24,13 +24,13 @@ import { Navigate } from '@ngxs/router-plugin';
   styleUrls: ['events-page.component.scss']
 })
 export class EventsPageComponent implements OnInit {
-  @Select(EventsState.getAllEvents)
-  events$: Observable<Event[]>;
+  @Select(EventsState.getAllEvents) events$: Observable<Event[]>;
+  @Select(TeamsState.getSelected) teamSelected$: Observable<number>;
 
   constructor(private store: Store) {}
 
   ngOnInit() {
-    this.store.select(TeamsState.getSelected).subscribe(selected => {
+    this.teamSelected$.subscribe(selected => {
       if (selected) {
         const eventsQuery = {
           teamId: selected,
@@ -44,6 +44,6 @@ export class EventsPageComponent implements OnInit {
   }
 
   goToNewEvent() {
-    this.store.dispatch(new Navigate(['/new-event']));
+    this.store.dispatch(new Navigate(['events/new']));
   }
 }
