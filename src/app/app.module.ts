@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { InjectionToken, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {
   DateAdapter,
@@ -9,8 +9,7 @@ import {
 } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { ApiUrlInterceptor } from './urlinterceptor';
+import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -25,8 +24,6 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { MatListModule, MatDialogModule } from '@angular/material';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
-
-export const API_URL = new InjectionToken<string>('apiUrl');
 
 const stompConfig: StompConfig = {
   url: `wss://${environment.host}:${environment.port}/messagesWS/websocket`,
@@ -73,13 +70,6 @@ export const COMPONENTS = [AppComponent];
   ],
   providers: [
     CookieService,
-    { provide: API_URL, useValue: environment.apiUrl },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ApiUrlInterceptor,
-      multi: true,
-      deps: [API_URL]
-    },
     StompService,
     { provide: StompConfig, useValue: stompConfig },
     {
