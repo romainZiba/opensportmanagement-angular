@@ -24,7 +24,7 @@ jobs:
       - save_cache:
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
-              - dist
+            - dist
 
   # The deploy job
   deploy:
@@ -38,10 +38,6 @@ jobs:
           command: |
             ssh $SSH_USER@$SSH_HOST "rm -rf ~/opensportmanagement-angular/*"
             scp -r dist/* $SSH_USER@$SSH_HOST:~/opensportmanagement-angular/
-      - run:
-          name: Launch the HTTP server
-          command: |
-            ssh $SSH_USER@$SSH_HOST "screen -dmS front http-server ~/opensportmanagement-angular/ -p $ALLOWED_PORT -S -K $PRIVKEY_PATH -C $CERT_PATH"
 
 workflows:
   version: 2

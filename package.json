@@ -16,6 +16,7 @@
     "prettier": "prettier --write src/**/*{ts,scss,md}",
     "commitlint": "commitlint -e",
     "precommit": "pretty-quick --staged && npm run lint",
+    "commit": "npx git-cz",
     "prepush": "npm run commitlint && npm run test && ng build",
     "pretty-quick": "pretty-quick"
   },
