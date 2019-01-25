@@ -9,7 +9,7 @@ import { SidenavComponent } from './components/sidenav.component';
 import { RouterModule } from '@angular/router';
 import { NgxsModule } from '@ngxs/store';
 import { CoreState } from './store';
-import { MatListModule, MatMenuModule, MatToolbarModule } from '@angular/material';
+import { MatListModule, MatMenuModule, MatToolbarModule, MatButtonModule } from '@angular/material';
 
 export const COMPONENTS = [LayoutComponent, NavItemComponent, SidenavComponent, ToolbarComponent];
 
@@ -20,6 +20,7 @@ export const COMPONENTS = [LayoutComponent, NavItemComponent, SidenavComponent, 
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatButtonModule,
     MatMenuModule,
     MatToolbarModule,
     NgxsModule.forFeature(CoreState)

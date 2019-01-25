@@ -23,7 +23,6 @@ import { AppComponent } from './app.component';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
-import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { MatListModule, MatDialogModule } from '@angular/material';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 
@@ -67,7 +66,6 @@ export const COMPONENTS = [AppComponent];
     CoreModule,
     NgxsModule.forRoot([]),
     NgxsFormPluginModule.forRoot(),
-    NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot({
       disabled: environment.production
     }),

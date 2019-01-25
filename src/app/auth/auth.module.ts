@@ -2,7 +2,8 @@ import {
   MatRadioModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule
+  MatInputModule,
+  MatButtonModule
 } from '@angular/material';
 import { AUTH_API } from './token';
 import { AuthHttpService } from './services/auth-http.service';
@@ -17,6 +18,7 @@ import { NgxsModule } from '@ngxs/store';
 import { AuthState } from './store';
 import { Api } from '../core/models/api';
 import { AuthService } from './services/auth.service';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -25,6 +27,8 @@ import { AuthService } from './services/auth.service';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatButtonModule,
+    FlexLayoutModule,
     FormsModule,
     AuthRoutingModule,
     NgxsModule.forFeature([AuthState])

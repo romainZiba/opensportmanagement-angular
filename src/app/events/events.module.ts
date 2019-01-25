@@ -8,7 +8,13 @@ import { EventsPageComponent } from './pages/list/events-page.component';
 import { EventItemComponent } from './components/event-item/event-item.component';
 import { NewEventPageComponent } from './pages/new-event/new-event-page.component';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
-import { MatListModule, MatIconModule, MatInputModule, MatTabsModule } from '@angular/material';
+import {
+  MatListModule,
+  MatIconModule,
+  MatInputModule,
+  MatTabsModule,
+  MatButtonModule
+} from '@angular/material';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -18,6 +24,7 @@ import { SharedModule } from '../shared/shared.module';
     MatIconModule,
     MatInputModule,
     MatTabsModule,
+    MatButtonModule,
     ReactiveFormsModule,
     EventsRoutingModule,
     SharedModule,
