@@ -6,7 +6,7 @@ import { NewEventPageComponent } from './pages/new-event/new-event-page.componen
 
 const routes: Routes = [
   {
-    path: 'events',
+    path: '',
     component: EventsPageComponent,
     canActivate: [AuthGuard]
   },

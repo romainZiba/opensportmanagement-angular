@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { InjectionToken, NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {
   DateAdapter,
@@ -9,7 +8,6 @@ import {
   ShowOnDirtyErrorStateMatcher
 } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApiUrlInterceptor } from './urlinterceptor';
@@ -22,12 +20,11 @@ import { RouteReuse } from './RouteReuse';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
-import { SharedModule } from './shared/shared.module';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { EventsModule } from './events/events.module';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { MatListModule, MatDialogModule } from '@angular/material';
 
 export const API_URL = new InjectionToken<string>('apiUrl');
 
@@ -58,19 +55,15 @@ export const COMPONENTS = [AppComponent];
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    EventsModule,
-    // Other modules
-    AppRoutingModule,
-    FormsModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    AppRoutingModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {
       enabled: environment.production
     }),
     AuthModule.forRoot(environment.authApi),
+    MatListModule,
+    MatDialogModule,
     CoreModule,
-    SharedModule,
-
     NgxsModule.forRoot([]),
     NgxsFormPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot(),

@@ -33,6 +33,7 @@ export class AuthGuard implements CanActivate {
 
   getLoggedUser(): Observable<User> {
     const user = this.store.selectSnapshot(AuthState.getUser);
+    console.log(user);
     return user ? of(user) : this.authService.whoAmI();
   }
 }

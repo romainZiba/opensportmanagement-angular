@@ -1,25 +1,29 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { EventsRoutingModule } from './events-routing.module';
-import { SharedModule } from '../shared/shared.module';
 import { NgxsModule } from '@ngxs/store';
 import { EventsState } from './store';
 import { EventsPageComponent } from './pages/list/events-page.component';
 import { EventItemComponent } from './components/event-item/event-item.component';
-import { EventService } from './services/event.service';
 import { NewEventPageComponent } from './pages/new-event/new-event-page.component';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
+import { MatListModule, MatIconModule, MatInputModule, MatTabsModule } from '@angular/material';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
+    MatListModule,
+    MatIconModule,
+    MatInputModule,
+    MatTabsModule,
+    ReactiveFormsModule,
     EventsRoutingModule,
+    SharedModule,
     NgxsModule.forFeature([EventsState]),
     NgxsFormPluginModule
   ],
-  providers: [EventService],
   declarations: [EventItemComponent, EventsPageComponent, NewEventPageComponent]
 })
 export class EventsModule {}

@@ -3,6 +3,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../environments/environment';
 
+// TODO: get rid of this interceptor
 @Injectable()
 export class ApiUrlInterceptor implements HttpInterceptor {
   private apiUrl = environment.apiUrl;

@@ -6,7 +6,9 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs/Observable';
 import { EventDtos } from '../models/events-dto';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class EventService {
   constructor(private http: HttpClient) {}
 

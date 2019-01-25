@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-
 import { Observable } from 'rxjs/Observable';
-
 import { AuthState } from './auth/index';
 import * as fromCore from './core/store';
 import * as fromAuth from './auth/store';
@@ -25,12 +23,26 @@ import { take } from 'rxjs/operators';
       <app-sidenav [open]="sidenavOpen$ | async" (closeMenu)="closeSidenav()">
         <div>OSM</div>
         <mat-divider></mat-divider>
-        <app-nav-item icon="event" hint="Evènements" routerLink="/events" (navigate)="onNavigate()"></app-nav-item>
+        <app-nav-item
+          icon="event"
+          hint="Evènements"
+          routerLink="/events"
+          (navigate)="onNavigate()"
+        ></app-nav-item>
         <mat-divider></mat-divider>
-        <app-nav-item icon="group" hint="Effectif" routerLink="/members" (navigate)="onNavigate()"></app-nav-item>
+        <app-nav-item
+          icon="group"
+          hint="Effectif"
+          routerLink="/members"
+          (navigate)="onNavigate()"
+        ></app-nav-item>
       </app-sidenav>
-      <app-toolbar *ngIf="toolbarVisible$ | async" (toggleMenu)="toggleSidenav()"
-                   (showAvailableTeams)="showAvailableTeams()" (logout)="logout()">
+      <app-toolbar
+        *ngIf="(toolbarVisible$ | async)"
+        (toggleMenu)="toggleSidenav()"
+        (showAvailableTeams)="showAvailableTeams()"
+        (logout)="logout()"
+      >
         {{ (selectedTeam$ | async)?.name }}
       </app-toolbar>
       <div class="inner-sidenav-content">
