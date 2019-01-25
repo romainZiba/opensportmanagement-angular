@@ -6,7 +6,6 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { User } from '../models/user';
 
 @Injectable({
@@ -28,12 +27,7 @@ export class AuthHttpService implements AuthService {
   }
 
   whoAmI(): Observable<User> {
-    return this.http
-      .get<User>(`${this.authApi}/me`, {
-        observe: 'response',
-        withCredentials: true
-      })
-      .pipe(map(response => (response.status === 200 ? response.body : null)));
+    return this.http.get<User>(`${this.authApi}/me`, { withCredentials: true });
   }
 
   logOut(): Observable<boolean> {

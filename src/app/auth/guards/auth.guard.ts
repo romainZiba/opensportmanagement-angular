@@ -2,38 +2,35 @@ import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import * as fromStore from '../store';
-import { AuthState } from '../store';
-import { take, mergeMap, catchError } from 'rxjs/operators';
+import { LoginRedirect, LoadUser } from '../store';
+import { take, mergeMap, catchError, map } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
-import { AuthService } from '../services/auth.service';
 import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private store: Store, private authService: AuthService) {}
+  constructor(private store: Store) {}
 
   canActivate(): Observable<boolean> {
     return this.getLoggedUser().pipe(
       mergeMap(user => {
         if (user === null) {
-          this.store.dispatch(new fromStore.LoginRedirect());
+          this.store.dispatch(new LoginRedirect());
           return of(false);
-        } else {
-          setTimeout(() => this.store.dispatch(new fromStore.UserLogged(user)));
-          return of(true);
         }
+        return of(true);
       }),
       take(1),
-      catchError(() => this.store.dispatch(new fromStore.LoginRedirect()))
+      catchError(() => this.store.dispatch(new LoginRedirect()))
     );
   }
 
   getLoggedUser(): Observable<User> {
-    const user = this.store.selectSnapshot(AuthState.getUser);
-    console.log(user);
-    return user ? of(user) : this.authService.whoAmI();
+    return this.store.dispatch(new LoadUser()).pipe(
+      map(state => (state.authState.user ? state.authState.user : null)),
+      take(1)
+    );
   }
 }

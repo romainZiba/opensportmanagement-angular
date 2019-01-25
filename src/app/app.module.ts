@@ -25,6 +25,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { MatListModule, MatDialogModule } from '@angular/material';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 
 export const API_URL = new InjectionToken<string>('apiUrl');
 
@@ -69,7 +70,8 @@ export const COMPONENTS = [AppComponent];
     NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot({
       disabled: environment.production
-    })
+    }),
+    NgxsRouterPluginModule.forRoot()
   ],
   providers: [
     CookieService,

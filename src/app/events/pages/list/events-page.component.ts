@@ -5,14 +5,17 @@ import { EventsState, LoadEvents } from '../../store';
 import { TeamsState } from '../../../core/store';
 import { EventsQuery } from '../../models/events-query';
 import { Observable } from 'rxjs/Observable';
-import { Router } from '@angular/router';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-events',
   template: `
     <mat-list>
-      <app-event-item *ngFor="let event of events$ | async as events; let i = index" [event]="event"
-                      [lastEvent]="i == events.length - 1"></app-event-item>
+      <app-event-item
+        *ngFor="let event of (events$ | async) as events; let i = index"
+        [event]="event"
+        [lastEvent]="i == events.length - 1"
+      ></app-event-item>
     </mat-list>
     <button mat-fab (click)="goToNewEvent()">
       <mat-icon>add</mat-icon>
@@ -24,7 +27,7 @@ export class EventsPageComponent implements OnInit {
   @Select(EventsState.getAllEvents)
   events$: Observable<Event[]>;
 
-  constructor(private store: Store, private router: Router) {}
+  constructor(private store: Store) {}
 
   ngOnInit() {
     this.store.select(TeamsState.getSelected).subscribe(selected => {
@@ -41,6 +44,6 @@ export class EventsPageComponent implements OnInit {
   }
 
   goToNewEvent() {
-    this.router.navigate(['/new-event']);
+    this.store.dispatch(new Navigate(['/new-event']));
   }
 }

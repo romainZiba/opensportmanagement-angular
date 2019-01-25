@@ -1,5 +1,6 @@
+import { Observable } from 'rxjs/Observable';
 import { async, TestBed } from '@angular/core/testing';
-import { NgxsModule, Store } from '@ngxs/store';
+import { NgxsModule, Store, Actions, ofActionDispatched } from '@ngxs/store';
 import { of } from 'rxjs/observable/of';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -11,6 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { skip, take } from 'rxjs/operators';
+import { Navigate } from '@ngxs/router-plugin';
 
 const user = new User('username', 'firstname', 'lastname', 'email', 'phonenumber');
 const authSuccessResponse = new HttpResponse({
@@ -24,6 +26,7 @@ describe('Auth', () => {
   let authServiceMock: AuthService;
   let cookieService: CookieService;
   let router: Router;
+  let actions$: Observable<any>;
 
   beforeEach(async () => {
     authServiceMock = {
@@ -38,8 +41,7 @@ describe('Auth', () => {
     cookieService = TestBed.get(CookieService);
     store = TestBed.get(Store);
     router = TestBed.get(Router);
-    spyOn(router, 'navigate');
-
+    actions$ = TestBed.get(Actions);
     spyOn(cookieService, 'deleteAll');
   });
 
@@ -75,9 +77,15 @@ describe('Auth', () => {
         .selectOnce(state => state.authState.user)
         .subscribe(u => {
           expect(u).toBeNull();
-          expect(router.navigate).toHaveBeenCalledTimes(1);
           expect(cookieService.deleteAll).toHaveBeenCalledTimes(1);
         });
+    }));
+
+    it('should dispatch a navigate to login action', async(() => {
+      actions$.pipe(ofActionDispatched(Navigate)).subscribe(actions => {
+        expect(actions).toEqual(new Navigate(['/login']));
+      });
+      store.dispatch([new Logout()]);
     }));
   });
 });

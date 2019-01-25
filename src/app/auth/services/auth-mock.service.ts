@@ -19,7 +19,7 @@ export class AuthMockService implements AuthService {
     return throwError('Login failed.');
   }
   whoAmI(): Observable<User> {
-    return this.authenticated ? of(USERS_MOCK[0]) : of(null);
+    return this.authenticated ? of(USERS_MOCK[0]) : throwError('User not logged');
   }
   logOut(): Observable<boolean> {
     return of(true);

@@ -5,13 +5,15 @@ import {
   LoginRedirect,
   LoginSuccess,
   Logout,
-  UserLogged
+  UserLogged,
+  LoadUser,
+  UserNotLogged
 } from './login.actions';
-import { catchError, mergeMap } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { catchError, mergeMap, map } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../models/user';
 import { AuthService } from '../services/auth.service';
+import { Navigate } from '@ngxs/router-plugin';
 
 export class AuthStateModel {
   user: User;
@@ -28,11 +30,7 @@ export class AuthStateModel {
   }
 })
 export class AuthState {
-  constructor(
-    private service: AuthService,
-    private router: Router,
-    private cookieService: CookieService
-  ) {}
+  constructor(private authService: AuthService, private cookieService: CookieService) {}
 
   @Selector()
   static getUser(state: AuthStateModel) {
@@ -60,9 +58,9 @@ export class AuthState {
       pending: true,
       error: null
     });
-    return this.service.authenticate(payload.username, payload.password).pipe(
+    return this.authService.authenticate(payload.username, payload.password).pipe(
       mergeMap(() => {
-        return this.service.whoAmI().pipe(
+        return this.authService.whoAmI().pipe(
           mergeMap(user => dispatch(new LoginSuccess(user))),
           catchError(error => dispatch(new LoginFailure(error)))
         );
@@ -72,13 +70,13 @@ export class AuthState {
   }
 
   @Action(LoginSuccess)
-  loginSuccess({ patchState }: StateContext<AuthStateModel>, { payload }: LoginSuccess) {
+  loginSuccess({ dispatch, patchState }: StateContext<AuthStateModel>, { payload }: LoginSuccess) {
     patchState({
       pending: false,
       user: payload,
       error: null
     });
-    this.router.navigate(['/']);
+    dispatch(new Navigate(['/']));
   }
 
   @Action(UserLogged)
@@ -88,6 +86,27 @@ export class AuthState {
       user: payload,
       error: null
     });
+  }
+
+  @Action(UserNotLogged)
+  userNotLogged({ patchState }: StateContext<AuthStateModel>) {
+    patchState({
+      pending: false,
+      user: null,
+      error: null
+    });
+  }
+
+  @Action(LoadUser)
+  loadUser(ctx: StateContext<AuthStateModel>) {
+    const state = ctx.getState();
+    if (state.user) {
+      return ctx.dispatch(new UserLogged(state.user));
+    }
+    return this.authService.whoAmI().pipe(
+      map(user => ctx.dispatch(new UserLogged(user))),
+      catchError(() => ctx.dispatch(new UserNotLogged()))
+    );
   }
 
   @Action(LoginFailure)
@@ -108,7 +127,7 @@ export class AuthState {
   }
 
   @Action([LoginRedirect, Logout])
-  loginRedirect() {
-    this.router.navigate(['/login']);
+  loginRedirect({ dispatch }: StateContext<AuthStateModel>) {
+    dispatch(new Navigate(['/login']));
   }
 }
