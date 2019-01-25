@@ -63,7 +63,7 @@ export const COMPONENTS = [AppComponent];
     AuthModule.forRoot(environment.authApi),
     MatListModule,
     MatDialogModule,
-    CoreModule,
+    CoreModule.forRoot(environment.authApi),
     NgxsModule.forRoot([]),
     NgxsFormPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot({

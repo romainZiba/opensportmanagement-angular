@@ -11,5 +11,9 @@ export const environment: Configuration = {
   authApi: {
     baseUrl: `https://${host}:${port}/accounts`,
     useMock: true
+  },
+  teamApi: {
+    baseUrl: `https://${host}:${port}/teams`,
+    useMock: true
   }
 };

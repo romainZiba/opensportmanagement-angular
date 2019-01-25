@@ -5,4 +5,5 @@ export interface Configuration {
   port: string;
   apiUrl: string;
   authApi: Api;
+  teamApi: Api;
 }
