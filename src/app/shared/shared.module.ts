@@ -2,7 +2,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BetweenDatesComponent } from './components/inputs/between-dates/between-dates.component';
-import { ListItemsSingleChoiceComponent } from './components/dialogs/list-dialog/list-items-single-choice.component';
 import {
   MatRadioModule,
   MatDialogModule,
@@ -11,7 +10,7 @@ import {
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-const components = [ListItemsSingleChoiceComponent, BetweenDatesComponent];
+const components = [BetweenDatesComponent];
 @NgModule({
   imports: [
     CommonModule,
@@ -24,7 +23,6 @@ const components = [ListItemsSingleChoiceComponent, BetweenDatesComponent];
     FlexLayoutModule
   ],
   declarations: [...components],
-  exports: [...components],
-  entryComponents: [ListItemsSingleChoiceComponent]
+  exports: [...components]
 })
 export class SharedModule {}

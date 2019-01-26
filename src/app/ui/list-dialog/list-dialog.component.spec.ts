@@ -1,17 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListItemsSingleChoiceComponent } from './list-items-single-choice.component';
 import { MAT_DIALOG_DATA, MatDialogModule, MatRadioModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { ListDialogComponent } from './list-dialog.component';
 
-describe('ListItemsSingleChoiceComponent', () => {
-  let component: ListItemsSingleChoiceComponent;
-  let fixture: ComponentFixture<ListItemsSingleChoiceComponent>;
+describe('ListDialogComponent', () => {
+  let component: ListDialogComponent;
+  let fixture: ComponentFixture<ListDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MatRadioModule, MatDialogModule, FormsModule],
-      declarations: [ListItemsSingleChoiceComponent],
+      declarations: [ListDialogComponent],
       providers: [
         {
           provide: MAT_DIALOG_DATA,
@@ -22,7 +22,7 @@ describe('ListItemsSingleChoiceComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListItemsSingleChoiceComponent);
+    fixture = TestBed.createComponent(ListDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

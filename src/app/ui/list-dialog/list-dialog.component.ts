@@ -4,15 +4,15 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-list-dialog',
-  templateUrl: './list-items-single-choice.component.html',
-  styleUrls: ['./list-items-single-choice.component.scss']
+  templateUrl: './list-dialog.component.html',
+  styleUrls: ['./list-dialog.component.scss']
 })
-export class ListItemsSingleChoiceComponent implements OnInit {
+export class ListDialogComponent implements OnInit {
   title: string;
   elements: List<DialogElement>;
   selectedElement: DialogElement;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ListItemsSingleChoiceData) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: ListDialogConfiguration) {
     this.title = data.title;
     this.elements = data.elements;
   }
@@ -20,7 +20,7 @@ export class ListItemsSingleChoiceComponent implements OnInit {
   ngOnInit() {}
 }
 
-export interface ListItemsSingleChoiceData {
+export interface ListDialogConfiguration {
   title: string;
   elements: List<DialogElement>;
 }

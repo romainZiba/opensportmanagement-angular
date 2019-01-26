@@ -1,3 +1,8 @@
+import {
+  ListDialogConfiguration,
+  ListDialogComponent,
+  DialogElement
+} from './ui/list-dialog/list-dialog.component';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
@@ -5,11 +10,6 @@ import { AuthState } from './auth/index';
 import * as fromCore from './core/store';
 import * as fromAuth from './auth/store';
 import { Subscription } from 'rxjs/Subscription';
-import {
-  DialogElement,
-  ListItemsSingleChoiceComponent,
-  ListItemsSingleChoiceData
-} from './shared/components/dialogs/list-dialog/list-items-single-choice.component';
 import { List } from 'immutable';
 import { Team } from './core/models/team';
 import { Store } from '@ngxs/store';
@@ -107,8 +107,8 @@ export class AppComponent implements OnInit, OnDestroy {
       elements: this.teams.map(team => {
         return { id: team._id, payload: team.name } as DialogElement;
       })
-    } as ListItemsSingleChoiceData;
-    const dialogRef = this.dialog.open(ListItemsSingleChoiceComponent, {
+    } as ListDialogConfiguration;
+    const dialogRef = this.dialog.open(ListDialogComponent, {
       width: '600px',
       data
     });
