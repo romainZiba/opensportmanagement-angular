@@ -1,3 +1,9 @@
+@import 'osm-colors';
+
 .mat-list-item {
   padding-bottom: 20px;
+}
+
+.cancelled-event {
+  background-color: $grey;
 }

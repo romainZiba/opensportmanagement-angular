@@ -15,7 +15,7 @@ export const EVENTS_MOCK: { [pageNumber: number]: EventDtos } = {
           absentMembers: [],
           waitingMembers: [],
           openForRegistration: true,
-          cancelled: false,
+          cancelled: true,
           teamId: 1,
           localTeamName: null,
           visitorTeamName: null,

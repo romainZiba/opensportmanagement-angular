@@ -21,6 +21,7 @@ import { EVENTS_API } from './token';
 import { EventService } from './services/event.service';
 import { EventMockService } from './services/event.mock.service';
 import { EventHttpService } from './services/event.http.service';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { EventHttpService } from './services/event.http.service';
     MatInputModule,
     MatTabsModule,
     MatButtonModule,
+    FlexLayoutModule,
     ReactiveFormsModule,
     EventsRoutingModule,
     DateSelectionModule,
