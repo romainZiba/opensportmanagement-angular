@@ -8,13 +8,14 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { EventsState, EventStateModel } from './events.state';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EventDtos } from '../models/events-dto';
+import { EventMockService } from '../services/event.mock.service';
 
 // Return a fixed timestamp when moment().format() is called
 jest.mock('moment', () => () => ({ format: () => '2018–11–03' }));
 
 describe('Events', () => {
   let store: Store;
-  let service: EventService;
+  let eventServiceMock: EventService;
 
   const event1: Event = {
     _id: 1,
@@ -68,15 +69,16 @@ describe('Events', () => {
   };
 
   beforeEach(async () => {
+    eventServiceMock = {
+      getEvents: jest.fn().mockReturnValue(of(events)),
+      getEvent: jest.fn().mockReturnValue(event1)
+    };
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule, NgxsModule.forRoot([EventsState])],
-      providers: [EventService]
+      providers: [{ provide: EventService, useValue: eventServiceMock }]
     });
 
-    service = TestBed.get(EventService);
     store = TestBed.get(Store);
-
-    spyOn(service, 'getEvents').and.returnValue(of(dtos));
   });
 
   describe('Selector', () => {
@@ -110,10 +112,18 @@ describe('Events', () => {
       it('should change loading to true', async(() => {
         const eventsQuery = { teamId: 1, page: 0, size: 20, retrieveAll: true };
         store.dispatch(new LoadEvents(eventsQuery));
-        store.selectOnce(state => state.events.loading).subscribe(loading => {
-          expect(loading).toBe(true);
-        });
-        expect(service.getEvents).toHaveBeenCalledWith(
+        store
+          .selectOnce(state => state.events.loading)
+          .subscribe(loading => {
+            expect(loading).toBe(true);
+          });
+      }));
+
+      it('should call the getEvents WS', async(() => {
+        const eventsQuery = { teamId: 1, page: 0, size: 20, retrieveAll: true };
+        store.dispatch(new LoadEvents(eventsQuery));
+        expect(eventServiceMock.getEvents).toHaveBeenCalledTimes(1);
+        expect(eventServiceMock.getEvents).toHaveBeenCalledWith(
           eventsQuery.teamId,
           eventsQuery.page,
           eventsQuery.size,
@@ -125,9 +135,11 @@ describe('Events', () => {
     describe('Load events success', function() {
       it('should change state to reflect events loaded', async(() => {
         store.dispatch(new LoadEventsSuccess(events));
-        store.selectOnce(state => state.events).subscribe(state => {
-          expect(state).toMatchSnapshot();
-        });
+        store
+          .selectOnce(state => state.events)
+          .subscribe(state => {
+            expect(state).toMatchSnapshot();
+          });
       }));
     });
   });

@@ -7,10 +7,11 @@ import { TeamService } from '../services/team.service';
 import { Team } from '../models/team';
 import { TeamsState, TeamStateModel } from './teams.state';
 import { LoadTeams, LoadTeamsFailed, LoadTeamsSuccess, SelectTeam } from './teams.actions';
+import { TeamMockService } from '../services/team-mock.service';
 
 describe('Teams', () => {
   let store: Store;
-  let service: TeamService;
+  let teamServiceMock: TeamService;
 
   const team1: Team = {
     _id: 1,
@@ -48,56 +49,59 @@ describe('Teams', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule, NgxsModule.forRoot([TeamsState])],
-      providers: [TeamService]
+      providers: [{ provide: TeamService, useClass: TeamMockService }]
     });
-
-    service = TestBed.get(TeamService);
+    teamServiceMock = TestBed.get(TeamService);
     store = TestBed.get(Store);
-
-    spyOn(service, 'getTeams').and.returnValue(of(teams));
   });
 
   it('should change loading to true', async(() => {
     store.dispatch(new LoadTeams());
-    store.selectOnce(state => state.teamsState).subscribe(teamState => {
-      expect(teamState).toEqual({
-        entities: {},
-        ids: [],
-        selected: null,
-        loading: true,
-        loaded: false,
-        error: null
+    store
+      .selectOnce(state => state.teamsState)
+      .subscribe(teamState => {
+        expect(teamState).toEqual({
+          entities: {},
+          ids: [],
+          selected: null,
+          loading: true,
+          loaded: false,
+          error: null
+        });
       });
-    });
   }));
 
   it('should get loaded teams', async(() => {
     store.dispatch(new LoadTeamsSuccess(teams));
-    store.selectOnce(state => state.teamsState).subscribe(teamState => {
-      expect(teamState).toEqual({
-        entities,
-        ids,
-        selected: null,
-        loading: false,
-        loaded: true,
-        error: null
+    store
+      .selectOnce(state => state.teamsState)
+      .subscribe(teamState => {
+        expect(teamState).toEqual({
+          entities,
+          ids,
+          selected: null,
+          loading: false,
+          loaded: true,
+          error: null
+        });
       });
-    });
   }));
 
   it('should not get teams', async(() => {
     const error = 'error';
     store.dispatch(new LoadTeamsFailed(error));
-    store.selectOnce(state => state.teamsState).subscribe(teamState => {
-      expect(teamState).toEqual({
-        entities: {},
-        ids: [],
-        selected: null,
-        loading: false,
-        loaded: false,
-        error
+    store
+      .selectOnce(state => state.teamsState)
+      .subscribe(teamState => {
+        expect(teamState).toEqual({
+          entities: {},
+          ids: [],
+          selected: null,
+          loading: false,
+          loaded: false,
+          error
+        });
       });
-    });
   }));
 
   it('should select team', async(() => {
@@ -111,15 +115,17 @@ describe('Teams', () => {
     } as TeamStateModel;
     store.reset({ teamsState: initialState });
     store.dispatch(new SelectTeam(1));
-    store.selectOnce(state => state.teamsState).subscribe(teamState => {
-      expect(teamState).toEqual({
-        entities,
-        ids,
-        selected: 1,
-        loading: false,
-        loaded: true,
-        error: null
+    store
+      .selectOnce(state => state.teamsState)
+      .subscribe(teamState => {
+        expect(teamState).toEqual({
+          entities,
+          ids,
+          selected: 1,
+          loading: false,
+          loaded: true,
+          error: null
+        });
       });
-    });
   }));
 });

@@ -1,12 +1,9 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-
 import { NgxsEntityAdapter, NgxsEntityStateModel } from '../../shared/entity';
 import { EventService } from '../services/event.service';
 import * as eventActions from './events.actions';
 import { LoadEvents, LoadEventsSuccess } from './events.actions';
-import { asapScheduler, of } from 'rxjs/index';
 import { catchError, map } from 'rxjs/operators';
-
 import { Event, EventType } from '../models/event';
 import * as moment from 'moment';
 import { FORMAT_DATE } from '../../shared/validators/date-validator';
@@ -98,16 +95,11 @@ export class EventsState {
     return this.eventService
       .getEvents(payload.teamId, payload.page, payload.size, payload.retrieveAll)
       .pipe(
-        map(
-          dtos =>
-            asapScheduler.schedule(() => {
-              const events = dtos.page.totalPages > 0 ? dtos._embedded.eventDtoes : [];
-              dispatch(new eventActions.LoadEventsSuccess(events));
-            }),
-          catchError(error =>
-            of(asapScheduler.schedule(() => dispatch(new eventActions.LoadEventsFailed(error))))
-          )
-        )
+        map(dtos => {
+          const events = dtos.page.totalPages > 0 ? dtos._embedded.eventDtoes : [];
+          dispatch(new eventActions.LoadEventsSuccess(events));
+        }),
+        catchError(error => dispatch(new eventActions.LoadEventsFailed(error)))
       );
   }
 
