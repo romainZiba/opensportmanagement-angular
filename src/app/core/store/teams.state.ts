@@ -1,11 +1,11 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 
-import { NgxsEntityAdapter, NgxsEntityStateModel } from '../../shared/entity';
 import { Team } from '../models/team';
 import { TeamService } from '../services/team.service';
 import * as teamActions from './teams.actions';
 import { asapScheduler, of } from 'rxjs/index';
 import { catchError, map } from 'rxjs/operators';
+import { NgxsEntityStateModel, NgxsEntityAdapter } from './entity';
 
 export class TeamStateModel extends NgxsEntityStateModel<Team> {
   loading: boolean;

@@ -1,3 +1,4 @@
+import { DateSelectionModule } from './../ui/date-selection/date-selection.module';
 import { Api } from './../core/models/api';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule, ModuleWithProviders } from '@angular/core';
@@ -16,7 +17,6 @@ import {
   MatTabsModule,
   MatButtonModule
 } from '@angular/material';
-import { SharedModule } from '../shared/shared.module';
 import { EVENTS_API } from './token';
 import { EventService } from './services/event.service';
 import { EventMockService } from './services/event.mock.service';
@@ -32,7 +32,7 @@ import { EventHttpService } from './services/event.http.service';
     MatButtonModule,
     ReactiveFormsModule,
     EventsRoutingModule,
-    SharedModule,
+    DateSelectionModule,
     NgxsModule.forFeature([EventsState]),
     NgxsFormPluginModule
   ],

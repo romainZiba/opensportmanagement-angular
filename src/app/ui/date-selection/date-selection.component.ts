@@ -1,19 +1,17 @@
+import { DateValidator, FORMAT_DATE } from './validators/date-validator';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { DateValidator, FORMAT_DATE } from '../../../validators/date-validator';
 import * as moment from 'moment';
 import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
-  selector: 'shared-between-dates',
-  templateUrl: 'between-dates.component.html',
-  styleUrls: ['between-dates.component.scss']
+  selector: 'ui-date-selection',
+  templateUrl: 'date-selection.component.html',
+  styleUrls: ['date-selection.component.scss']
 })
-export class BetweenDatesComponent implements OnInit {
-  @Input()
-  form: FormGroup;
-  @Input()
-  minDate: moment.Moment;
+export class DateSelectionComponent implements OnInit {
+  @Input() form: FormGroup;
+  @Input() minDate: moment.Moment;
 
   fromDateCtrl: FormControl;
   toDateCtrl: FormControl;

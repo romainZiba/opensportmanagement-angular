@@ -3,7 +3,7 @@ import { List } from 'immutable';
 import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
-  selector: 'app-list-dialog',
+  selector: 'ui-list-dialog',
   templateUrl: './list-dialog.component.html',
   styleUrls: ['./list-dialog.component.scss']
 })

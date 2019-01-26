@@ -1,12 +1,13 @@
+import { NgxsEntityAdapter } from './../../core/store/entity/ngxs-entity.adapter';
+import { FORMAT_DATE } from './../../ui/date-selection/validators/date-validator';
+import { NgxsEntityStateModel } from './../../core/store/entity/ngxs-entity.state.model';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { NgxsEntityAdapter, NgxsEntityStateModel } from '../../shared/entity';
 import { EventService } from '../services/event.service';
 import * as eventActions from './events.actions';
 import { LoadEvents, LoadEventsSuccess } from './events.actions';
 import { catchError, map } from 'rxjs/operators';
 import { Event, EventType } from '../models/event';
 import * as moment from 'moment';
-import { FORMAT_DATE } from '../../shared/validators/date-validator';
 
 export class EventStateModel extends NgxsEntityStateModel<Event> {
   loading: boolean;

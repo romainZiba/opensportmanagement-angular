@@ -1,7 +1,13 @@
 <div [formGroup]="form">
   <mat-form-field>
-    <input matInput type="date" i18n-placeholder="@@start-date" placeholder="Start date"
-           formControlName="fromDate" name="fromDate">
+    <input
+      matInput
+      type="date"
+      i18n-placeholder="@@start-date"
+      placeholder="Start date"
+      formControlName="fromDate"
+      name="fromDate"
+    />
     <mat-error i18n="@@shared-startDateRequired" *ngIf="fromDateCtrl.hasError('required')">
       Start date is <strong>required</strong>
     </mat-error>
@@ -10,8 +16,14 @@
     </mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="date" i18n-placeholder="@@end-date" placeholder="End date"
-           formControlName="toDate" name="toDate">
+    <input
+      matInput
+      type="date"
+      i18n-placeholder="@@end-date"
+      placeholder="End date"
+      formControlName="toDate"
+      name="toDate"
+    />
     <mat-error i18n="@@shared-endDateRequired" *ngIf="toDateCtrl.hasError('required')">
       End date is <strong>required</strong>
     </mat-error>

@@ -1,15 +1,14 @@
 import { async, TestBed } from '@angular/core/testing';
-
-import { BetweenDatesComponent } from './between-dates.component';
+import { DateSelectionComponent } from './date-selection.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as moment from 'moment';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentTester } from 'ngx-speculoos';
 
-class BetweenDatesComponentTester extends ComponentTester<BetweenDatesComponent> {
+class DateSelectionComponentTester extends ComponentTester<DateSelectionComponent> {
   constructor() {
-    super(BetweenDatesComponent);
+    super(DateSelectionComponent);
   }
 
   get inputFromDate() {
@@ -45,8 +44,8 @@ class BetweenDatesComponentTester extends ComponentTester<BetweenDatesComponent>
   }
 }
 
-describe('BetweenDatesComponent', () => {
-  let tester: BetweenDatesComponentTester;
+describe('DateSelectionComponent', () => {
+  let tester: DateSelectionComponentTester;
   let fb: FormBuilder;
 
   beforeEach(async(() => {
@@ -58,14 +57,14 @@ describe('BetweenDatesComponent', () => {
         MatInputModule,
         BrowserAnimationsModule
       ],
-      declarations: [BetweenDatesComponent],
+      declarations: [DateSelectionComponent],
       providers: [FormBuilder]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fb = TestBed.get(FormBuilder);
-    tester = new BetweenDatesComponentTester();
+    tester = new DateSelectionComponentTester();
     tester.componentInstance.form = fb.group({});
     tester.componentInstance.minDate = moment('2018-11-01 09:30:26');
     tester.detectChanges();

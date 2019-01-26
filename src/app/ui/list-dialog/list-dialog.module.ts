@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
     MatDialogModule,
     FlexLayoutModule
   ],
+  exports: [ListDialogComponent],
   entryComponents: [ListDialogComponent]
 })
 export class ListDialogModule {}
