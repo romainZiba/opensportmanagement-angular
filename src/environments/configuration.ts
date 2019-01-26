@@ -5,6 +5,7 @@ export interface Configuration {
   port: string;
   apiUrl: string;
   authApi: Api;
+  accountApi: Api;
   teamApi: Api;
   eventApi: Api;
 }

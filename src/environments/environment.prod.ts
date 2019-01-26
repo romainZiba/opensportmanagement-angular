@@ -9,6 +9,10 @@ export const environment: Configuration = {
   port,
   apiUrl: `https://${host}:${port}`,
   authApi: {
+    baseUrl: `https://${host}:${port}/login`,
+    useMock: false
+  },
+  accountApi: {
     baseUrl: `https://${host}:${port}/accounts`,
     useMock: false
   },

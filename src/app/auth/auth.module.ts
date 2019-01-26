@@ -5,7 +5,7 @@ import {
   MatInputModule,
   MatButtonModule
 } from '@angular/material';
-import { AUTH_API } from './token';
+import { AUTH_API_URL, ACCOUNT_API_URL } from './token';
 import { AuthHttpService } from './services/auth-http.service';
 import { AuthMockService } from './services/auth-mock.service';
 import { NgModule, ModuleWithProviders } from '@angular/core';
@@ -37,7 +37,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   declarations: [LoginPageComponent, LoginComponent]
 })
 export class AuthModule {
-  public static forRoot(authApi: Api): ModuleWithProviders {
+  public static forRoot(authApi: Api, accountApi: Api): ModuleWithProviders {
     return {
       ngModule: AuthModule,
       providers: [
@@ -46,8 +46,12 @@ export class AuthModule {
           useClass: authApi.useMock ? AuthMockService : AuthHttpService
         },
         {
-          provide: AUTH_API,
+          provide: AUTH_API_URL,
           useValue: authApi.baseUrl
+        },
+        {
+          provide: ACCOUNT_API_URL,
+          useValue: accountApi.baseUrl
         }
       ]
     };

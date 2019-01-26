@@ -7,17 +7,21 @@ export const environment: Configuration = {
   production: false,
   host,
   port,
-  apiUrl: `https://${host}:${port}`,
+  apiUrl: '',
   authApi: {
-    baseUrl: `https://${host}:${port}/accounts`,
+    baseUrl: '',
+    useMock: true
+  },
+  accountApi: {
+    baseUrl: '',
     useMock: true
   },
   teamApi: {
-    baseUrl: `https://${host}:${port}/teams`,
+    baseUrl: '',
     useMock: true
   },
   eventApi: {
-    baseUrl: `https://${host}:${port}/events`,
+    baseUrl: '',
     useMock: true
   }
 };

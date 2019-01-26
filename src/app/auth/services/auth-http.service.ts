@@ -1,5 +1,4 @@
-import { AUTH_API } from './../token';
-import { Api } from './../../core/models/api';
+import { AUTH_API_URL, ACCOUNT_API_URL } from './../token';
 import { AuthService } from './auth.service';
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
@@ -15,19 +14,20 @@ export class AuthHttpService implements AuthService {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
-    @Inject(AUTH_API) private authApi: Api
+    @Inject(AUTH_API_URL) private authUrl: string,
+    @Inject(ACCOUNT_API_URL) private accountUrl: string
   ) {}
 
   authenticate(username: string, password: string): Observable<HttpResponse<any>> {
     return this.http.post(
-      '/login',
+      this.authUrl,
       { username, password },
       { observe: 'response', withCredentials: true }
     );
   }
 
   whoAmI(): Observable<User> {
-    return this.http.get<User>(`${this.authApi}/me`, { withCredentials: true });
+    return this.http.get<User>(`${this.accountUrl}/me`, { withCredentials: true });
   }
 
   logOut(): Observable<boolean> {

@@ -57,7 +57,7 @@ export const COMPONENTS = [AppComponent];
     ServiceWorkerModule.register('/ngsw-worker.js', {
       enabled: environment.production
     }),
-    AuthModule.forRoot(environment.authApi),
+    AuthModule.forRoot(environment.authApi, environment.accountApi),
     MatListModule,
     MatDialogModule,
     CoreModule.forRoot(environment.authApi),
