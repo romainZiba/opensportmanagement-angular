@@ -1,5 +1,6 @@
+import { Api } from './../core/models/api';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventsRoutingModule } from './events-routing.module';
 import { NgxsModule } from '@ngxs/store';
@@ -16,6 +17,10 @@ import {
   MatButtonModule
 } from '@angular/material';
 import { SharedModule } from '../shared/shared.module';
+import { EVENTS_API } from './token';
+import { EventService } from './services/event.service';
+import { EventMockService } from './services/event.mock.service';
+import { EventHttpService } from './services/event.http.service';
 
 @NgModule({
   imports: [
@@ -33,4 +38,20 @@ import { SharedModule } from '../shared/shared.module';
   ],
   declarations: [EventItemComponent, EventsPageComponent, NewEventPageComponent]
 })
-export class EventsModule {}
+export class EventsModule {
+  static forRoot(eventsApi: Api): ModuleWithProviders {
+    return {
+      ngModule: EventsModule,
+      providers: [
+        {
+          provide: EVENTS_API,
+          useValue: eventsApi.baseUrl
+        },
+        {
+          provide: EventService,
+          useClass: eventsApi.useMock ? EventMockService : EventHttpService
+        }
+      ]
+    };
+  }
+}

@@ -6,4 +6,5 @@ export interface Configuration {
   apiUrl: string;
   authApi: Api;
   teamApi: Api;
+  eventApi: Api;
 }

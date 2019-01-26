@@ -12,6 +12,10 @@ export interface Self {
   href: string;
 }
 
+export interface Prev {
+  href: string;
+}
+
 export interface Next {
   href: string;
 }
@@ -23,7 +27,8 @@ export interface Last {
 export interface Links {
   first: First;
   self: Self;
-  next: Next;
+  prev?: Prev;
+  next?: Next;
   last: Last;
 }
 

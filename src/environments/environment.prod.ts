@@ -15,5 +15,9 @@ export const environment: Configuration = {
   teamApi: {
     baseUrl: `https://${host}:${port}/teams`,
     useMock: false
+  },
+  eventApi: {
+    baseUrl: `https://${host}:${port}/events`,
+    useMock: false
   }
 };
