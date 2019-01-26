@@ -11,13 +11,8 @@ import { of, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class EventMockService extends EventService {
-  getEvents(
-    teamId: number,
-    page: number,
-    size: number,
-    retrieveAll: boolean
-  ): Observable<EventDtos> {
-    if (teamId && page && size && retrieveAll) {
+  getEvents(teamId: number, page: number, size: number): Observable<EventDtos> {
+    if (teamId !== null && page !== null && size !== null) {
       return of(EVENTS_MOCK[page]);
     }
     return throwError('Error occurred');

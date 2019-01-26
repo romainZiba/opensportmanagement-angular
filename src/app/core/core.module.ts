@@ -15,6 +15,7 @@ import { TEAMS_API } from './token';
 import { TeamService } from './services/team.service';
 import { TeamMockService } from './services/team-mock.service';
 import { TeamHttpService } from './services/team-http.service';
+import { SharedModule } from '../shared/shared.module';
 
 export const COMPONENTS = [LayoutComponent, NavItemComponent, SidenavComponent, ToolbarComponent];
 
@@ -28,6 +29,8 @@ export const COMPONENTS = [LayoutComponent, NavItemComponent, SidenavComponent, 
     MatButtonModule,
     MatMenuModule,
     MatToolbarModule,
+    // TODO: shared module must not be imported in CoreModule but doing it right now to unlock some things
+    SharedModule,
     NgxsModule.forFeature(CoreState)
   ],
   exports: COMPONENTS,

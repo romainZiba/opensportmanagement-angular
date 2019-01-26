@@ -7,7 +7,7 @@ export abstract class EventService {
     teamId: number,
     page: number,
     size: number,
-    retrieveAll: boolean
+    retrieveAll?: boolean
   ): Observable<EventDtos>;
   abstract getEvent(id: number): Observable<Event>;
   abstract updateEvent(id: number, event: EventCreateUpdate): Observable<Event>;

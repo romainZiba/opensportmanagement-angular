@@ -1,14 +1,13 @@
-// TODO: https://github.com/7leads/ngx-cookie-service/issues/39
-// import { EventsModule } from './events.module';
+import { EventsModule } from './events.module';
 
 describe('EventsModule', () => {
-  // let teamsModule: EventsModule;
+  let eventsModule: EventsModule;
 
   beforeEach(() => {
-    // teamsModule = new EventsModule();
+    eventsModule = new EventsModule();
   });
 
   it('should create an instance', () => {
-    expect(true).toEqual(true);
+    expect(eventsModule).toBeTruthy();
   });
 });

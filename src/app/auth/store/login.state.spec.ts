@@ -20,7 +20,6 @@ const authSuccessResponse = new HttpResponse({
   status: 200
 });
 
-// TODO: https://github.com/7leads/ngx-cookie-service/issues/39
 describe('Auth', () => {
   let store: Store;
   let authServiceMock: AuthService;
