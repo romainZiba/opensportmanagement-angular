@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginPageComponent should ne logging in 1`] = `
+<app-login
+  store={[Function Store]}
+>
+  <p>
+    true
+  </p><p>
+    error
+  </p>'
+</app-login>
+`;
